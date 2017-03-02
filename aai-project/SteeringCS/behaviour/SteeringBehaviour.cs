@@ -11,8 +11,6 @@ namespace SteeringCS.behaviour
         public SteeringBehaviour(MovingEntity movingEntity)
         {
             MovingEntity = movingEntity;
-        }
-    }
-
-    
+        }        
+    }    
 }
