@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="behaviour\ExploreBehaviour.cs" />
+    <Compile Include="behaviour\HideBehaviour.cs" />
+    <Compile Include="behaviour\LeaderFollowingBehaviour.cs" />
+    <Compile Include="behaviour\WanderBehaviour.cs" />
     <Compile Include="entity\BaseGameEntity.cs" />
     <Compile Include="behaviour\SeekBehaviour.cs" />
     <Compile Include="DBPanel.cs">
