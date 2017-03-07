@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using SteeringCS.behaviour;
 using SteeringCS.entity;
 using SteeringCS.util;
 
@@ -34,7 +35,7 @@ namespace SteeringCS.world
         {
             foreach (MovingEntity me in _entities)
             {
-                // me.SteeringBehaviour = new SeekBehaviour(me); // restore later
+                me.Steeringbehaviour = new SeekBehaviour(me, Target.Pos); // restore later
                 me.Update(timeElapsed);
             }  
         }

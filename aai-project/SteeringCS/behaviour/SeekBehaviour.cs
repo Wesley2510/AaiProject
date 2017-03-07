@@ -9,19 +9,21 @@ using SteeringCS.util;
 
 namespace SteeringCS.behaviour
 {
-    public class SeekBehaviour
+    public class SeekBehaviour : SteeringBehaviour
     {
-        private readonly MovingEntity _entity;             
-
-        public Vector2D Seek(Vector2D target)
+        public Vector2D Target { get; set; }
+        public SeekBehaviour(MovingEntity movingEntity, Vector2D target) : base(movingEntity)
         {
-            _entity.Steering = _entity.Steering.Truncate(_entity.MaxSpeed);
-            _entity.Steering = _entity.Steering / _entity.Mass;
-
-            _entity.Velocity = (_entity.Velocity + _entity.Steering).Truncate(_entity.MaxSpeed);
-            _entity.Pos = _entity.Pos + target;
-
-            return _entity.Pos;
+            Target = target;
         }
+
+        public override Vector2D Calculate()
+        {
+            Vector2D preNormalisedVelocity = Target - MovingEntity.Pos;
+            Vector2D desiredVelocity = preNormalisedVelocity.Normalize() * MovingEntity.MaxSpeed;
+            Vector2D steering = desiredVelocity - MovingEntity.Velocity;
+
+            return steering;
+        }       
     }
 }

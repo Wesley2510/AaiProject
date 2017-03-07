@@ -7,8 +7,7 @@ namespace SteeringCS.entity
 {
     public abstract class MovingEntity : BaseGameEntity
     {
-        public Vector2D Velocity { get; set; }
-        public Vector2D Steering { get; set; }
+        public Vector2D Velocity { get; set; }        
         public float Mass { get; set; }
         public float MaxSpeed { get; set; }
 
@@ -17,13 +16,18 @@ namespace SteeringCS.entity
         public MovingEntity(Vector2D pos, World w) : base(pos, w)
         {
             Mass = 30;
-            MaxSpeed = 150;
+            MaxSpeed = 10;
             Velocity = new Vector2D();
         }        
 
         public override void Update(float timeElapsed)
-        {            
-                        
+        {
+            Vector2D steering = Steeringbehaviour.Calculate();
+            steering.Truncate(MaxSpeed);
+            steering /= Mass;
+
+            Velocity = (Velocity + steering).Truncate(MaxSpeed);
+            Pos += Velocity;
         }
 
         public override string ToString()
