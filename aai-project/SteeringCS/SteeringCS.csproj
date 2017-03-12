@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="behaviour\ExploreBehaviour.cs" />
+    <Compile Include="behaviour\FleeBehavior.cs" />
     <Compile Include="behaviour\HideBehaviour.cs" />
     <Compile Include="behaviour\LeaderFollowingBehaviour.cs" />
     <Compile Include="behaviour\WanderBehaviour.cs" />

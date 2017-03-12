@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,9 @@ namespace SteeringCS.behaviour
 
         public override Vector2D Calculate()
         {
-            Vector2D preNormalisedVelocity = Target - MovingEntity.Pos;
-            Vector2D desiredVelocity = preNormalisedVelocity.Normalize() * MovingEntity.MaxSpeed;
-            Vector2D steering = desiredVelocity - MovingEntity.Velocity;
+            Vector2D velocity = Vector2D.Normalize(Target - MovingEntity.Pos) * MovingEntity.MaxSpeed;
+            Vector2D steering = velocity - MovingEntity.Velocity;
+            steering = Vector2D.Truncate(steering, MovingEntity.MaxSpeed);
 
             return steering;
         }       

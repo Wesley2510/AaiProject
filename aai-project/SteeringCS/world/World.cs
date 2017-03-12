@@ -22,22 +22,24 @@ namespace SteeringCS.world
 
         private void Populate()
         {
-            Vehicle v = new Vehicle(new Vector2D(10,10), this);
+            Vehicle v = new Vehicle(new Vector2D(200, 150), this);
             v.VColor = Color.Blue;
             _entities.Add(v);
 
             Target = new Vehicle(new Vector2D(100, 60), this);
             Target.VColor = Color.DarkRed;
-            Target.Pos = new Vector2D(100, 40);
+            Target.Pos = new Vector2D(200, 200);
         }
 
         public void Update(float timeElapsed)
         {
             foreach (MovingEntity me in _entities)
             {
-                me.Steeringbehaviour = new SeekBehaviour(me, Target.Pos); // restore later
+//                me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
+                me.Steeringbehaviour = new SeekBehaviour(me, Target.Pos);
+
                 me.Update(timeElapsed);
-            }  
+            }
         }
 
         public void Render(Graphics g)

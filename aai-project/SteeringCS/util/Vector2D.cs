@@ -19,35 +19,7 @@ namespace SteeringCS.util
             Y = y;
         }
 
-        public double Length()
-        {
-            return Math.Sqrt(X * X + Y * Y);
-        }
-
-        public double LengthSquared()
-        {
-            throw new NotImplementedException();
-        }        
-
-        public static Vector2D operator +(Vector2D v1, Vector2D v2)
-        {
-            return new Vector2D(v1.X + v2.X, v1.Y + v2.Y);
-        }
-
-        public static Vector2D operator -(Vector2D v1, Vector2D v2)
-        {
-            return new Vector2D(v1.X - v2.X, v1.Y - v2.Y);
-        }
-
-        public static Vector2D operator *(Vector2D v1, double value)
-        {
-            return new Vector2D(v1.X * value, v1.Y * value);
-        }
-
-        public static Vector2D operator /(Vector2D v1, double value)
-        {
-            return new Vector2D(v1.X / value, v1.Y / value);
-        }
+        #region Old methods
 
         public Vector2D Add(Vector2D v)
         {
@@ -84,6 +56,11 @@ namespace SteeringCS.util
             return this;
         }
 
+        public double Length()
+        {
+            return Math.Sqrt(X * X + Y * Y);
+        }
+
         public Vector2D Truncate(double maX)
         {
             if (Length() > maX)
@@ -93,10 +70,58 @@ namespace SteeringCS.util
             }
             return this;
         }
+        #endregion
+
+        public static double Length(Vector2D vector)
+        {
+            return Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+        }
+
+        public double LengthSquared()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Vector2D Normalize(Vector2D vector)
+        {
+            var length = Length(vector);
+            if (length == 0) return vector;
+            vector.X /= length;
+            vector.Y /= length;
+            return vector;
+        }
+
+        public static Vector2D Truncate(Vector2D vector, double maX)
+        {
+            if (!(Length(vector) > maX)) return vector;
+            vector = Normalize(vector);
+            vector = vector * maX;
+            return vector;
+        }
 
         public Vector2D Clone()
         {
             return new Vector2D(X, Y);
+        }
+
+        public static Vector2D operator +(Vector2D v1, Vector2D v2)
+        {
+            return new Vector2D(v1.X + v2.X, v1.Y + v2.Y);
+        }
+
+        public static Vector2D operator -(Vector2D v1, Vector2D v2)
+        {
+            return new Vector2D(v1.X - v2.X, v1.Y - v2.Y);
+        }
+
+        public static Vector2D operator *(Vector2D v1, double value)
+        {
+            return new Vector2D(v1.X * value, v1.Y * value);
+        }
+
+        public static Vector2D operator /(Vector2D v1, double value)
+        {
+            return new Vector2D(v1.X / value, v1.Y / value);
         }
 
         public override string ToString()
