@@ -46,5 +46,20 @@ namespace SteeringCS
         {
             world.Target.Pos = new Vector2D(e.X, e.Y);
         }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    Application.Exit();
+                    break;
+            }
+        }
     }
 }

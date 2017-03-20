@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="behaviour\ArrivalBehavior.cs" />
     <Compile Include="behaviour\ExploreBehaviour.cs" />
     <Compile Include="behaviour\FleeBehavior.cs" />
     <Compile Include="behaviour\HideBehaviour.cs" />
@@ -64,6 +65,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Graph\GraphNode.cs" />
+    <Compile Include="Graph\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="behaviour\SteeringBehaviour.cs" />
