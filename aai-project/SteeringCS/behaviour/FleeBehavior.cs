@@ -14,13 +14,17 @@ namespace SteeringCS.behaviour
         }
 
         public override Vector2D Calculate()
-        {
-            Vector2D preNormalisedVelocity = Target - MovingEntity.Pos;
-            Vector2D desiredVelocity = preNormalisedVelocity.Normalize() * MovingEntity.MaxSpeed;
-            Vector2D fleeDesiredVelocity = desiredVelocity * -1;
-            Vector2D steering = fleeDesiredVelocity - MovingEntity.Velocity;
-            return steering;
-
+        {            
+            var seekVelocity = Vector2D.Normalize(Target - MovingEntity.Pos) * MovingEntity.MaxSpeed;
+            var steering = seekVelocity - MovingEntity.Velocity;                      
+            const double panicDistance = 200.0 * 200.0;
+            if (Vector2D.DistanceSquared(MovingEntity.Pos, Target) > panicDistance)
+            {
+                return steering;
+            }            
+            var fleeVelocity = seekVelocity * -1;
+            var fleeing = fleeVelocity - MovingEntity.Velocity;
+            return fleeing;
         }
     }
 }

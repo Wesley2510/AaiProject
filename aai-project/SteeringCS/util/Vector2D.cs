@@ -77,9 +77,20 @@ namespace SteeringCS.util
             return Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
         }
 
-        public double LengthSquared()
+        public static double LengthSquared(Vector2D vector)
         {
-            throw new NotImplementedException();
+            return vector.X * vector.X + vector.Y * vector.Y;
+        }
+        public static double Distance(Vector2D vector1, Vector2D vector2)
+        {
+            Vector2D vector = vector1 - vector2;
+            return Length(vector);
+        }
+
+        public static double DistanceSquared(Vector2D vector1, Vector2D vector2)
+        {
+            Vector2D vector = vector1 - vector2;
+            return LengthSquared(vector);
         }
 
         public static Vector2D Normalize(Vector2D vector)

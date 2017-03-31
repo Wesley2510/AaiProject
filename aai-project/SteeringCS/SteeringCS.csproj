@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="behaviour\ArrivalBehavior.cs" />
     <Compile Include="behaviour\ExploreBehaviour.cs" />
     <Compile Include="behaviour\FleeBehavior.cs" />
     <Compile Include="behaviour\HideBehaviour.cs" />
