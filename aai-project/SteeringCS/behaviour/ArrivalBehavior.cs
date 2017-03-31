@@ -8,34 +8,32 @@ using SteeringCS.util;
 
 namespace SteeringCS.behaviour
 {
+    public enum Deceleration { Slow = 3, Normal = 2, Fast = 1 }
     public class ArrivalBehavior : SteeringBehaviour
     {
+        public Deceleration Deceleration;
         public Vector2D Target;
 
-        public ArrivalBehavior(MovingEntity movingEntity, Vector2D target) : base(movingEntity)
+        public ArrivalBehavior(MovingEntity movingEntity, Vector2D target, Deceleration deceleration) : base(movingEntity)
         {
             Target = target;
+            Deceleration = deceleration;
         }
 
         public override Vector2D Calculate()
         {
-            
-            var desiredVelocity = Target - MovingEntity.Pos;
-            var distance = Vector2D.Length(desiredVelocity);
-            const double slowingRadius = 100.0 * 100.0;
+            Vector2D toTarget = Target - MovingEntity.Pos;
+            double distance = Target.Length();
 
-            if (distance > slowingRadius)
-            {
-                desiredVelocity = Vector2D.Normalize(desiredVelocity) * MovingEntity.MaxSpeed * (distance / slowingRadius);
+            if (distance > 0)
+            {               
+                const double decelerationTweaker = 0.3;
+                double speed = distance / ((double) Deceleration * decelerationTweaker);
+                speed = Math.Min(speed, MovingEntity.MaxSpeed);
+                Vector2D desiredVelocity = toTarget * speed / distance;
+                return (desiredVelocity - MovingEntity.Velocity);
             }
-            else
-            {
-                desiredVelocity = Vector2D.Normalize(desiredVelocity) * MovingEntity.MaxSpeed;
-            }
-            Vector2D steering =  desiredVelocity - MovingEntity.Velocity;
-            Vector2D velocity = Vector2D.Truncate(MovingEntity.Velocity + steering, MovingEntity.MaxSpeed);
-            Vector2D position = velocity - steering;
-            return position;
+            return new Vector2D(0,0);
         }
     }
 }
