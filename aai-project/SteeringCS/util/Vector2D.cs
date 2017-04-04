@@ -135,6 +135,7 @@ namespace SteeringCS.util
             return new Vector2D(v1.X / value, v1.Y / value);
         }
 
+
         public override string ToString()
         {
             return String.Format("({0},{1})", X, Y);

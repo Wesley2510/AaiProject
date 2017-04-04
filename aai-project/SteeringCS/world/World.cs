@@ -37,9 +37,9 @@ namespace SteeringCS.world
             foreach (MovingEntity me in _entities)
             {
                 //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
-                me.Steeringbehaviour = new ArrivalBehavior(me, Target.Pos, Deceleration.Slow);
+                //me.Steeringbehaviour = new ArrivalBehavior(me, Target.Pos, Deceleration.Slow);
                 //me.Steeringbehaviour = new SeekBehaviour(me, Target.Pos);
-
+                me.Steeringbehaviour = new WanderBehaviour(me);
                 me.Update(timeElapsed);
             }
         }
