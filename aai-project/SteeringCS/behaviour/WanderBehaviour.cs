@@ -52,7 +52,7 @@ namespace SteeringCS.behaviour
             var steering = velocity - MovingEntity.Velocity;
             steering = Vector2D.Truncate(steering, MovingEntity.MaxSpeed);
             Console.WriteLine(Target.X+ " " + Target.Y);
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             return steering;
         }
     }

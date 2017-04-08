@@ -2,6 +2,7 @@
 using SteeringCS.util;
 using SteeringCS.world;
 
+
 namespace SteeringCS.entity
 {
     public abstract class BaseGameEntity
