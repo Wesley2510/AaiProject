@@ -14,21 +14,21 @@ namespace SteeringCS.states
 
     public class State_WanderAround : State.State
     {
-        private MovingEntity enemy;
-        public State_WanderAround(Vehicle enemy)
+        private Ant enemy;
+        public State_WanderAround(Ant enemy)
         {
             this.enemy = enemy;
         }
-        public override void Enter(Vehicle ant)
+        public override void Enter(Ant ant)
         {
             Console.WriteLine("Ant has started wandering around");
-            if (ant.status != Vehicle.Status.Wandering)
+            if (ant.status != Ant.Status.Wandering)
             {
-                ant.ChangeStatus(Vehicle.Status.Wandering);
+                ant.ChangeStatus(Ant.Status.Wandering);
             }
         }
 
-        public override void Execute(Vehicle ant)
+        public override void Execute(Ant ant)
         {
             ant.IncreaseHunger();
             ant.Steeringbehaviour = new WanderBehaviour(ant);
@@ -39,7 +39,7 @@ namespace SteeringCS.states
             }
         }
 
-        public override void Exit(MovingEntity ant)
+        public override void Exit(Ant ant)
         {
             Console.WriteLine("Ant is going to look for food");
         }

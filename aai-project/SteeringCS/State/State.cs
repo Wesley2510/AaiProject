@@ -13,9 +13,9 @@ namespace SteeringCS.State
     public abstract class State
     {
 
-        public abstract void Enter(Vehicle ant);
-        public abstract void Execute(Vehicle ant);
-        public abstract void Exit(Vehicle ant);
+        public abstract void Enter(Ant ant);
+        public abstract void Execute(Ant ant);
+        public abstract void Exit(Ant ant);
     }
 
 }

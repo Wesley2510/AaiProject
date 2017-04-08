@@ -63,11 +63,13 @@
 //        }
 //    }
 //}
+
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using SteeringCS.behaviour;
 using SteeringCS.entity;
+using SteeringCS.graphs;
 using SteeringCS.states;
 using SteeringCS.util;
 
@@ -123,35 +125,36 @@ namespace SteeringCS.world
 
         public void Update(float timeElapsed)
         {
-            foreach (var me in _entities)
-            {
-                
-                for (int i = 1; i < Graph.NodeMap.Count; i++)
+            //foreach (var me in _entities)
+            //{
+
+            //    for (int i = 1; i < Graph.NodeMap.Count; i++)
+            //    {
+            //        //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
+            //        Graph.Astar(1, 2);
+            //        me.Steeringbehaviour = new ArrivalBehavior(me, Graph.NodeMap[i].Postition, Deceleration.Fast);
+            //        //me.Steeringbehaviour = new SeekBehaviour(me, Graph.NodeMap[i].Postition);    
+            //    }
+
+                foreach (var me in _entities)
                 {
+
+                    if (me.CurrentState != null)
+                    {
+                        me.CurrentState.Execute(me);
+                    }
+                    else
+                    {
+                        me.ChangeState(new State_WanderAround(Target));
+                    }
+
                     //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
-                    Graph.Astar(1,2);
-                    me.Steeringbehaviour = new ArrivalBehavior(me, Graph.NodeMap[i].Postition, Deceleration.Fast);
-                    //me.Steeringbehaviour = new SeekBehaviour(me, Graph.NodeMap[i].Postition);    
+                    //me.Steeringbehaviour = new ArrivalBehavior(me, Target.Pos, Deceleration.Slow);
+                    //me.Steeringbehaviour = new SeekBehaviour(me, Target.Pos);
+                    //me.Steeringbehaviour = new WanderBehaviour(me);
+                    me.Update(timeElapsed);
                 }
-
-            foreach (var me in _entities)
-            {
-
-                if (me.CurrentState != null)
-                {
-                    me.CurrentState.Execute(me);
-                }
-                else
-                {
-                    me.ChangeState(new State_WanderAround(target));
-                }
-
-                //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
-                //me.Steeringbehaviour = new ArrivalBehavior(me, Target.Pos, Deceleration.Slow);
-                //me.Steeringbehaviour = new SeekBehaviour(me, Target.Pos);
-                //me.Steeringbehaviour = new WanderBehaviour(me);
-                me.Update(timeElapsed);
-            }
+           // }
         }
 
         public void Render(Graphics g)

@@ -14,32 +14,32 @@ namespace SteeringCS.State
     {
        
 
-        public override void Enter(Vehicle ant)
+        public override void Enter(Ant ant)
         {
             Console.WriteLine("Ant is starting to run away");
-            if (ant.status != MovingEntity.Status.Fleeing)
+            if (ant.status != Ant.Status.Fleeing)
             {
-                ant.ChangeStatus(Vehicle.Status.Searching);
+                ant.ChangeStatus(Ant.Status.Searching);
             }
         }
 
-        public override void Exit(Vehicle ant)
+        public override void Exit(Ant ant)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Ant is done running away");
         }
 
-        public override void Execute(Vehicle ant)
+        public override void Execute(Ant ant)
         {
             if (ant.Hunger > 0.0f)
             {
                 Console.WriteLine("Ant is running away!");
                 //Change target to enemy. 
-                ant.Steeringbehaviour = new FleeBehavior(ant, );
+                ant.Steeringbehaviour = new FleeBehavior(ant, new Vector2D(10,01));
                 ant.Hunger -= 0.1f;
             }
             else
             {
-                ant.ChangeState(new State_WanderAround());
+                ant.ChangeState(new State_WanderAround(ant));
             }
         }
     }

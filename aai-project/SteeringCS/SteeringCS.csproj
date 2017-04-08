@@ -71,7 +71,18 @@
     </Compile>
     <Compile Include="fuzzy\FuzzyModule.cs" />
     <Compile Include="fuzzy\FuzzyRule.cs" />
+    <Compile Include="fuzzy\FuzzySet.cs" />
+    <Compile Include="fuzzy\FuzzySet_LeftShoulder.cs" />
+    <Compile Include="fuzzy\FuzzySet_RightShoulder.cs" />
+    <Compile Include="fuzzy\FuzzySet_Singleton.cs" />
+    <Compile Include="fuzzy\FuzzySet_Triangle.cs" />
+    <Compile Include="fuzzy\FuzzyTerm.cs" />
     <Compile Include="fuzzy\FuzzyVariable.cs" />
+    <Compile Include="fuzzy\FzAND.cs" />
+    <Compile Include="fuzzy\FzFairly.cs" />
+    <Compile Include="fuzzy\FzOR.cs" />
+    <Compile Include="fuzzy\FzSet.cs" />
+    <Compile Include="fuzzy\FzVery.cs" />
     <Compile Include="graphs\Edge.cs" />
     <Compile Include="graphs\Graph.cs" />
     <Compile Include="graphs\Path.cs" />

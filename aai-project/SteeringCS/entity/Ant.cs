@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using SteeringCS.behaviour;
 using SteeringCS.util;
 using SteeringCS.world;
@@ -8,8 +8,7 @@ namespace SteeringCS.entity
 {
     public abstract class Ant : BaseGameEntity
     {
-        public int Id { get; set; }
-        public Vector2D Velocity { get; set; }        
+        public int Id { get; set; } 
         public enum Status
         {
             Wandering,

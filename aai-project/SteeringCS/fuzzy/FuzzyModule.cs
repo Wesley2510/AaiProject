@@ -10,5 +10,34 @@ namespace SteeringCS.fuzzy
     {
         public Dictionary<string, FuzzyVariable> Variables;
         public List<FuzzyRule> Rules;
+
+        private void runRules()
+        {
+            
+        }
+
+        public void CreateFLV()
+        {
+            
+        }
+
+        public void AddRule()
+        {
+            
+        }
+
+        public void Fuzzylfy()
+        {
+            
+        }
+
+        public void Defuzzify()
+        {
+            
+        }
+        
+
+
+
     }
 }
