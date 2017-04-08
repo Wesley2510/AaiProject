@@ -6,8 +6,10 @@ using SteeringCS.State;
 
 namespace SteeringCS.entity
 {
-    public abstract class MovingEntity : BaseGameEntity
+    public abstract class Ant : BaseGameEntity
     {
+        public int Id { get; set; }
+        public Vector2D Velocity { get; set; }        
         public enum Status
         {
             Wandering,
@@ -26,7 +28,7 @@ namespace SteeringCS.entity
 
         public SteeringBehaviour Steeringbehaviour { get; set; }
 
-        public MovingEntity(Vector2D pos, World w) : base(pos, w)
+        public Ant(Vector2D pos, World w) : base(pos, w)
         {
             Mass = 30;
             MaxSpeed = 10;
@@ -83,7 +85,7 @@ namespace SteeringCS.entity
 
     public override string ToString()
         {
-            return String.Format("{0}", Velocity);
+            return $"{Velocity}";
         }
     }
 }

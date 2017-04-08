@@ -21,7 +21,7 @@ namespace SteeringCS.behaviour
 
         float m_dWanderJitter = 50.0f;
      
-        public WanderBehaviour(MovingEntity movingEntity) : base(movingEntity)
+        public WanderBehaviour(Ant movingEntity) : base(movingEntity)
         {
            // Target = new Vector2D((NewHeadingRoute() * m_dWanderJitter), (NewHeadingRoute() * m_dWanderJitter));
      //       Thread.Sleep(250);
@@ -48,9 +48,9 @@ namespace SteeringCS.behaviour
         public override Vector2D Calculate()
         {
             Target = new Vector2D((NewHeadingRoute() * m_dWanderJitter), (NewHeadingRoute() * m_dWanderJitter));
-            var velocity = Vector2D.Normalize(Target - MovingEntity.Pos) * MovingEntity.MaxSpeed;
-            var steering = velocity - MovingEntity.Velocity;
-            steering = Vector2D.Truncate(steering, MovingEntity.MaxSpeed);
+            var velocity = Vector2D.Normalize(Target - Ant.Pos) * Ant.MaxSpeed;
+            var steering = velocity - Ant.Velocity;
+            steering = Vector2D.Truncate(steering, Ant.MaxSpeed);
             Console.WriteLine(Target.X+ " " + Target.Y);
             //Thread.Sleep(1000);
             return steering;

@@ -14,7 +14,7 @@ namespace SteeringCS.behaviour
         public Deceleration Deceleration;
         public Vector2D Target;
 
-        public ArrivalBehavior(MovingEntity movingEntity, Vector2D target, Deceleration deceleration) : base(movingEntity)
+        public ArrivalBehavior(Ant ant, Vector2D target, Deceleration deceleration) : base(ant)
         {
             Target = target;
             Deceleration = deceleration;
@@ -22,16 +22,16 @@ namespace SteeringCS.behaviour
 
         public override Vector2D Calculate()
         {
-            Vector2D toTarget = Target - MovingEntity.Pos;
+            Vector2D toTarget = Target - Ant.Pos;
             double distance = Target.Length();
 
             if (distance > 0)
             {               
                 const double decelerationTweaker = 0.3;
                 double speed = distance / ((double) Deceleration * decelerationTweaker);
-                speed = Math.Min(speed, MovingEntity.MaxSpeed);
+                speed = Math.Min(speed, Ant.MaxSpeed);
                 Vector2D desiredVelocity = toTarget * speed / distance;
-                return (desiredVelocity - MovingEntity.Velocity);
+                return (desiredVelocity - Ant.Velocity);
             }
             return new Vector2D(0,0);
         }
