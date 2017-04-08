@@ -13,14 +13,14 @@ namespace SteeringCS.behaviour
         //ToDo  
         public Vector2D Target;
 
-        public WanderBehaviour(MovingEntity movingEntity, Vector2D target) : base(movingEntity)
+        public WanderBehaviour(Ant ant, Vector2D target) : base(ant)
         {
             Target = target;
         }
 
         public override Vector2D Calculate()
         {
-            Vector2D circleCenter = MovingEntity.Velocity.Clone();
+            Vector2D circleCenter = Ant.Velocity.Clone();
             circleCenter.Normalize();
             return circleCenter;
         }

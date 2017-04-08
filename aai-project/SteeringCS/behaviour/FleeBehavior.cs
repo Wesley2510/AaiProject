@@ -8,22 +8,22 @@ namespace SteeringCS.behaviour
     {
         public Vector2D Target;
 
-        public FleeBehavior(MovingEntity movingEntity, Vector2D target) : base(movingEntity)
+        public FleeBehavior(Ant ant, Vector2D target) : base(ant)
         {
             Target = target;
         }
 
         public override Vector2D Calculate()
         {            
-            var seekVelocity = Vector2D.Normalize(Target - MovingEntity.Pos) * MovingEntity.MaxSpeed;
-            var steering = seekVelocity - MovingEntity.Velocity;                      
+            var seekVelocity = Vector2D.Normalize(Target - Ant.Pos) * Ant.MaxSpeed;
+            var steering = seekVelocity - Ant.Velocity;                      
             const double panicDistance = 200.0 * 200.0;
-            if (Vector2D.DistanceSquared(MovingEntity.Pos, Target) > panicDistance)
+            if (Vector2D.DistanceSquared(Ant.Pos, Target) > panicDistance)
             {
                 return steering;
             }            
             var fleeVelocity = seekVelocity * -1;
-            var fleeing = fleeVelocity - MovingEntity.Velocity;
+            var fleeing = fleeVelocity - Ant.Velocity;
             return fleeing;
         }
     }

@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using SteeringCS.behaviour;
 using SteeringCS.entity;
+using SteeringCS.graphs;
 using SteeringCS.util;
 
 namespace SteeringCS.world
 {
     public class World
     {
-        private List<MovingEntity> _entities = new List<MovingEntity>();
+        private List<Ant> _entities = new List<Ant>();
         public Vehicle Target { get; set; }
+        public List<Vehicle> Objects = new List<Vehicle>();
+        public Graph Graph = new Graph();
         public int Width { get; set; }
         public int Height { get; set; }
 
@@ -18,6 +22,7 @@ namespace SteeringCS.world
             Width = w;
             Height = h;
             Populate();
+            BuildGraph();
         }
 
         private void Populate()
@@ -30,15 +35,39 @@ namespace SteeringCS.world
                 VColor = Color.DarkRed,
                 Pos = new Vector2D(400, 400)
             };
+            Objects.Add(new Vehicle(new Vector2D(700, 100), this)
+            {
+                VColor = Color.Black,
+                Scale = 50,
+                DrawType = DrawType.Fill
+            });
+            Objects.Add(new Vehicle(new Vector2D(300, 70), this)
+            {
+                VColor = Color.Black,
+                Scale = 10,
+                DrawType = DrawType.Fill
+            });
+        }
+
+        private void BuildGraph()
+        {
+            Graph.AddEdge(1, new Vector2D(400,400), 2, new Vector2D(225,175), 1);
+            Graph.AddEdge(2, new Vector2D(225, 175), 3, new Vector2D(50, 50), 1);
+            Graph.AddEdge(3, new Vector2D(50, 50), 4, new Vector2D(600, 30), 1);
         }
 
         public void Update(float timeElapsed)
         {
-            foreach (MovingEntity me in _entities)
+            foreach (var me in _entities)
             {
-                //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
-                me.Steeringbehaviour = new ArrivalBehavior(me, Target.Pos, Deceleration.Slow);
-                //me.Steeringbehaviour = new SeekBehaviour(me, Target.Pos);
+                
+                for (int i = 1; i < Graph.NodeMap.Count; i++)
+                {
+                    //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
+                    Graph.Astar(1,2);
+                    me.Steeringbehaviour = new ArrivalBehavior(me, Graph.NodeMap[i].Postition, Deceleration.Fast);
+                    //me.Steeringbehaviour = new SeekBehaviour(me, Graph.NodeMap[i].Postition);    
+                }
 
                 me.Update(timeElapsed);
             }
@@ -47,7 +76,12 @@ namespace SteeringCS.world
         public void Render(Graphics g)
         {
             _entities.ForEach(e => e.Render(g));
+            foreach (var value in Graph.NodeMap)
+            {
+                Graph.Render(g, value.Value);
+            }
             Target.Render(g);
+            Objects.ForEach(o => o.Render(g));
         }
     }
 }
