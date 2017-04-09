@@ -1,14 +1,14 @@
-﻿    using System;
+﻿using System;
 using SteeringCS.behaviour;
 using SteeringCS.util;
 using SteeringCS.world;
-using SteeringCS.State;
+using SteeringCS.States;
 
 namespace SteeringCS.entity
 {
     public abstract class MovingEntity : BaseGameEntity
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public enum Status
         {
             Wandering,
@@ -22,7 +22,7 @@ namespace SteeringCS.entity
         public float MaxSpeed { get; set; }
         public float Hunger { get; set; }
         public float Fatigue { get; set; }
-        public State.State CurrentState;
+        public State CurrentState;
 
 
         public SteeringBehaviour Steeringbehaviour { get; set; }
@@ -32,7 +32,7 @@ namespace SteeringCS.entity
             Mass = 10;
             MaxSpeed = 5;
             Velocity = new Vector2D();
-        }        
+        }
 
         public override void Update(float timeElapsed)
         {
@@ -52,11 +52,11 @@ namespace SteeringCS.entity
             //Velocity = (Velocity + steering).Truncate(MaxSpeed);
             //Pos += Velocity;
         }
-        public void ChangeState(State.State newState)
+        public void ChangeState(State newState)
         {
             CurrentState?.Exit(this);
             CurrentState = newState;
-            CurrentState.Enter(this);
+            CurrentState.Enter(this, World.food);
         }
 
         public void ChangeStatus(Status status)
@@ -74,15 +74,15 @@ namespace SteeringCS.entity
         }
         public bool IsSafe()
         {
-         /**   if (Vector2D.DistanceSquared(Target.Pos, this.Pos) > panicDistance)
-            {
-                return false;
-            }*/
+            /**   if (Vector2D.DistanceSquared(Target.Pos, this.Pos) > panicDistance)
+               {
+                   return false;
+               }*/
             return true;
         }
 
 
-    public override string ToString()
+        public override string ToString()
         {
             return $"{Velocity}";
         }

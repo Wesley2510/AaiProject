@@ -80,6 +80,7 @@ namespace SteeringCS.world
         private List<MovingEntity> _entities = new List<MovingEntity>();
         private List<Dirt> _objects = new List<Dirt>();
         public Ant Target { get; set; }
+        public static Ant Enemy { get; set; }
         public Graph Graph = new Graph();
         public int Width { get; set; }
         public int Height { get; set; }

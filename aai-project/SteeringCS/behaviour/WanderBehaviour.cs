@@ -25,9 +25,8 @@ namespace SteeringCS.behaviour
 
         private Vector2D WanderTarget;
 
-        private Ant ant;
-        public WanderBehaviour(Ant movingEntity) : base(movingEntity)
-        float m_dWanderJitter = 50.0f;
+        private MovingEntity ant;
+
      
         public WanderBehaviour(MovingEntity movingEntity) : base(movingEntity)
         {

@@ -8,13 +8,13 @@ namespace SteeringCS.States
 
     public class State_WanderAround : State
     {
-        private Ant enemy;
+        private MovingEntity enemy;
         private Node food;
-        public State_WanderAround(Ant enemy)
+        public State_WanderAround(MovingEntity enemy)
         {
             this.enemy = enemy;
         }
-        public override void Enter(MovingEntity movingEntity Node food )
+        public override void Enter(MovingEntity movingEntity, Node food)
         {
             this.food = food;
             Console.WriteLine("Ant has started wandering around");
@@ -31,7 +31,7 @@ namespace SteeringCS.States
             Console.WriteLine("Ant is wandering around");
             if (movingEntity.IsHungry())
             {
-                movingEntity.ChangeState(new State_LookForFood(enemy));
+                movingEntity.ChangeState(new State_LookForFood());
             }
         }
 

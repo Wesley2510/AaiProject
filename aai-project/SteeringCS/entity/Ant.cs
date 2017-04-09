@@ -1,8 +1,9 @@
 ﻿    using System;
-using SteeringCS.behaviour;
+    using System.Drawing;
+    using SteeringCS.behaviour;
 using SteeringCS.util;
 using SteeringCS.world;
-using SteeringCS.State;
+using SteeringCS.States;
 
 namespace SteeringCS.entity
 {
@@ -18,7 +19,7 @@ namespace SteeringCS.entity
         public float MaxSpeed { get; set; }
         public float Hunger { get; set; }
         public float Fatigue { get; set; }
-        public State.State CurrentState;
+        public State CurrentState;
 
 
         public SteeringBehaviour Steeringbehaviour { get; set; }

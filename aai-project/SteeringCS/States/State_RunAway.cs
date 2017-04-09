@@ -2,6 +2,7 @@
 using SteeringCS.behaviour;
 using SteeringCS.entity;
 using SteeringCS.graphs;
+using SteeringCS.util;
 using SteeringCS.world;
 
 namespace SteeringCS.States
@@ -10,7 +11,7 @@ namespace SteeringCS.States
     {
         private Node food;
 
-        public override void Enter(MovingEntity ant, Node food)
+        public override void Enter(MovingEntity movingEntity, Node food)
         {
             this.food = food;
             Console.WriteLine("Ant is starting to run away");
@@ -31,8 +32,8 @@ namespace SteeringCS.States
             {
                 Console.WriteLine("Ant is running away!");
                 //Change target to enemy. 
-                ant.Steeringbehaviour = new FleeBehavior(movingEntity,World.Target.Pos);
-                ant.Hunger -= 0.1f;
+                movingEntity.Steeringbehaviour = new FleeBehavior(movingEntity, World.Enemy.Pos);
+                movingEntity.Hunger -= 0.1f;
             }
             else
             {
