@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SteeringCS.behaviour;
 using SteeringCS.entity;
-using SteeringCS.states;
-using SteeringCS.util;
+using SteeringCS.graphs;
 
-namespace SteeringCS.State
+namespace SteeringCS.States
 {
     class State_LookForFood : State
     {
         private Ant enemy;
-        public State_LookForFood(Ant enemy)
+        private Node food;
+       
+        public override void Enter(Ant ant , Node food)
         {
-            this.enemy = enemy;
-        }
-        public override void Enter(Ant ant)
-        {
+            this.food = food;
             Console.WriteLine("Ant has started looking for food");
             if (ant.status != Ant.Status.Searching)
             {
@@ -31,7 +25,8 @@ namespace SteeringCS.State
             if (ant.Hunger > 0.0f)
             {
                 Console.WriteLine("Ant is looking for food");
-                ant.Steeringbehaviour = new WanderBehaviour(ant);
+                
+                ant.Steeringbehaviour = new ArrivalBehavior(ant, food.Postition, Deceleration.Fast);
                 ant.Hunger -= 0.1f;
             }
             else

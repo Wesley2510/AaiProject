@@ -70,7 +70,7 @@ using System.Runtime.InteropServices;
 using SteeringCS.behaviour;
 using SteeringCS.entity;
 using SteeringCS.graphs;
-using SteeringCS.states;
+using SteeringCS.States;
 using SteeringCS.util;
 
 namespace SteeringCS.world
@@ -78,14 +78,16 @@ namespace SteeringCS.world
     public class World
     {
         private List<Ant> _entities = new List<Ant>();
-        public Vehicle Target { get; set; }
+        public static Vehicle Target { get; set; }
         public List<Vehicle> Objects = new List<Vehicle>();
         public Graph Graph = new Graph();
         public int Width { get; set; }
         public int Height { get; set; }
-
+        public static Node food;
         public World(int w, int h)
         {
+            food = new Node(25, new Vector2D(600, 50));
+            food.ExtraInfo = ExtraInfo.HasFood;
             Width = w;
             Height = h;
             Populate();
@@ -99,7 +101,7 @@ namespace SteeringCS.world
         {
             Vehicle v = new Vehicle(new Vector2D(50, 225), this) {VColor = Color.Black, DrawType = DrawType.Fill};
             _entities.Add(v);
-
+          
             /*Target = new Vehicle(new Vector2D(100, 60), this)
             {
                 VColor = Color.DarkRed,
@@ -121,6 +123,7 @@ namespace SteeringCS.world
 
         private void BuildGraph()
         {
+            
             Graph.AddEdge(1, new Vector2D(50, 225), 2, new Vector2D(100, 260), 1);
             Graph.AddEdge(2, new Vector2D(100, 260), 3, new Vector2D(60, 320), 1);
             Graph.AddEdge(3, new Vector2D(60, 320), 4, new Vector2D(60, 390), 1);
@@ -145,6 +148,9 @@ namespace SteeringCS.world
             Graph.AddEdge(22, new Vector2D(435, 400), 23, new Vector2D(320, 450), 1);
             Graph.AddEdge(23, new Vector2D(320, 450), 24, new Vector2D(245, 520), 1);
             Graph.AddEdge(24, new Vector2D(245, 520), 25, new Vector2D(200, 580), 1);
+           
+            
+
             //Graph.AddEdge(0, new Vector2D(0, 0), 0, new Vector2D(0, 0), 1);
         }
 
@@ -153,13 +159,13 @@ namespace SteeringCS.world
             //foreach (var me in _entities)
             //{
 
-            //    for (int i = 1; i < Graph.NodeMap.Count; i++)
-            //    {
-            //        //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
-            //        Graph.Astar(1, 2);
-            //        me.Steeringbehaviour = new ArrivalBehavior(me, Graph.NodeMap[i].Postition, Deceleration.Fast);
-            //        //me.Steeringbehaviour = new SeekBehaviour(me, Graph.NodeMap[i].Postition);    
-            //    }
+                //for (int i = 1; i < Graph.NodeMap.Count; i++)
+                //{
+                //    //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
+                //    Graph.Astar(1, 2);
+                //    //me.Steeringbehaviour = new ArrivalBehavior(me, Graph.NodeMap[i].Postition, Deceleration.Fast);
+                //    me.Steeringbehaviour = new SeekBehaviour(me, Graph.NodeMap[i].Postition);    
+                //}
 
                 foreach (var me in _entities)
                 {
@@ -170,7 +176,7 @@ namespace SteeringCS.world
                     }
                     else
                     {
-                        me.ChangeState(new State_WanderAround(Target));
+                        me.ChangeState(new State_WanderAround(me));
                     }
                     //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
                     //me.Steeringbehaviour = new ArrivalBehavior(me, Target.Pos, Deceleration.Slow);
@@ -178,7 +184,7 @@ namespace SteeringCS.world
                     //me.Steeringbehaviour = new WanderBehaviour(me);
                     me.Update(timeElapsed);
                 }
-           // }
+            //}
         }
 
         public void Render(Graphics g)

@@ -19,13 +19,17 @@ namespace SteeringCS.behaviour
         //ToDo  
         public Vector2D Target { get; set; }
 
-        float m_dWanderJitter = 50.0f;
-     
+        float m_dWanderJitter = 20.0f;
+        private double m_dWanderRadius =2.0 ;
+        double m_dWanderDistance = 2.0;
+
+        private Vector2D WanderTarget;
+
+        private Ant ant;
         public WanderBehaviour(Ant movingEntity) : base(movingEntity)
         {
-           // Target = new Vector2D((NewHeadingRoute() * m_dWanderJitter), (NewHeadingRoute() * m_dWanderJitter));
-     //       Thread.Sleep(250);
-         
+            ant = movingEntity;
+            WanderTarget = movingEntity.Pos;
         }
        
        
@@ -41,18 +45,27 @@ namespace SteeringCS.behaviour
             
             var floor = Clamp(heading - maxHeadingChange, 0, 360);
             var ceil = Clamp(heading + maxHeadingChange, 0, 360);
-            return rand.Next((int)floor, (int)ceil);
+            heading = rand.Next((int)floor, (int)ceil);
+            return heading;
 
           //  targetRotation = new Vector3(heading, heading, 0);
         }
         public override Vector2D Calculate()
         {
+            
+            //WanderTarget += new Vector2D((rand.Next(-1,1) * m_dWanderJitter), (rand.Next(-1, 1) * m_dWanderJitter));
+            //WanderTarget.Normalize();
+            //WanderTarget *= m_dWanderRadius;
+            //Vector2D target = WanderTarget + new Vector2D(m_dWanderDistance, 0);
+
+           
+
             Target = new Vector2D((NewHeadingRoute() * m_dWanderJitter), (NewHeadingRoute() * m_dWanderJitter));
-            var velocity = Vector2D.Normalize(Target - Ant.Pos) * Ant.MaxSpeed;
-            var steering = velocity - Ant.Velocity;
-            steering = Vector2D.Truncate(steering, Ant.MaxSpeed);
+            var velocity = Vector2D.Normalize(Target - ant.Pos) * ant.MaxSpeed;
+            var steering = velocity - ant.Velocity;
+            steering = Vector2D.Truncate(steering, ant.MaxSpeed);
             Console.WriteLine(Target.X+ " " + Target.Y);
-            //Thread.Sleep(1000);
+          //  Thread.Sleep(250);
             return steering;
         }
     }

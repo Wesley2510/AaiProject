@@ -3,7 +3,7 @@ using SteeringCS.util;
 
 namespace SteeringCS.graphs
 {
-    public enum ExtraInfo { }
+    public enum ExtraInfo { HasFood, }
     public class Node
     {
         public int Index;

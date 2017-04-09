@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SteeringCS.behaviour;
 using SteeringCS.entity;
-using SteeringCS.states;
-using SteeringCS.util;
+using SteeringCS.graphs;
+using SteeringCS.world;
 
-namespace SteeringCS.State
+namespace SteeringCS.States
 {
     class State_RunAway : State
     {
-       
+        private Node food;
 
-        public override void Enter(Ant ant)
+        public override void Enter(Ant ant, Node food)
         {
+            this.food = food;
             Console.WriteLine("Ant is starting to run away");
             if (ant.status != Ant.Status.Fleeing)
             {
@@ -34,7 +31,7 @@ namespace SteeringCS.State
             {
                 Console.WriteLine("Ant is running away!");
                 //Change target to enemy. 
-                ant.Steeringbehaviour = new FleeBehavior(ant, new Vector2D(10,01));
+                ant.Steeringbehaviour = new FleeBehavior(ant,World.Target.Pos);
                 ant.Hunger -= 0.1f;
             }
             else

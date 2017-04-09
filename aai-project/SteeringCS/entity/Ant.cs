@@ -1,8 +1,9 @@
 ﻿    using System;
 using SteeringCS.behaviour;
-using SteeringCS.util;
+    using SteeringCS.graphs;
+    using SteeringCS.util;
 using SteeringCS.world;
-using SteeringCS.State;
+using SteeringCS.States;
 
 namespace SteeringCS.entity
 {
@@ -22,7 +23,7 @@ namespace SteeringCS.entity
         public float MaxSpeed { get; set; }
         public float Hunger { get; set; }
         public float Fatigue { get; set; }
-        public State.State CurrentState;
+        public States.State CurrentState;
 
 
         public SteeringBehaviour Steeringbehaviour { get; set; }
@@ -52,11 +53,11 @@ namespace SteeringCS.entity
             //Velocity = (Velocity + steering).Truncate(MaxSpeed);
             //Pos += Velocity;
         }
-        public void ChangeState(State.State newState)
+        public void ChangeState(State newState)
         {
             CurrentState?.Exit(this);
             CurrentState = newState;
-            CurrentState.Enter(this);
+            CurrentState.Enter(this, World.food);
         }
 
         public void ChangeStatus(Status status)
@@ -74,10 +75,11 @@ namespace SteeringCS.entity
         }
         public bool IsSafe()
         {
-         /**   if (Vector2D.DistanceSquared(Target.Pos, this.Pos) > panicDistance)
+            const double panicDistance = 50.0 * 50.0;
+            if (Vector2D.DistanceSquared(this.Pos, World.Target.Pos) > panicDistance)
             {
                 return false;
-            }*/
+            }
             return true;
         }
 
