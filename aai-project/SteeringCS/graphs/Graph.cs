@@ -60,13 +60,13 @@ namespace SteeringCS.graphs
                 throw new ArgumentException();
             }
             var w = NodeMap[dest];
-            if (w.Dist == Infinity)
+            if (float.IsPositiveInfinity(w.Dist))
             {
                 Console.WriteLine(dest + " is unreachable");
             }
             else
             {
-                Console.WriteLine("(Cost is: " + w.Dist + " )");
+            Console.WriteLine("(Cost is: " + w.Dist + " )");
                 PrintPath(w);
                 Console.WriteLine();
             }
@@ -89,7 +89,7 @@ namespace SteeringCS.graphs
             int nodesSeen = 0;
             ClearAll();
             float cost = HeuristicEuclid(startNode.Postition, NodeMap[destination].Postition);
-            Path startPath = new Path(startNode, cost);
+            var startPath = new Path(startNode, cost);
             pq.Enqueue(startPath, startPath.Cost);
             startNode.Dist = 0;
 
@@ -197,7 +197,7 @@ namespace SteeringCS.graphs
                 foreach (var e in v.Adj)
                 {
                     var w = e.Dest;
-                    if (w.Dist == Infinity)
+                    if (float.IsPositiveInfinity(w.Dist))
                     {
                         w.Dist = v.Dist + 1;
                         w.Prev = v;
@@ -213,7 +213,7 @@ namespace SteeringCS.graphs
             Unweighted(NodeMap.Keys.First());
             foreach (var node in NodeMap.Values)
             {
-                if (node.Dist == Infinity)
+                if (float.IsPositiveInfinity(node.Dist))
                 {
                     isConnect = false;
                 }
@@ -223,7 +223,7 @@ namespace SteeringCS.graphs
 
         public void Render(Graphics g, Node node)
         {
-            g.FillEllipse(Brushes.Black, new Rectangle((int)node.Postition.X, (int)node.Postition.Y, 5, 5));
+            g.FillEllipse(Brushes.Chartreuse, new Rectangle((int)node.Postition.X, (int)node.Postition.Y, 5, 5));
         }
     }
 

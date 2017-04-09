@@ -23,7 +23,7 @@ namespace SteeringCS.entity
             double leftCorner = Pos.X - Scale;
             double rightCorner = Pos.Y - Scale;
             double size = Scale * 2;
-
+           
             Pen p = new Pen(VColor, 2);
             Brush b = new SolidBrush(VColor);
             if (DrawType == DrawType.Draw)

@@ -15,13 +15,14 @@ namespace SteeringCS.entity
 
         public Ant(Vector2D pos, World w) : base(pos, w)
         {
-            Mass = 30;
-            MaxSpeed = 10;
+            Mass = 10;
+            MaxSpeed = 5;
             Velocity = new Vector2D();
         }        
 
         public override void Update(float timeElapsed)
         {
+            if (Steeringbehaviour == null) return;
             Vector2D steering = Steeringbehaviour.Calculate();
             steering.Truncate(MaxSpeed);
             steering /= Mass;

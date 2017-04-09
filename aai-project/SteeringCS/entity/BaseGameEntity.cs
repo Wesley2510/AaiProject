@@ -20,7 +20,9 @@ namespace SteeringCS.entity
 
         public virtual void Render(Graphics g)
         {
-            g.FillEllipse(Brushes.Blue, new Rectangle((int) Pos.X,(int) Pos.Y, 10, 10));
+            Image image = new Bitmap(Image.FromFile("ant.bmp"));
+            g.FillEllipse(Brushes.SaddleBrown, new Rectangle((int) Pos.X,(int) Pos.Y, 10, 10));
+            g.DrawImage(image, new Point((int)Pos.X, (int)Pos.Y));
         }
         
 
