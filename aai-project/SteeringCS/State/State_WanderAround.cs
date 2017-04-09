@@ -14,32 +14,32 @@ namespace SteeringCS.states
 
     public class State_WanderAround : State.State
     {
-        private Ant enemy;
-        public State_WanderAround(Ant enemy)
+        private MovingEntity enemy;
+        public State_WanderAround(MovingEntity enemy)
         {
             this.enemy = enemy;
         }
-        public override void Enter(Ant ant)
+        public override void Enter(MovingEntity movingEntity)
         {
             Console.WriteLine("Ant has started wandering around");
-            if (ant.status != Ant.Status.Wandering)
+            if (movingEntity.status != MovingEntity.Status.Wandering)
             {
-                ant.ChangeStatus(Ant.Status.Wandering);
+                movingEntity.ChangeStatus(MovingEntity.Status.Wandering);
             }
         }
 
-        public override void Execute(Ant ant)
+        public override void Execute(MovingEntity movingEntity)
         {
-            ant.IncreaseHunger();
-            ant.Steeringbehaviour = new WanderBehaviour(ant);
+            movingEntity.IncreaseHunger();
+            movingEntity.Steeringbehaviour = new WanderBehaviour(movingEntity);
             Console.WriteLine("Ant is wandering around");
-            if (ant.IsHungry())
+            if (movingEntity.IsHungry())
             {
-                ant.ChangeState(new State_LookForFood(enemy));
+                movingEntity.ChangeState(new State_LookForFood(enemy));
             }
         }
 
-        public override void Exit(Ant ant)
+        public override void Exit(MovingEntity movingEntity)
         {
             Console.WriteLine("Ant is going to look for food");
         }

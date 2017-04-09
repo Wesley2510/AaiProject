@@ -5,12 +5,12 @@ namespace SteeringCS.behaviour
 {
     public abstract class SteeringBehaviour
     {
-        public Ant Ant { get; set; }
+        public MovingEntity MovingEntity { get; set; }
         public abstract Vector2D Calculate();
 
-        public SteeringBehaviour(Ant ant)
+        public SteeringBehaviour(MovingEntity movingEntity)
         {
-            Ant = ant;
+            MovingEntity = movingEntity;
         }        
     }    
 }

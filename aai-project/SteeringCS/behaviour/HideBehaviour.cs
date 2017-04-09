@@ -10,10 +10,12 @@ namespace SteeringCS.behaviour
 {
     public class HideBehaviour : SteeringBehaviour
     {
-        public Vector2D Target;
-        public HideBehaviour(Ant ant, Vector2D target) : base(ant)
+        public Ant Target;
+        public List<Dirt> Obstacles;
+        public HideBehaviour(MovingEntity movingEntity, List<Dirt> obstacles, Ant target) : base(movingEntity)
         {
             Target = target;
+            Obstacles = obstacles;
         }
 
         public Vector2D GetHidingPosition(Vector2D posObstacle, double radiusObstacle, Vector2D posTarget)
@@ -26,7 +28,29 @@ namespace SteeringCS.behaviour
 
         public override Vector2D Calculate()
         {
-            throw new NotImplementedException();
+            double distanceToClosest = double.MaxValue;
+            Vector2D bestHidingSpot = new Vector2D();
+            foreach (var obj in Obstacles)
+            {
+                Vector2D hidingSpot = GetHidingPosition(obj.Pos, obj.Scale, Target.Pos);
+                double dist = Vector2D.DistanceSquared(hidingSpot, MovingEntity.Pos);
+                if (dist < distanceToClosest)
+                {
+                    distanceToClosest = dist;
+                    bestHidingSpot = hidingSpot;
+                }
+            }
+
+            if (distanceToClosest == double.MaxValue)
+            {
+                new FleeBehavior(MovingEntity, bestHidingSpot);
+            }
+            else
+            {
+                new ArrivalBehavior(MovingEntity, bestHidingSpot, Deceleration.Fast);
+            }
+            return bestHidingSpot;
+            
         }
     }
 }
