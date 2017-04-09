@@ -10,14 +10,14 @@ namespace SteeringCS.behaviour
 {
     public class EvadeBehavior
     {
-        public Vehicle Pursuer;
+        public Ant Pursuer;
 
-        public EvadeBehavior(Vehicle pursuer, Ant ant)
+        public EvadeBehavior(Ant pursuer, MovingEntity movingEntity)
         {
             Pursuer = pursuer;
-            Vector2D toPursuer = pursuer.Pos - ant.Pos;
-            double lookAheadTime = toPursuer.Length() / (ant.MaxSpeed + pursuer.MaxSpeed);
-            new FleeBehavior(ant, pursuer.Pos + pursuer.Velocity * lookAheadTime);
+            Vector2D toPursuer = pursuer.Pos - movingEntity.Pos;
+            double lookAheadTime = toPursuer.Length() / (movingEntity.MaxSpeed + pursuer.MaxSpeed);
+            new FleeBehavior(movingEntity, pursuer.Pos + pursuer.Velocity * lookAheadTime);
         }
     }
 }

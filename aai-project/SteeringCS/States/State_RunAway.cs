@@ -10,33 +10,33 @@ namespace SteeringCS.States
     {
         private Node food;
 
-        public override void Enter(Ant ant, Node food)
+        public override void Enter(MovingEntity ant, Node food)
         {
             this.food = food;
             Console.WriteLine("Ant is starting to run away");
-            if (ant.status != Ant.Status.Fleeing)
+            if (movingEntity.status != MovingEntity.Status.Fleeing)
             {
-                ant.ChangeStatus(Ant.Status.Searching);
+                movingEntity.ChangeStatus(MovingEntity.Status.Searching);
             }
         }
 
-        public override void Exit(Ant ant)
+        public override void Exit(MovingEntity movingEntity)
         {
             Console.WriteLine("Ant is done running away");
         }
 
-        public override void Execute(Ant ant)
+        public override void Execute(MovingEntity movingEntity)
         {
-            if (ant.Hunger > 0.0f)
+            if (movingEntity.Hunger > 0.0f)
             {
                 Console.WriteLine("Ant is running away!");
                 //Change target to enemy. 
-                ant.Steeringbehaviour = new FleeBehavior(ant,World.Target.Pos);
+                ant.Steeringbehaviour = new FleeBehavior(movingEntity,World.Target.Pos);
                 ant.Hunger -= 0.1f;
             }
             else
             {
-                ant.ChangeState(new State_WanderAround(ant));
+                movingEntity.ChangeState(new State_WanderAround(movingEntity));
             }
         }
     }

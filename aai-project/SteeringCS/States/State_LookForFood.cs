@@ -10,33 +10,33 @@ namespace SteeringCS.States
         private Ant enemy;
         private Node food;
        
-        public override void Enter(Ant ant , Node food)
+        public override void Enter(MovingEntity ant , Node food)
         {
             this.food = food;
             Console.WriteLine("Ant has started looking for food");
-            if (ant.status != Ant.Status.Searching)
+            if (movingEntity.status != MovingEntity.Status.Searching)
             {
-                ant.ChangeStatus(Ant.Status.Searching);
+                movingEntity.ChangeStatus(MovingEntity.Status.Searching);
             }
         }
 
-        public override void Execute(Ant ant)
+        public override void Execute(MovingEntity movingEntity)
         {
-            if (ant.Hunger > 0.0f)
+            if (movingEntity.Hunger > 0.0f)
             {
                 Console.WriteLine("Ant is looking for food");
                 
-                ant.Steeringbehaviour = new ArrivalBehavior(ant, food.Postition, Deceleration.Fast);
+                ant.Steeringbehaviour = new ArrivalBehavior(movingEntity, food.Postition, Deceleration.Fast);
                 ant.Hunger -= 0.1f;
             }
             else
             {
-                ant.ChangeState(new State_WanderAround(enemy));
+                movingEntity.ChangeState(new State_WanderAround(enemy));
             }
         }
 
       
-        public override void Exit(Ant ant)
+        public override void Exit(MovingEntity movingEntity)
         {
             Console.WriteLine("Ant is done looking for food");
         }

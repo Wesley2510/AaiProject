@@ -14,9 +14,10 @@ namespace SteeringCS.States
     public abstract class State
     {
 
-        public abstract void Enter(Ant ant, Node food);
-        public abstract void Execute(Ant ant);
-        public abstract void Exit(Ant ant);
+        public abstract void Enter(MovingEntity movingEntity, Node food);
+        public abstract void Execute(MovingEntity movingEntity);
+        public abstract void Exit(MovingEntity movingEntity);
+
     }
 
 }

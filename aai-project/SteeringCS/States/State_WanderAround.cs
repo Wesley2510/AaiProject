@@ -14,32 +14,28 @@ namespace SteeringCS.States
         {
             this.enemy = enemy;
         }
-        public override void Enter(Ant ant, Node food )
+        public override void Enter(MovingEntity movingEntity Node food )
         {
             this.food = food;
             Console.WriteLine("Ant has started wandering around");
-            if (ant.status != Ant.Status.Wandering)
+            if (movingEntity.status != MovingEntity.Status.Wandering)
             {
-                ant.ChangeStatus(Ant.Status.Wandering);
+                movingEntity.ChangeStatus(MovingEntity.Status.Wandering);
             }
         }
 
-        public override void Execute(Ant ant)
+        public override void Execute(MovingEntity movingEntity)
         {
-            ant.IncreaseHunger();
-            ant.Steeringbehaviour = new WanderBehaviour(ant);
+            movingEntity.IncreaseHunger();
+            movingEntity.Steeringbehaviour = new WanderBehaviour(movingEntity);
             Console.WriteLine("Ant is wandering around");
-            if (ant.IsHungry() )
+            if (movingEntity.IsHungry())
             {
-                ant.ChangeState(new State_LookForFood());
-            } 
-            //else if (!ant.IsSafe())
-            //{
-            //    ant.ChangeState(new State_RunAway());
-            //}
+                movingEntity.ChangeState(new State_LookForFood(enemy));
+            }
         }
 
-        public override void Exit(Ant ant)
+        public override void Exit(MovingEntity movingEntity)
         {
             Console.WriteLine("Ant is going to look for food");
         }
