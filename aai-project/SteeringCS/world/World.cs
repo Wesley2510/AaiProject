@@ -96,8 +96,8 @@ namespace SteeringCS.world
             Height = h;
             Populate();
             BuildGraph(30, 150, 43, 65);
-            /*Graph.Astar(9, 25);
-            Graph.PrintPath(25);*/
+           // Graph.Astar(9, 24);
+           // Graph.PrintPath(24);
         }
 
         private void Populate()
@@ -190,7 +190,7 @@ namespace SteeringCS.world
             }
             foreach (Dirt dirt in _objects)
             {
-                if (Vector2D.GetDistanceBetweenVectors(node.Postition, dirt.Pos) < dirt.Scale)
+                if (Vector2D.GetDistanceBetweenVectors(node.Postition, dirt.Pos) < dirt.Scale + 5)
                 // +1 to be absolutely sure that nothing weird happens.
                 {
                     return false;
