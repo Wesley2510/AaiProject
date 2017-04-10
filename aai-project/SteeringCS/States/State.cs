@@ -6,16 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using SteeringCS.behaviour;
 using SteeringCS.entity;
+using SteeringCS.graphs;
 using SteeringCS.util;
 
-namespace SteeringCS.State
+namespace SteeringCS.States
 {
     public abstract class State
     {
 
-        public abstract void Enter(MovingEntity movingEntity);
+        public abstract void Enter(MovingEntity movingEntity, Node food);
         public abstract void Execute(MovingEntity movingEntity);
         public abstract void Exit(MovingEntity movingEntity);
+
     }
 
 }

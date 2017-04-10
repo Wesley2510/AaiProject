@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿    using System;
+    using System.Drawing;
 using SteeringCS.goals;
 using SteeringCS.util;
 using SteeringCS.world;
+using SteeringCS.States;
 
 namespace SteeringCS.entity
 {
@@ -11,6 +13,16 @@ namespace SteeringCS.entity
         public Color VColor { get; set; }
         public DrawType DrawType { get; set; }
         public ThinkGoal Brain { get; set; }
+        public Status status { get; set; }
+        public Vector2D Velocity { get; set; }
+        public float Mass { get; set; }
+        public float MaxSpeed { get; set; }
+        public float Hunger { get; set; }
+        public float Fatigue { get; set; }
+        public State CurrentState;
+
+
+        public SteeringBehaviour Steeringbehaviour { get; set; }
 
         public Ant(Vector2D pos, World w) : base(pos, w)
         {

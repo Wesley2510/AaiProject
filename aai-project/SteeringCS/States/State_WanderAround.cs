@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SteeringCS.behaviour;
 using SteeringCS.entity;
-using SteeringCS.State;
-using SteeringCS.util;
+using SteeringCS.graphs;
 
-
-namespace SteeringCS.states
+namespace SteeringCS.States
 {
 
-    public class State_WanderAround : State.State
+    public class State_WanderAround : State
     {
         private MovingEntity enemy;
+        private Node food;
         public State_WanderAround(MovingEntity enemy)
         {
             this.enemy = enemy;
         }
-        public override void Enter(MovingEntity movingEntity)
+        public override void Enter(MovingEntity movingEntity, Node food)
         {
+            this.food = food;
             Console.WriteLine("Ant has started wandering around");
             if (movingEntity.status != MovingEntity.Status.Wandering)
             {
@@ -35,7 +31,7 @@ namespace SteeringCS.states
             Console.WriteLine("Ant is wandering around");
             if (movingEntity.IsHungry())
             {
-                movingEntity.ChangeState(new State_LookForFood(enemy));
+                movingEntity.ChangeState(new State_LookForFood());
             }
         }
 

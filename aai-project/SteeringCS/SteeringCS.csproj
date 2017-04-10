@@ -109,10 +109,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="behaviour\SteeringBehaviour.cs" />
-    <Compile Include="State\State.cs" />
-    <Compile Include="State\State_LookForFood.cs" />
-    <Compile Include="State\State_RunAway.cs" />
-    <Compile Include="State\State_WanderAround.cs" />
+    <Compile Include="States\State.cs" />
+    <Compile Include="States\State_LookForFood.cs" />
+    <Compile Include="States\State_RunAway.cs" />
+    <Compile Include="States\State_WanderAround.cs" />
     <Compile Include="util\Vector2D.cs" />
     <Compile Include="world\World.cs" />
     <EmbeddedResource Include="Form1.resx">

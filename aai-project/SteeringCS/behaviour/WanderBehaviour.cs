@@ -19,13 +19,19 @@ namespace SteeringCS.behaviour
         //ToDo  
         public Vector2D Target { get; set; }
 
-        float m_dWanderJitter = 50.0f;
+        float m_dWanderJitter = 20.0f;
+        private double m_dWanderRadius =2.0 ;
+        double m_dWanderDistance = 2.0;
+
+        private Vector2D WanderTarget;
+
+        private MovingEntity ant;
+
      
         public WanderBehaviour(MovingEntity movingEntity) : base(movingEntity)
         {
-           // Target = new Vector2D((NewHeadingRoute() * m_dWanderJitter), (NewHeadingRoute() * m_dWanderJitter));
-     //       Thread.Sleep(250);
-         
+            ant = movingEntity;
+            WanderTarget = movingEntity.Pos;
         }
        
        
@@ -41,7 +47,8 @@ namespace SteeringCS.behaviour
             
             var floor = Clamp(heading - maxHeadingChange, 0, 360);
             var ceil = Clamp(heading + maxHeadingChange, 0, 360);
-            return rand.Next((int)floor, (int)ceil);
+            heading = rand.Next((int)floor, (int)ceil);
+            return heading;
 
           //  targetRotation = new Vector3(heading, heading, 0);
         }
