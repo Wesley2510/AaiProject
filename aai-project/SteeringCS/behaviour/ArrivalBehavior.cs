@@ -12,8 +12,6 @@ namespace SteeringCS.behaviour
     public class ArrivalBehavior : SteeringBehaviour
     {
         public Deceleration Deceleration;
-        public Vector2D Target;
-
         public ArrivalBehavior(MovingEntity movingEntity, Vector2D target, Deceleration deceleration) : base(movingEntity)
         {
             Target = target;

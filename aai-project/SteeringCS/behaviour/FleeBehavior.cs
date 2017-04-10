@@ -6,8 +6,6 @@ namespace SteeringCS.behaviour
     public class FleeBehavior : SteeringBehaviour
 
     {
-        public Vector2D Target;
-
         public FleeBehavior(MovingEntity movingEntity, Vector2D target) : base(movingEntity)
         {
             Target = target;

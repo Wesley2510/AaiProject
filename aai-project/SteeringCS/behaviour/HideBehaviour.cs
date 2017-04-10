@@ -10,11 +10,11 @@ namespace SteeringCS.behaviour
 {
     public class HideBehaviour : SteeringBehaviour
     {
-        public Ant Target;
+        public Ant newTarget;
         public List<Dirt> Obstacles;
         public HideBehaviour(MovingEntity movingEntity, List<Dirt> obstacles, Ant target) : base(movingEntity)
         {
-            Target = target;
+            newTarget = target;
             Obstacles = obstacles;
         }
 
@@ -32,7 +32,7 @@ namespace SteeringCS.behaviour
             Vector2D bestHidingSpot = new Vector2D();
             foreach (var obj in Obstacles)
             {
-                Vector2D hidingSpot = GetHidingPosition(obj.Pos, obj.Scale, Target.Pos);
+                Vector2D hidingSpot = GetHidingPosition(obj.Pos, obj.Scale, newTarget.Pos);
                 double dist = Vector2D.DistanceSquared(hidingSpot, MovingEntity.Pos);
                 if (dist < distanceToClosest)
                 {

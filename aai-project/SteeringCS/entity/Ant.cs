@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using SteeringCS.goals;
 using SteeringCS.util;
 using SteeringCS.world;
 
@@ -9,6 +10,7 @@ namespace SteeringCS.entity
     {
         public Color VColor { get; set; }
         public DrawType DrawType { get; set; }
+        public ThinkGoal Brain { get; set; }
 
         public Ant(Vector2D pos, World w) : base(pos, w)
         {
@@ -18,6 +20,7 @@ namespace SteeringCS.entity
             Scale = 5;
             DrawType = DrawType.Draw;
             VColor = Color.Black;
+            Brain = new ThinkGoal(this);
         }
         
         public override void Render(Graphics g)
@@ -36,6 +39,12 @@ namespace SteeringCS.entity
             {
                 g.FillEllipse(b, new Rectangle((int)leftCorner, (int)rightCorner, (int)size, (int)size));
             }
+        }
+
+        public bool IsAtPosition(Vector2D target)
+        {
+            const double tolerance = 10.0;
+            return Vector2D.DistanceSquared(Pos, target) < tolerance * tolerance;
         }
     }
 }

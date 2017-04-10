@@ -54,6 +54,7 @@
     <Compile Include="behaviour\ExploreBehaviour.cs" />
     <Compile Include="behaviour\FleeBehavior.cs" />
     <Compile Include="behaviour\HideBehaviour.cs" />
+    <Compile Include="behaviour\StandStill.cs" />
     <Compile Include="behaviour\WanderBehaviour.cs" />
     <Compile Include="entity\BaseGameEntity.cs" />
     <Compile Include="behaviour\SeekBehaviour.cs" />
@@ -83,6 +84,14 @@
     <Compile Include="fuzzy\FzOR.cs" />
     <Compile Include="fuzzy\FzSet.cs" />
     <Compile Include="fuzzy\FzVery.cs" />
+    <Compile Include="goals\CompositeGoal.cs" />
+    <Compile Include="goals\GetItemGoal.cs" />
+    <Compile Include="goals\Goal.cs" />
+    <Compile Include="goals\GoalEvaluator.cs" />
+    <Compile Include="goals\MoveToPostitionGoal.cs" />
+    <Compile Include="goals\SeekToPosition.cs" />
+    <Compile Include="goals\ThinkGoal.cs" />
+    <Compile Include="goals\WanderGoal.cs" />
     <Compile Include="graphs\Edge.cs" />
     <Compile Include="graphs\Graph.cs" />
     <Compile Include="graphs\Path.cs" />
@@ -134,6 +143,7 @@
   <ItemGroup>
     <Content Include="entity\ant.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

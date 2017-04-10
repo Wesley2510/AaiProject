@@ -5,7 +5,6 @@ namespace SteeringCS.behaviour
 {
     public class SeekBehaviour : SteeringBehaviour
     {
-        public Vector2D Target { get; set; }
         public SeekBehaviour(MovingEntity movingEntity, Vector2D target) : base(movingEntity)
         {
             Target = target;
