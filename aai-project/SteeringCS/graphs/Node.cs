@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using SteeringCS.util;
+﻿using SteeringCS.util;
+using System.Collections.Generic;
 
 namespace SteeringCS.graphs
 {
-    public enum ExtraInfo { HasFood, }
+    public enum ExtraInfo { HasFood }
     public class Node
     {
         public int Index;
@@ -13,12 +13,12 @@ namespace SteeringCS.graphs
         public Node Prev;
         public int Scratch;
         public ExtraInfo ExtraInfo;
-        public static int ID = 0;
+        public static int Id = 0;
 
         public Node(Vector2D position)
         {
-            Index = ID;
-            ID++;
+            Index = Id;
+            Id++;
             Postition = position;
             Adj = new LinkedList<Edge>();
             Reset();

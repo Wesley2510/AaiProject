@@ -1,28 +1,23 @@
-﻿    using System;
-    using System.Drawing;
-using SteeringCS.goals;
+﻿using SteeringCS.goals;
+using SteeringCS.graphs;
 using SteeringCS.util;
 using SteeringCS.world;
-using SteeringCS.States;
+using System.Drawing;
 
 namespace SteeringCS.entity
 {
-    public enum DrawType { Fill, Draw }
+    public enum DrawType
+    {
+        Fill,
+        Draw
+    }
+
     public class Ant : MovingEntity
     {
         public Color VColor { get; set; }
         public DrawType DrawType { get; set; }
+        public PathPlanner PathPlanner { get; set; }
         public ThinkGoal Brain { get; set; }
-        public Status status { get; set; }
-        public Vector2D Velocity { get; set; }
-        public float Mass { get; set; }
-        public float MaxSpeed { get; set; }
-        public float Hunger { get; set; }
-        public float Fatigue { get; set; }
-        public State CurrentState;
-
-
-        public SteeringBehaviour Steeringbehaviour { get; set; }
 
         public Ant(Vector2D pos, World w) : base(pos, w)
         {
@@ -34,18 +29,18 @@ namespace SteeringCS.entity
             VColor = Color.Black;
             Brain = new ThinkGoal(this);
         }
-        
+
         public override void Render(Graphics g)
         {
             double leftCorner = Pos.X - Scale;
             double rightCorner = Pos.Y - Scale;
             double size = Scale * 2;
-           
+
             Pen p = new Pen(VColor, 2);
             Brush b = new SolidBrush(VColor);
             if (DrawType == DrawType.Draw)
             {
-                g.DrawEllipse(p, new Rectangle((int) leftCorner, (int) rightCorner, (int) size, (int) size));
+                g.DrawEllipse(p, new Rectangle((int)leftCorner, (int)rightCorner, (int)size, (int)size));
             }
             if (DrawType == DrawType.Fill)
             {

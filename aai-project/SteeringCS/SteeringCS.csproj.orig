@@ -84,8 +84,8 @@
     <Compile Include="fuzzy\FzOR.cs" />
     <Compile Include="fuzzy\FzSet.cs" />
     <Compile Include="fuzzy\FzVery.cs" />
+<<<<<<< HEAD
     <Compile Include="goals\CompositeGoal.cs" />
-    <Compile Include="goals\ExploreGoal.cs" />
     <Compile Include="goals\GetItemGoal.cs" />
     <Compile Include="goals\Goal.cs" />
     <Compile Include="goals\GoalEvaluator.cs" />
@@ -93,6 +93,11 @@
     <Compile Include="goals\SeekToPosition.cs" />
     <Compile Include="goals\ThinkGoal.cs" />
     <Compile Include="goals\WanderGoal.cs" />
+=======
+    <Compile Include="GoalDriven\CompositeGoal.cs" />
+    <Compile Include="GoalDriven\Goal.cs" />
+    <Compile Include="GoalDriven\Goal_Wander.cs" />
+>>>>>>> 32e0610cdd05c1024cd16c3e2620700b41cd3967
     <Compile Include="graphs\Edge.cs" />
     <Compile Include="graphs\Graph.cs" />
     <Compile Include="graphs\Path.cs" />
@@ -110,6 +115,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="behaviour\SteeringBehaviour.cs" />
+    <Compile Include="States\State.cs" />
+    <Compile Include="States\State_LookForFood.cs" />
+    <Compile Include="States\State_RunAway.cs" />
+    <Compile Include="States\State_WanderAround.cs" />
     <Compile Include="util\Vector2D.cs" />
     <Compile Include="world\World.cs" />
     <EmbeddedResource Include="Form1.resx">

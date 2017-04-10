@@ -1,55 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using SteeringCS.util;
+﻿using SteeringCS.util;
 using SteeringCS.world;
+using System;
+using System.Windows.Forms;
 
 namespace SteeringCS
 {
     public partial class Form1 : Form
     {
-        World world;
-        System.Timers.Timer timer;
+        private World _world;
+        System.Timers.Timer _timer;
 
         public const float timeDelta = 0.8f;
-        
+
         public Form1()
         {
             InitializeComponent();
 
-            world = new World(w: dbPanel1.Width, h: dbPanel1.Height);
+            _world = new World(w: dbPanel1.Width, h: dbPanel1.Height);
 
-            timer = new System.Timers.Timer();
-            timer.Elapsed += Timer_Elapsed;
-            timer.Interval = 20;
-            timer.Enabled = true;
+            _timer = new System.Timers.Timer();
+            _timer.Elapsed += Timer_Elapsed;
+            _timer.Interval = 20;
+            _timer.Enabled = true;
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            world.Update(timeDelta);
+            _world.Update(timeDelta);
             dbPanel1.Invalidate();
         }
 
         private void dbPanel1_Paint(object sender, PaintEventArgs e)
         {
-            world.Render(e.Graphics);
+            _world.Render(e.Graphics);
         }
-        
+
         private void dbPanel1_MouseClick(object sender, MouseEventArgs e)
         {
-            world.Target.Pos = new Vector2D(e.X, e.Y);
+            _world.Target.Pos = new Vector2D(e.X, e.Y);
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -60,13 +53,13 @@ namespace SteeringCS
                     Application.Exit();
                     break;
                 case Keys.K:
-                    if (World.showNodes)
+                    if (World.ShowNodes)
                     {
-                        World.showNodes = false;
+                        World.ShowNodes = false;
                     }
                     else
                     {
-                        World.showNodes = true;
+                        World.ShowNodes = true;
                     }
                     break;
             }

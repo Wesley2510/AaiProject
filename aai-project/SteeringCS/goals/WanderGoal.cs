@@ -1,5 +1,4 @@
-﻿using System;
-using SteeringCS.behaviour;
+﻿using SteeringCS.behaviour;
 using SteeringCS.entity;
 
 namespace SteeringCS.goals
@@ -28,6 +27,7 @@ namespace SteeringCS.goals
         public override void Terminate()
         {
             _ant.Steeringbehaviour = new StandStill(_ant);
+            Status = GoalState.Completed;
         }
     }
 }

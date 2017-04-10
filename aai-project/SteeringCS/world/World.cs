@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SteeringCS.entity;
+using SteeringCS.graphs;
+using SteeringCS.util;
+using System;
 //using System.Drawing;
 //using SteeringCS.behaviour;
 //using SteeringCS.entity;
@@ -65,39 +68,30 @@
 //}
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
-using SteeringCS.behaviour;
-using SteeringCS.entity;
-using SteeringCS.graphs;
-using SteeringCS.States;
-using SteeringCS.util;
 
 namespace SteeringCS.world
 {
     public class World
     {
-        public static bool showNodes = true;
         private List<MovingEntity> _entities = new List<MovingEntity>();
         private List<Dirt> _objects = new List<Dirt>();
-        private List<Node> Nodes = new List<Node>();
+        private List<Node> _nodes = new List<Node>();
         public Ant Target { get; set; }
+        public static bool ShowNodes = true;
         public static Ant Enemy { get; set; }
         public Graph Graph = new Graph();
         public int Width { get; set; }
         public int Height { get; set; }
         private PathPlanner _pathPlanner;
-        public static Node food;
+        public static Node Food;
+
         public World(int w, int h)
         {
-            food = new Node(25, new Vector2D(600, 50));
-            food.ExtraInfo = ExtraInfo.HasFood;
+            Food = new Node(25, new Vector2D(600, 50)) { ExtraInfo = ExtraInfo.HasFood };
             Width = w;
             Height = h;
             Populate();
             BuildGraph(30, 150, 43, 65);
-           // Graph.Astar(9, 24);
-           // Graph.PrintPath(24);
         }
 
         private void Populate()
@@ -116,7 +110,6 @@ namespace SteeringCS.world
             {
                 VColor = Color.White
             };
-
         }
 
         private void BuildGraph(int startx, int starty, int numrows, int numcolums)
@@ -124,54 +117,39 @@ namespace SteeringCS.world
             var tempx = startx;
             var tempy = starty;
             var count = 0;
-            Node TempNode1 = null;
-            Node TempNode2 = null;
-            //var count = 0;
-            //for (int i = 0; i < numrows; i++)
-            //{
-            //    Graph.AddEdge(i, new Vector2D(tempx, starty), i + 1, new Vector2D(tempx + 10, starty), 1);
-            //    tempx += 10;
-            //    count++;
-            //}
-            //int j = count;
-            //for (j = 0; j < numcolums; j++)
-            //{
-            //    Graph.AddEdge(j, new Vector2D(startx, tempy), j + 1, new Vector2D(startx, tempy+ 10), 1);
-            //    tempy += 10;
-            //}
+            Node tempNode1 = null;
+
             for (int i = 0; i < numrows; i++)
             {
                 for (int k = 0; k < numcolums; k++)
                 {
-
                     Node node = new Node(new Vector2D(tempx + (k * 10), tempy + (i * 10)));
 
                     if (checkNode(node))
                     {
-                        Nodes.Add(node);
+                        _nodes.Add(node);
                     }
                     else
                     {
                         Console.Write(" FAILED!");
                     }
-
                 }
                 int counter = 0;
-                foreach (Node node in Nodes)
+                foreach (Node node in _nodes)
                 {
-
-                    if (TempNode1 == null)
+                    if (tempNode1 == null)
                     {
-                        TempNode1 = node;
+                        tempNode1 = node;
                     }
                     else
                     {
-                        TempNode2 = TempNode1;
-                        TempNode1 = node;
+                        var tempNode2 = tempNode1;
+                        tempNode1 = node;
 
                         if (counter % numrows != 0)
                         {
-                            Graph.AddEdge(TempNode2.Index, TempNode2.Postition, TempNode1.Index, TempNode1.Postition, 1);
+                            Graph.AddEdge(tempNode2.Index, tempNode2.Postition, tempNode1.Index, tempNode1.Postition,
+                                1);
                         }
                     }
                     counter++;
@@ -183,15 +161,13 @@ namespace SteeringCS.world
         {
             double x = node.Postition.X;
             double y = node.Postition.Y;
-            //_objects = linkedWorld.getNearbyObstacles(maxRadius + 5, node.position);
             if (x < 0 || y < 0 || x > 800 || y > 600 || Graph.NodeMap.ContainsKey(node.Index))
             {
                 return false;
             }
             foreach (Dirt dirt in _objects)
             {
-                if (Vector2D.GetDistanceBetweenVectors(node.Postition, dirt.Pos) < dirt.Scale + 5)
-                // +1 to be absolutely sure that nothing weird happens.
+                if (Vector2D.Distance(node.Postition, dirt.Pos) < dirt.Scale + 5)
                 {
                     return false;
                 }
@@ -199,44 +175,17 @@ namespace SteeringCS.world
             return true;
         }
 
-
-
-        /*Graph.AddEdge(1, new Vector2D(50, 225), 2, new Vector2D(100, 260), 1);
-        Graph.AddEdge(2, new Vector2D(100, 260), 3, new Vector2D(60, 320), 1);
-        Graph.AddEdge(3, new Vector2D(60, 320), 4, new Vector2D(60, 390), 1);
-        Graph.AddEdge(4, new Vector2D(60, 390), 5, new Vector2D(125, 430), 1);
-        Graph.AddEdge(5, new Vector2D(125, 380), 6, new Vector2D(215, 380), 1);
-        Graph.AddEdge(6, new Vector2D(215, 380), 7, new Vector2D(300, 325), 1);
-        Graph.AddEdge(7, new Vector2D(300, 325), 8, new Vector2D(385, 285), 1);
-        Graph.AddEdge(8, new Vector2D(385, 285), 9, new Vector2D(460, 240), 1);
-        Graph.AddEdge(9, new Vector2D(460, 240), 10, new Vector2D(545, 210), 1);
-        Graph.AddEdge(10, new Vector2D(545, 210), 11, new Vector2D(430, 190), 1);
-        Graph.AddEdge(11, new Vector2D(430, 190), 8, new Vector2D(385, 285), 1);
-        Graph.AddEdge(12, new Vector2D(430, 190), 9, new Vector2D(460, 240), 1);
-        Graph.AddEdge(10, new Vector2D(545, 210), 14, new Vector2D(635, 200), 1);
-        Graph.AddEdge(14, new Vector2D(635, 200), 15, new Vector2D(640, 120), 1);
-        Graph.AddEdge(15, new Vector2D(640, 120), 10, new Vector2D(545, 210), 1);
-        Graph.AddEdge(14, new Vector2D(635, 200), 17, new Vector2D(620, 315), 1);
-        Graph.AddEdge(17, new Vector2D(620, 315), 18, new Vector2D(610, 415), 1);
-        Graph.AddEdge(18, new Vector2D(610, 415), 19, new Vector2D(580, 500), 1);
-        Graph.AddEdge(19, new Vector2D(590, 500), 20, new Vector2D(510, 585), 1);
-        Graph.AddEdge(17, new Vector2D(620, 315), 21, new Vector2D(530, 370), 1);
-        Graph.AddEdge(21, new Vector2D(530, 370), 22, new Vector2D(435, 400), 1);
-        Graph.AddEdge(22, new Vector2D(435, 400), 23, new Vector2D(320, 450), 1);
-        Graph.AddEdge(23, new Vector2D(320, 450), 24, new Vector2D(245, 520), 1);
-        Graph.AddEdge(24, new Vector2D(245, 520), 25, new Vector2D(200, 580), 1);*/
-        //Graph.AddEdge(0, new Vector2D(0, 0), 0, new Vector2D(0, 0), 1);
-
+        public Vector2D GetRandomNode()
+        {
+            Random rnd = new Random();
+            return _nodes[rnd.Next(0, _nodes.Count - 1)].Postition;
+        }
 
         public void Update(float timeElapsed)
         {
             foreach (var me in _entities)
             {
                 _pathPlanner = new PathPlanner(me, this);
-                //me.Steeringbehaviour = new FleeBehavior(me, Target.Pos);
-                me.Steeringbehaviour = new ArrivalBehavior(me, Target.Pos, Deceleration.Slow);
-                //me.Steeringbehaviour = new SeekBehaviour(me, Target.Pos);
-                //me.Steeringbehaviour = new WanderBehaviour(me);
                 me.Update(timeElapsed);
             }
         }
@@ -244,14 +193,14 @@ namespace SteeringCS.world
         public void Render(Graphics g)
         {
             _entities.ForEach(e => e.Render(g));
-            if (showNodes)
+            if (ShowNodes)
             {
                 foreach (var value in Graph.NodeMap)
                 {
                     Graph.Render(g, value.Value);
                 }
             }
-            
+
             Target.Render(g);
             _objects.ForEach(o => o.Render(g));
         }

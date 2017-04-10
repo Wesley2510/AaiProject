@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SteeringCS.entity;
+﻿using SteeringCS.entity;
 using SteeringCS.graphs;
 using SteeringCS.util;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SteeringCS.goals
 {
@@ -14,6 +12,7 @@ namespace SteeringCS.goals
         private const double LowRangeBias = 0.5;
         private const double HighRangeBias = 1.5;
         private List<GoalEvaluator> _evaluators = new List<GoalEvaluator>();
+        private List<CompositeGoal<Ant>> _goals = new List<CompositeGoal<Ant>>();
         private static Random _rnd = new Random();
         private double _bias = _rnd.NextDouble(LowRangeBias, HighRangeBias);
         private Ant _ant;
@@ -22,6 +21,8 @@ namespace SteeringCS.goals
         public ThinkGoal(Ant entity) : base(entity)
         {
             _ant = entity;
+            _goals.Add(new MoveToPostitionGoal(_ant, new Vector2D(_rnd.Next(100, 600), _rnd.Next(100, 600))));
+            _goals.Add(new ExploreGoal(_ant));
         }
 
         public override void Activate()

@@ -1,28 +1,25 @@
-﻿using System;
-using SteeringCS.behaviour;
+﻿using SteeringCS.behaviour;
 using SteeringCS.util;
 using SteeringCS.world;
-using SteeringCS.States;
 
 namespace SteeringCS.entity
 {
     public abstract class MovingEntity : BaseGameEntity
     {
         public int Id { get; set; }
-        public enum Status
+        public enum EntityStatus
         {
             Wandering,
             Searching,
             Fleeing
         }
 
-        public Status status { get; set; }
+        public EntityStatus Status { get; set; }
         public Vector2D Velocity { get; set; }
         public float Mass { get; set; }
         public float MaxSpeed { get; set; }
         public float Hunger { get; set; }
         public float Fatigue { get; set; }
-        public State CurrentState;
 
 
         public SteeringBehaviour Steeringbehaviour { get; set; }
@@ -37,31 +34,16 @@ namespace SteeringCS.entity
         public override void Update(float timeElapsed)
         {
             if (Steeringbehaviour == null) return;
-
             Vector2D steering = Steeringbehaviour.Calculate();
             steering.Truncate(MaxSpeed);
             steering /= Mass;
             Velocity = (Velocity + steering).Truncate(MaxSpeed);
             Pos += Velocity;
-
-
-            //Vector2D steering = Steeringbehaviour.Calculate();
-            //steering.Truncate(MaxSpeed);
-            //steering /= Mass;
-
-            //Velocity = (Velocity + steering).Truncate(MaxSpeed);
-            //Pos += Velocity;
-        }
-        public void ChangeState(State newState)
-        {
-            CurrentState?.Exit(this);
-            CurrentState = newState;
-            CurrentState.Enter(this, World.food);
         }
 
-        public void ChangeStatus(Status status)
+        public void ChangeStatus(EntityStatus entityStatus)
         {
-            this.status = status;
+            Status = entityStatus;
         }
         public bool IsHungry()
         {
@@ -74,7 +56,7 @@ namespace SteeringCS.entity
         }
         public bool IsSafe()
         {
-            /**   if (Vector2D.DistanceSquared(Target.Pos, this.Pos) > panicDistance)
+            /**if (Vector2D.DistanceSquared(Target.Pos, this.Pos) > panicDistance)
                {
                    return false;
                }*/
