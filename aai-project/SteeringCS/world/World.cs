@@ -77,6 +77,7 @@ namespace SteeringCS.world
 {
     public class World
     {
+        public static bool showNodes = true;
         private List<MovingEntity> _entities = new List<MovingEntity>();
         private List<Dirt> _objects = new List<Dirt>();
         private List<Node> Nodes = new List<Node>();
@@ -243,10 +244,14 @@ namespace SteeringCS.world
         public void Render(Graphics g)
         {
             _entities.ForEach(e => e.Render(g));
-            foreach (var value in Graph.NodeMap)
+            if (showNodes)
             {
-                Graph.Render(g, value.Value);
+                foreach (var value in Graph.NodeMap)
+                {
+                    Graph.Render(g, value.Value);
+                }
             }
+            
             Target.Render(g);
             _objects.ForEach(o => o.Render(g));
         }

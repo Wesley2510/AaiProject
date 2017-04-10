@@ -59,6 +59,16 @@ namespace SteeringCS
                 case Keys.Escape:
                     Application.Exit();
                     break;
+                case Keys.K:
+                    if (World.showNodes)
+                    {
+                        World.showNodes = false;
+                    }
+                    else
+                    {
+                        World.showNodes = true;
+                    }
+                    break;
             }
         }
 

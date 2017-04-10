@@ -140,13 +140,14 @@ namespace SteeringCS.util
         {
             return String.Format("({0},{1})", X, Y);
         }
+
         public static int GetDistanceBetweenVectors(Vector2D nodePostition, Vector2D dirtPos)
         {
             if (nodePostition.X > dirtPos.X)
             {
                 if (nodePostition.Y > dirtPos.Y)
                 {
-                    return (int)Math.Sqrt(Math.Pow(nodePostition.X - dirtPos.X, 2) + Math.Pow(nodePostition.X - dirtPos.X, 2)); 
+                    return (int)Math.Sqrt(Math.Pow(nodePostition.X - dirtPos.X, 2) + Math.Pow(nodePostition.Y - dirtPos.Y, 2)); 
                 }
                 else if (nodePostition.Y < dirtPos.Y)
                 {
@@ -161,7 +162,6 @@ namespace SteeringCS.util
             {
                 if (nodePostition.Y > dirtPos.Y)
                 {
-
                     return (int)Math.Sqrt(Math.Pow(dirtPos.X - nodePostition.X, 2) + Math.Pow(nodePostition.Y - dirtPos.Y, 2)); 
                 }
                 else if (nodePostition.Y < dirtPos.Y)
@@ -173,15 +173,15 @@ namespace SteeringCS.util
                     return (int)(nodePostition.X - dirtPos.X);
                 }
             }
-            if (nodePostition.X == dirtPos.X)
+            if ((int) nodePostition.X == (int) dirtPos.X)
             {
                 if (nodePostition.Y > dirtPos.Y)
                 {
-                    return (int)(nodePostition.Y - dirtPos.Y);
+                    return (int) (nodePostition.Y - dirtPos.Y);
                 }
                 else if (nodePostition.Y < dirtPos.Y)
                 {
-                    return (int)(dirtPos.Y - nodePostition.Y);
+                    return (int) (dirtPos.Y - nodePostition.Y);
                 }
                 else
                 {
