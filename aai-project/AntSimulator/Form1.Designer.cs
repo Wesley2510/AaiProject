@@ -1,4 +1,4 @@
-﻿namespace SteeringCS
+﻿namespace AntSimulator
 {
     partial class Form1
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dbPanel1 = new SteeringCS.DBPanel();
+            this.dbPanel1 = new AntSimulator.DBPanel();
             this.SuspendLayout();
             // 
             // dbPanel1
@@ -48,7 +48,7 @@
             this.ClientSize = new System.Drawing.Size(612, 436);
             this.Controls.Add(this.dbPanel1);
             this.Name = "Form1";
-            this.Text = "Steering";
+            this.Text = "AntSimulator";
             this.ResumeLayout(false);
 
         }

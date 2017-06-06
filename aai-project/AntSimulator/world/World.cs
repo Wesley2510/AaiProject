@@ -1,8 +1,13 @@
-﻿using SteeringCS.entity;
+﻿using AntSimulator.behaviour;
+using AntSimulator.entity;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SteeringCS
+namespace AntSimulator
 {
     class World
     {
@@ -15,28 +20,25 @@ namespace SteeringCS
         {
             Width = w;
             Height = h;
-            Populate();
+            populate();
         }
 
-        private void Populate()
+        private void populate()
         {
-            Ant v = new Ant(new Vector2D(10, 10), this)
-            {
-                VColor = Color.Blue
-            };
+            Ant v = new Ant(new Vector2D(10,10), this);
+            v.VColor = Color.Blue;
             entities.Add(v);
 
-            Target = new Ant(new Vector2D(100, 60), this)
-            {
-                VColor = Color.DarkRed,
-                Pos = new Vector2D(100, 40)
-            };
+            Target = new Ant(new Vector2D(100, 60), this);
+            Target.VColor = Color.DarkRed;
+            Target.Pos = new Vector2D(100, 40);
         }
 
         public void Update(float timeElapsed)
         {
             foreach (MovingEntity me in entities)
             {
+                // me.SB = new SeekBehaviour(me); // restore later
                 me.Update(timeElapsed);
             }  
         }

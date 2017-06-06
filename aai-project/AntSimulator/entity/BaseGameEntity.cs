@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace SteeringCS
+namespace AntSimulator
 {
     abstract class BaseGameEntity
     {
@@ -20,5 +20,5 @@ namespace SteeringCS
         {
             g.FillEllipse(Brushes.Blue, new Rectangle((int) Pos.X,(int) Pos.Y, 10, 10));
         }
-    }   
+    }
 }

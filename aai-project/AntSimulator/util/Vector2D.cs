@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SteeringCS
+namespace AntSimulator
 {
-
+   
     public class Vector2D
     {
         public double X { get; set; }
@@ -35,15 +39,15 @@ namespace SteeringCS
 
         public Vector2D Sub(Vector2D v)
         {
-            X -= v.X;
-            Y -= v.Y;
+            this.X -= v.X;
+            this.Y -= v.Y;
             return this;
         }
 
         public Vector2D Multiply(double value)
         {
-            X *= value;
-            Y *= value;
+            this.X *= value;
+            this.Y *= value;
             return this;
         }
 
@@ -69,7 +73,7 @@ namespace SteeringCS
         
         public Vector2D Clone()
         {
-            return new Vector2D(X, Y);
+            return new Vector2D(this.X, this.Y);
         }
         
         public override string ToString()

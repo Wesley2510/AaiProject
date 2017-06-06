@@ -1,6 +1,11 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SteeringCS.entity
+namespace AntSimulator.entity
 {
     class Ant : MovingEntity
     {
@@ -13,7 +18,7 @@ namespace SteeringCS.entity
 
             VColor = Color.Black;
         }
-
+        
         public override void Render(Graphics g)
         {
             double leftCorner = Pos.X - Scale;

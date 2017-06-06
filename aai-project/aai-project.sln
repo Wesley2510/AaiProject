@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ant Simulator", "Ant Simulator\Ant Simulator.csproj", "{D0DFE906-2D3A-4BD1-9808-4A41AC39D4A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AntSimulator", "AntSimulator\AntSimulator.csproj", "{BD179484-1369-4437-BD3B-4AECFB627286}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D0DFE906-2D3A-4BD1-9808-4A41AC39D4A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0DFE906-2D3A-4BD1-9808-4A41AC39D4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0DFE906-2D3A-4BD1-9808-4A41AC39D4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0DFE906-2D3A-4BD1-9808-4A41AC39D4A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD179484-1369-4437-BD3B-4AECFB627286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD179484-1369-4437-BD3B-4AECFB627286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD179484-1369-4437-BD3B-4AECFB627286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD179484-1369-4437-BD3B-4AECFB627286}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
