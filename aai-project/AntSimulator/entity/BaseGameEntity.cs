@@ -1,8 +1,10 @@
-﻿using System.Drawing;
+﻿using AntSimulator.util;
+using AntSimulator.world;
+using System.Drawing;
 
-namespace AntSimulator
+namespace AntSimulator.entity
 {
-    abstract class BaseGameEntity
+    public abstract class BaseGameEntity
     {
         public Vector2D Pos { get; set; }
         public float Scale { get; set; }
@@ -18,7 +20,7 @@ namespace AntSimulator
 
         public virtual void Render(Graphics g)
         {
-            g.FillEllipse(Brushes.Blue, new Rectangle((int) Pos.X,(int) Pos.Y, 10, 10));
+            g.FillEllipse(Brushes.Blue, new Rectangle((int)Pos.X, (int)Pos.Y, 10, 10));
         }
     }
 }

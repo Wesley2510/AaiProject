@@ -1,15 +1,11 @@
-﻿using AntSimulator.behaviour;
-using AntSimulator.entity;
-using System;
+﻿using AntSimulator.entity;
+using AntSimulator.util;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AntSimulator
+namespace AntSimulator.world
 {
-    class World
+    public class World
     {
         private List<MovingEntity> entities = new List<MovingEntity>();
         public Ant Target { get; set; }
@@ -25,7 +21,7 @@ namespace AntSimulator
 
         private void populate()
         {
-            Ant v = new Ant(new Vector2D(10,10), this);
+            Ant v = new Ant(new Vector2D(10, 10), this);
             v.VColor = Color.Blue;
             entities.Add(v);
 
@@ -38,9 +34,9 @@ namespace AntSimulator
         {
             foreach (MovingEntity me in entities)
             {
-                // me.SB = new SeekBehaviour(me); // restore later
+                // me.Steeringbehaviour = new SeekBehaviour(me); // restore later
                 me.Update(timeElapsed);
-            }  
+            }
         }
 
         public void Render(Graphics g)

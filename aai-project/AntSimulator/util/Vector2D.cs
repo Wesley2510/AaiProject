@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AntSimulator
+namespace AntSimulator.util
 {
-   
     public class Vector2D
     {
         public double X { get; set; }
         public double Y { get; set; }
 
-        public Vector2D() : this(0,0)
+        public Vector2D() : this(0, 0)
         {
         }
 
@@ -24,61 +19,99 @@ namespace AntSimulator
 
         public double Length()
         {
-            throw new NotImplementedException();
+            return Math.Sqrt(X * X + Y * Y);
         }
 
         public double LengthSquared()
         {
-            throw new NotImplementedException();
+            return X * X + Y * Y;
+        }
+
+        public static Vector2D operator +(Vector2D v1, Vector2D v2)
+        {
+            return new Vector2D(v1.X + v2.X, v1.Y + v2.Y);
+        }
+
+        public static Vector2D operator -(Vector2D v1, Vector2D v2)
+        {
+            return new Vector2D(v1.X - v2.X, v1.Y - v2.Y);
+        }
+
+        public static Vector2D operator *(Vector2D v1, Vector2D v2)
+        {
+            return new Vector2D(v1.X * v2.X, v1.Y * v2.Y);
+        }
+
+        public static Vector2D operator /(Vector2D v1, Vector2D v2)
+        {
+            return new Vector2D(v1.X / v2.X, v1.Y / v2.Y);
         }
 
         public Vector2D Add(Vector2D v)
         {
-            throw new NotImplementedException();
+            X += v.X;
+            Y += v.Y;
+            return this;
         }
 
         public Vector2D Sub(Vector2D v)
         {
-            this.X -= v.X;
-            this.Y -= v.Y;
+            X -= v.X;
+            Y -= v.Y;
             return this;
         }
 
         public Vector2D Multiply(double value)
         {
-            this.X *= value;
-            this.Y *= value;
+            X *= value;
+            Y *= value;
             return this;
         }
 
-        public Vector2D divide(double value)
+        public Vector2D Divide(double value)
         {
-            throw new NotImplementedException();
+            X /= value;
+            Y /= value;
+            return this;
         }
 
         public Vector2D Normalize()
         {
-            throw new NotImplementedException();
+            return new Vector2D(X /= Length(), Y /= Length());
         }
 
-        public Vector2D truncate(double maX)
+        public Vector2D Truncate(double maX)
         {
-            if (Length() > maX)
-            {
-                Normalize();
-                Multiply(maX);
-            }
+            if (!(Length() > maX)) return this;
+            Normalize();
+            Multiply(maX);
             return this;
         }
-        
+
+        public double Distance(Vector2D v1)
+        {
+            var xSeparation = v1.X - X;
+            var ySeparation = v1.Y - Y;
+            return Math.Sqrt(ySeparation * ySeparation + xSeparation * xSeparation);
+
+        }
+
+        public double DistanceSquared(Vector2D v1)
+        {
+            var xSeparation = v1.X - X;
+            var ySeparation = v1.Y - Y;
+            return ySeparation * ySeparation + xSeparation * xSeparation;
+
+        }
+
         public Vector2D Clone()
         {
-            return new Vector2D(this.X, this.Y);
+            return new Vector2D(X, Y);
         }
-        
+
         public override string ToString()
         {
-            return String.Format("({0},{1})", X, Y);
+            return $"({X},{Y})";
         }
     }
 

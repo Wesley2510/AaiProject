@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AntSimulator.util;
+using AntSimulator.world;
 using System.Windows.Forms;
 
 namespace AntSimulator
@@ -16,7 +10,7 @@ namespace AntSimulator
         System.Timers.Timer timer;
 
         public const float timeDelta = 0.8f;
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -39,7 +33,7 @@ namespace AntSimulator
         {
             world.Render(e.Graphics);
         }
-        
+
         private void dbPanel1_MouseClick(object sender, MouseEventArgs e)
         {
             world.Target.Pos = new Vector2D(e.X, e.Y);
