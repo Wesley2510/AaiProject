@@ -7,6 +7,7 @@ namespace AntSimulator
     public partial class Form1 : Form
     {
         World world;
+        
         System.Timers.Timer timer;
 
         public const float timeDelta = 0.8f;
@@ -16,7 +17,6 @@ namespace AntSimulator
             InitializeComponent();
 
             world = new World(w: dbPanel1.Width, h: dbPanel1.Height);
-
             timer = new System.Timers.Timer();
             timer.Elapsed += Timer_Elapsed;
             timer.Interval = 20;

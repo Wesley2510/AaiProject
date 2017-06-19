@@ -2,6 +2,8 @@
 using AntSimulator.util;
 using System.Collections.Generic;
 using System.Drawing;
+using AntSimulator.GraphPath;
+
 
 namespace AntSimulator.world
 {
@@ -11,11 +13,15 @@ namespace AntSimulator.world
         public Ant Target { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        private Graph graph;
+    
 
         public World(int w, int h)
         {
+            graph = new Graph(this);
             Width = w;
             Height = h;
+           // graph.FloodFill(graph.startnode);
             populate();
         }
 
