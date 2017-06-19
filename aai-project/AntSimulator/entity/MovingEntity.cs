@@ -1,10 +1,13 @@
 ﻿using AntSimulator.behaviour;
 using AntSimulator.util;
 using AntSimulator.world;
-using System;
 
 namespace AntSimulator.entity
 {
+    public enum Deceleration
+    {
+        Slow, Normal, Fast
+    }
     public abstract class MovingEntity : BaseGameEntity
     {
         public Vector2D Velocity { get; set; }
@@ -12,17 +15,22 @@ namespace AntSimulator.entity
         public float MaxSpeed { get; set; }
         public SteeringBehaviour Steeringbehaviour { get; set; }
 
-        public MovingEntity(Vector2D pos, World w) : base(pos, w)
+        protected MovingEntity(Vector2D pos, World w) : base(pos, w)
         {
-            Mass = 30;
-            MaxSpeed = 150;
+            Mass = 10;
+            MaxSpeed = 5;
             Velocity = new Vector2D();
         }
 
         public override void Update(float timeElapsed)
         {
-            // to do
-            Console.WriteLine(ToString());
+            if (Steeringbehaviour == null) return;
+            var steering = Steeringbehaviour.Calculate();
+            steering.Truncate(MaxSpeed);
+            steering /= Mass;
+
+            Velocity = (Velocity + steering).Truncate(MaxSpeed);
+            Pos += Velocity;
         }
 
         public override string ToString()
