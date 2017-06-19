@@ -38,5 +38,22 @@ namespace AntSimulator
         {
             world.Target.Pos = new Vector2D(e.X, e.Y);
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Z:
+                    if (world.graphVisible)
+                    {
+                        world.graphVisible = false;
+                    }
+                    else
+                    {
+                        world.graphVisible = true;
+                    }
+                    break;
+            }
+        }
     }
 }

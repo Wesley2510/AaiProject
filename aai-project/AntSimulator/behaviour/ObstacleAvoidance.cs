@@ -6,8 +6,8 @@ namespace AntSimulator.behaviour
 {
     public class ObstacleAvoidance : SteeringBehaviour
     {
-        private float MaxSeeAhead;
-        private float MaxPushingForce;
+        private float seeAhead;
+        private float pushingForce;
 
         private enum pushWeight
         {
@@ -17,41 +17,41 @@ namespace AntSimulator.behaviour
         }
 
         private pushWeight weighting;
-        private float pushtweaker;
-        private Vector2D ahead1;
-        private Vector2D ahead2;
-        private Vector2D ahead3;
+        private float pushTweaker;
+        private Vector2D vector1;
+        private Vector2D vector2;
+        private Vector2D vector3;
 
         public ObstacleAvoidance(MovingEntity movingentity) : base(movingentity)
         {
-            MaxSeeAhead = 100f;
-            MaxPushingForce = 100f;
-            pushtweaker = 0.35f;
+            seeAhead = 100f;
+            pushingForce = 100f;
+            pushTweaker = 0.35f;
         }
 
         public override Vector2D Calculate()
         {
-            float dynamic_length = (float)(MovingEntity.Velocity.Length() / MovingEntity.MaxSpeed);
-            ahead1 = MovingEntity.Pos + Vector2D.Normalize(MovingEntity.Velocity) * dynamic_length;
-            ahead2 = MovingEntity.Pos + Vector2D.Normalize(MovingEntity.Velocity) * dynamic_length * 0.5f;
-            ahead3 = MovingEntity.Pos;
+            float dynamicLength = (float) (MovingEntity.Velocity.Length() / MovingEntity.MaxSpeed);
+            vector1 = MovingEntity.Pos + Vector2D.Normalize(MovingEntity.Velocity) * dynamicLength;
+            vector2 = MovingEntity.Pos + Vector2D.Normalize(MovingEntity.Velocity) * dynamicLength * 0.5f;
+            vector3 = MovingEntity.Pos;
             List<Obstacle> potentialCollisions =
-                MovingEntity.MyWorld.getNearbyObstacles(ahead2.Length(), MovingEntity.Pos);
+                MovingEntity.MyWorld.GetNearbyObstacles(vector1.Length(), MovingEntity.Pos);
             Obstacle mostThreatening = FindMostThreateningObstacle(potentialCollisions);
             Vector2D avoidence = new Vector2D();
             if (mostThreatening != null)
             {
-                avoidence = new Vector2D(
-                    ahead1.X - mostThreatening.Pos.X, ahead1.Y - mostThreatening.Pos.Y);
+                avoidence.X = vector1.X - mostThreatening.Pos.X;
+                avoidence.Y = vector1.Y - mostThreatening.Pos.Y;
                 avoidence = Vector2D.Normalize(avoidence);
-                avoidence *= MaxPushingForce;
+                avoidence *= pushingForce;
             }
             else
             {
                 avoidence *= 0;
             }
-            avoidence *= (float)(weighting);
-            return avoidence * pushtweaker;
+            avoidence *= (float) weighting;
+            return avoidence * pushTweaker;
         }
 
         private Obstacle FindMostThreateningObstacle(List<Obstacle> potentialCollisions)
@@ -60,9 +60,7 @@ namespace AntSimulator.behaviour
             foreach (var obstacle in potentialCollisions)
             {
                 bool collision = VectorInCircle(obstacle);
-                if (collision && mostThreatening == null ||
-                    Vector2D.Distance(MovingEntity.Pos, obstacle.Pos) <
-                    Vector2D.Distance(MovingEntity.Pos, mostThreatening.Pos))
+                if (collision && mostThreatening == null || Vector2D.Distance(MovingEntity.Pos, obstacle.Pos) < Vector2D.Distance(MovingEntity.Pos, mostThreatening.Pos))
                 {
                     mostThreatening = obstacle;
                 }
@@ -72,17 +70,17 @@ namespace AntSimulator.behaviour
 
         private bool VectorInCircle(Obstacle obstacle)
         {
-            if (Vector2D.Distance(obstacle.Pos, ahead1) <= obstacle.Radius + MovingEntity.Radius)
+            if (Vector2D.Distance(obstacle.Pos, vector1) <= obstacle.Radius + MovingEntity.Radius)
             {
                 weighting = pushWeight.LongDistance;
                 return true;
             }
-            if (Vector2D.Distance(obstacle.Pos, ahead2) <= obstacle.Radius + MovingEntity.Radius)
+            if (Vector2D.Distance(obstacle.Pos, vector2) <= obstacle.Radius + MovingEntity.Radius)
             {
                 weighting = pushWeight.MediumDistance;
                 return true;
             }
-            if (Vector2D.Distance(obstacle.Pos, ahead3) <= obstacle.Radius + MovingEntity.Radius)
+            if (Vector2D.Distance(obstacle.Pos, vector3) <= obstacle.Radius + MovingEntity.Radius)
             {
                 weighting = pushWeight.ShortDistance;
                 return true;

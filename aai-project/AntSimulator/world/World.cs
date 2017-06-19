@@ -1,6 +1,10 @@
+
 ﻿using System;
 using AntSimulator.behaviour;
 using AntSimulator.entity;
+
+﻿using AntSimulator.entity;
+
 using AntSimulator.util;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,43 +17,55 @@ namespace AntSimulator.world
     {
         public List<MovingEntity> Entities = new List<MovingEntity>();
         public List<Obstacle> Obstacles = new List<Obstacle>();
-        public Ant Target { get; set; }
+        public WorldGrid WorldGrid { get; set; }
+        public Obstacle Target { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public bool graphVisible;
         private Graph graph;
-    
+
 
         public World(int w, int h)
         {
+            graphVisible = false;
             graph = new Graph(this);
             Width = w;
             Height = h;
-           graph.FloodFill(graph.startnode);
-           
-           Populate();
+            WorldGrid = new WorldGrid(10, 10, Width, Height);
 
+
+            Populate();
+
+
+           
+            graph.FloodFill(graph.startnode);
         }
 
         private void Populate()
         {
+            Target = new Obstacle(new Vector2D(400, 155), this) { color = Color.DarkRed, size = 5 };
             var ant = new Ant(new Vector2D(10, 10), this) { VColor = Color.Blue };
             Entities.Add(ant);
+            WorldGrid.Add(ant);
+            WorldGrid.Add(Target);
 
-            Target = new Ant(new Vector2D(100, 60), this) { VColor = Color.DarkRed };
             var obstacle1 = new Obstacle(new Vector2D(320, 200), this) { color = Color.Black, size = 100 };
             var obstacle2 = new Obstacle(new Vector2D(220, 70), this) { color = Color.Black, size = 100 };
             var obstacle3 = new Obstacle(new Vector2D(50, 250), this) { color = Color.Black, size = 100 };
+
             Obstacles.Add(obstacle1);
             Obstacles.Add(obstacle2);
             Obstacles.Add(obstacle3);
+
+            WorldGrid.Add(obstacle1);
+            WorldGrid.Add(obstacle2);
+            WorldGrid.Add(obstacle3);
         }
 
         public void Update(float timeElapsed)
         {
             foreach (MovingEntity me in Entities)
             {
-                //me.Steeringbehaviour = new Seek(me, Target.Pos);
-                me.Steeringbehaviour = new Arrival(me, Target.Pos, Deceleration.Normal);
                 me.Update(timeElapsed);
             }
         }
@@ -59,68 +75,26 @@ namespace AntSimulator.world
             Entities.ForEach(e => e.Render(g));
             Obstacles.ForEach(o => o.Render(g));
             Target.Render(g);
-            graph.Render(g);
-        }
-
-       
-        public List<Obstacle> getNearbyObstacles(double length, Vector2D movingEntityPos)
-        {
-            List<BaseGameEntity> possibleObstacles = WorldGrid.FindNeightbours(movingEntityPos, length);
-            List<Obstacle> InterestingObstacles = new List<Obstacle>();
-            foreach (BaseGameEntity possibleobstacle in possibleObstacles)
+            if (graphVisible)
             {
-                if (!(possibleobstacle is Obstacle)) continue;
-                if (Vector2D.Distance(possibleobstacle.Pos, movingEntityPos) < length)
-                    InterestingObstacles.Add((Obstacle)possibleobstacle);
+                graph.Render(g);
             }
-            return InterestingObstacles;
+                
         }
-        #region MyRegion
 
-
-
-
-        public List<BaseGameEntity> FindNeightbours(Vector2D pos, double SearchBlock)
+        
+        public List<Obstacle> GetNearbyObstacles(double size, Vector2D position)
         {
-            int gridHeight = 15;
-            int gridWidth = 15;
-            List<BaseGameEntity> neighbours = new List<BaseGameEntity>();
-            int cellsDown =
-                (int)Math.Ceiling((pos.Y + SearchBlock) / gridHeight - pos.Y / gridHeight);
-            int cellsUp =
-                (int)Math.Floor((pos.Y - SearchBlock) / gridHeight - pos.Y / gridHeight);
-            int cellsLeft =
-                (int)Math.Floor((pos.X - SearchBlock) / gridWidth - pos.X / gridWidth);
-            int cellsRight =
-                (int)Math.Ceiling((pos.X + SearchBlock) / gridWidth - pos.X / gridWidth);
-            int collumn = ToCollumn(pos.X);
-            int row = ToRow(pos.Y);
-            for (var j = cellsUp + collumn; j <= cellsDown + collumn; j++)
+            List<BaseGameEntity> possibleObstacles = WorldGrid.FindNeighbours(position, size);
+            List<Obstacle> interestingObstacles = new List<Obstacle>();
+            foreach (var possibleObstacle in possibleObstacles)
             {
-                if (j < 0 || j >= GameCollumns) continue;
-                for (var i = cellsLeft + row; i <= cellsRight + row; i++)
-                {
-                    if (i < 0 || i >= GameRows) continue;
-                    neighbours.AddRange(grid[j][i]);
-                }
+                if (!(possibleObstacle is Obstacle)) continue;
+                if (Vector2D.Distance(possibleObstacle.Pos, position) < size)
+                    interestingObstacles.Add((Obstacle)possibleObstacle);
             }
-            return neighbours;
+            return interestingObstacles;
         }
-        public int ToCollumn(double position)
-        {
-            int result = (int)Math.Floor(position / gridWidth);
-            result = result >= GameCollumns ? GameCollumns - 1 : result;
-            result = result < 0 ? 0 : result;
-            return result;
-        }
-
-        public int ToRow(double position)
-        {
-            int result = (int)Math.Floor(position / gridHeight);
-            result = result >= GameRows ? GameRows - 1 : result;
-            result = result < 0 ? 0 : result;
-            return result;
-        }
-        #endregion
+ 
     }
 }

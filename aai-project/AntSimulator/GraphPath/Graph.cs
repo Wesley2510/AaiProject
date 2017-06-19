@@ -9,50 +9,30 @@ namespace AntSimulator.GraphPath
 {
     class Graph
     {
-        private Dictionary<string, Node> nodeMap = new Dictionary<string, Node>();
-        private World world;
-     private int nodeDistance = 15;
-        private float maxRadius;
-        public bool IsBusy;
-
+        private Dictionary<string, Node> _nodeMap = new Dictionary<string, Node>();
+        private World _world;
+        private int _nodeDistance = 15;
+        private float _maxRadius;
+        
         public Node startnode;
 
         public Graph(World pWorld)
         {
-            world = pWorld;
+            _world = pWorld;
             startnode = new Node(20, 20);
-            maxRadius = 0;
-            foreach (Obstacle obstacle in world.Obstacles)
+            _maxRadius = 0;
+            foreach (Obstacle obstacle in _world.Obstacles)
             {
-                maxRadius = (maxRadius < obstacle.Radius ? obstacle.Radius : maxRadius);
+                _maxRadius = (_maxRadius < obstacle.Radius ? obstacle.Radius : _maxRadius);
             }
-            IsBusy = false;
+          
         }
 
-        private void addNode(int x, int y)
-        {
-            Node v = new Node(x, y);
-            nodeMap.Add(v.id, v);
-        }
-
+        
         private void addEdge(string name1, string name2, float cost)
         {
-            Node v = nodeMap[name1];
-            Node w = nodeMap[name2];
-            foreach (Edge edge in v.adjEdges)
-            {
-                if (edge == new Edge(w, cost))
-                {
-                    return;
-                }
-            }
-            v.adjEdges.Add(new Edge(w, cost));
-        }
-
-        private void addTwoWayEdge(string name1, string name2, float cost)
-        {
-            Node v = nodeMap[name1];
-            Node w = nodeMap[name2];
+            Node v = _nodeMap[name1];
+            Node w = _nodeMap[name2];
             foreach (Edge edge in v.adjEdges)
             {
                 if (edge.dest == w)
@@ -66,7 +46,7 @@ namespace AntSimulator.GraphPath
 
         private void ClearAll()
         {
-            foreach (KeyValuePair<string, Node> keyValuePair in nodeMap)
+            foreach (KeyValuePair<string, Node> keyValuePair in _nodeMap)
             {
                 keyValuePair.Value.Reset();
             }
@@ -76,20 +56,20 @@ namespace AntSimulator.GraphPath
         {
             float x = (float)node.position.X;
             float y = (float)node.position.Y;
-            Node tl = new Node(x + nodeDistance, y - nodeDistance);
-            Node top = new Node(x, y - nodeDistance);
-            Node tr = new Node(x + nodeDistance, y - nodeDistance);
-            if (nodeMap.ContainsKey(tl.id))
+            Node tl = new Node(x + _nodeDistance, y - _nodeDistance);
+            Node top = new Node(x, y - _nodeDistance);
+            Node tr = new Node(x + _nodeDistance, y - _nodeDistance);
+            if (_nodeMap.ContainsKey(tl.id))
             {
-                this.addTwoWayEdge(node.id, tl.id, (float)Math.Sqrt(2));
+                addEdge(node.id, tl.id, (float)Math.Sqrt(2));
             }
-            if (nodeMap.ContainsKey(tr.id))
+            if (_nodeMap.ContainsKey(tr.id))
             {
-                this.addTwoWayEdge(node.id, tr.id, 1);
+                addEdge(node.id, tr.id, 1);
             }
-            if (nodeMap.ContainsKey(top.id))
+            if (_nodeMap.ContainsKey(top.id))
             {
-                this.addTwoWayEdge(node.id, top.id, (float)Math.Sqrt(2));
+                addEdge(node.id, top.id, (float)Math.Sqrt(2));
             }
         }
 
@@ -97,10 +77,10 @@ namespace AntSimulator.GraphPath
         {
             float x = (float)node.position.X;
             float y = (float)node.position.Y;
-            Node left = new Node(x - nodeDistance, y);
-            if (nodeMap.ContainsKey(left.id))
+            Node left = new Node(x - _nodeDistance, y);
+            if (_nodeMap.ContainsKey(left.id))
             {
-                this.addTwoWayEdge(node.id, left.id, 1);
+                addEdge(node.id, left.id, 1);
             }
         }
 
@@ -108,10 +88,10 @@ namespace AntSimulator.GraphPath
         {
             float x = (float)node.position.X;
             float y = (float)node.position.Y;
-            Node right = new Node(x + nodeDistance, y);
-            if (nodeMap.ContainsKey(right.id))
+            Node right = new Node(x + _nodeDistance, y);
+            if (_nodeMap.ContainsKey(right.id))
             {
-                this.addTwoWayEdge(node.id, right.id, 1);
+                addEdge(node.id, right.id, 1);
             }
         }
 
@@ -119,20 +99,20 @@ namespace AntSimulator.GraphPath
         {
             float x = (float)node.position.X;
             float y = (float)node.position.Y;
-            Node bl = new Node(x + nodeDistance, y + nodeDistance);
-            Node bot = new Node(x, y + nodeDistance);
-            Node br = new Node(x + nodeDistance, y + nodeDistance);
-            if (nodeMap.ContainsKey(bl.id))
+            Node bl = new Node(x + _nodeDistance, y + _nodeDistance);
+            Node bot = new Node(x, y + _nodeDistance);
+            Node br = new Node(x + _nodeDistance, y + _nodeDistance);
+            if (_nodeMap.ContainsKey(bl.id))
             {
-                this.addTwoWayEdge(node.id, bl.id, (float)Math.Sqrt(2));
+                addEdge(node.id, bl.id, (float)Math.Sqrt(2));
             }
-            if (nodeMap.ContainsKey(bot.id))
+            if (_nodeMap.ContainsKey(bot.id))
             {
-                this.addTwoWayEdge(node.id, bot.id, 1);
+                addEdge(node.id, bot.id, 1);
             }
-            if (nodeMap.ContainsKey(br.id))
+            if (_nodeMap.ContainsKey(br.id))
             {
-                this.addTwoWayEdge(node.id, br.id, (float)Math.Sqrt(2));
+                addEdge(node.id, br.id, (float)Math.Sqrt(2));
             }
         }
 
@@ -147,32 +127,32 @@ namespace AntSimulator.GraphPath
         {
             float x = (float)current.position.X;
             float y = (float)current.position.Y;
-            Node top = new Node(x, y - nodeDistance);
-            Node left = new Node(x - nodeDistance, y);
-            Node right = new Node(x + nodeDistance, y);
-            Node bot = new Node(x, y + nodeDistance);
+            Node top = new Node(x, y - _nodeDistance);
+            Node left = new Node(x - _nodeDistance, y);
+            Node right = new Node(x + _nodeDistance, y);
+            Node bottom = new Node(x, y + _nodeDistance);
 
-            if (checkNode(bot))
+            if (checkNode(bottom))
             {
-                nodeMap.Add(bot.id, bot);
+                _nodeMap.Add(bottom.id, bottom);
 
-                FloodFill(bot);
+                FloodFill(bottom);
             }
             if (checkNode(top))
             {
-                nodeMap.Add(top.id, top);
+                _nodeMap.Add(top.id, top);
 
                 FloodFill(top);
             }
             if (checkNode(left))
             {
-                nodeMap.Add(left.id, left);
+                _nodeMap.Add(left.id, left);
 
                 FloodFill(left);
             }
             if (checkNode(right))
             {
-                nodeMap.Add(right.id, right);
+                _nodeMap.Add(right.id, right);
 
                 FloodFill(right);
             }
@@ -184,16 +164,15 @@ namespace AntSimulator.GraphPath
         {
             float x = (float)node.position.X;
             float y = (float)node.position.Y;
-            List<Obstacle> obstacles = world.getNearbyObstacles(maxRadius + 5, node.position);
+            List<Obstacle> obstacles = _world.GetNearbyObstacles(_maxRadius + 5, node.position);
             foreach (Obstacle obstacle in obstacles)
             {
-
                 if (Vector2D.Distance(node.position, obstacle.Pos) < obstacle.Radius + 10)
                 {
                     return false;
                 }
             }
-            if (x < 0 || y < 0 || x > world.Width || y > world.Height || nodeMap.ContainsKey(node.id))
+            if (x < 0 || y < 0 || x > _world.Width || y > _world.Height || _nodeMap.ContainsKey(node.id))
             {
                 return false;
             }
@@ -205,7 +184,7 @@ namespace AntSimulator.GraphPath
             Pen nodepen = new Pen(Color.Blue, 2f);
             Pen EdgeTested = new Pen(Color.Purple, 2f);
             Pen EdgePen = new Pen(Color.LightGray, 1f);
-            foreach (KeyValuePair<string, Node> n in nodeMap)
+            foreach (KeyValuePair<string, Node> n in _nodeMap)
             {
                 foreach (Edge e in n.Value.adjEdges)
                 {
