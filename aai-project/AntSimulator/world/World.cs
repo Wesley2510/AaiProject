@@ -22,7 +22,7 @@ namespace AntSimulator.world
         public int Width { get; set; }
         public int Height { get; set; }
         public bool graphVisible;
-        private Graph graph;
+        private Graph _graph;
 
 
         public World(int w, int h)
@@ -38,8 +38,8 @@ namespace AntSimulator.world
         {
             WorldGrid = new WorldGrid(10, 10, Width, Height);
             Populate();
-            graph = new Graph(this);
-            graph.FloodFill(graph.startnode);
+            _graph = new Graph(this);
+            _graph.generateGraph(_graph.startigNode);
         }
         private void Populate()
         {
@@ -77,7 +77,7 @@ namespace AntSimulator.world
             Target.Render(g);
             if (graphVisible)
             {
-                graph.Render(g);
+                _graph.Render(g);
             }
 
         }

@@ -2,13 +2,13 @@
 {
     public class Edge
     {
-        public Node dest;   /* Second Node in Edge */
-        public float cost;   // Edge cost        
+        public Node destination;   
+        public float cost;        
 
-        public Edge(Node d, float c)
+        public Edge(Node pDestination, float pCost)
         {
-            this.dest = d;
-            this.cost = c;
+            destination = pDestination;
+            cost = pCost;
         }
     }
 }
