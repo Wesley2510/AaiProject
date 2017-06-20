@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Security.Policy;
 using AntSimulator.entity;
 using AntSimulator.util;
 using AntSimulator.world;
@@ -147,13 +149,11 @@ namespace AntSimulator.GraphPath
             if (checkNode(left))
             {
                 _nodeMap.Add(left.id, left);
-
                 FloodFill(left);
             }
             if (checkNode(right))
             {
                 _nodeMap.Add(right.id, right);
-
                 FloodFill(right);
             }
             Edges(current);
@@ -162,12 +162,12 @@ namespace AntSimulator.GraphPath
 
         private bool checkNode(Node node)
         {
-            float x = (float)node.position.X;
-            float y = (float)node.position.Y;
-            List<Obstacle> obstacles = _world.GetNearbyObstacles(_maxRadius + 5, node.position);
+            var x = node.position.X;
+            var y = node.position.Y;
+            List<Obstacle> obstacles = _world.Obstacles;// GetNearbyObstacles(_maxRadius + 5, node.position);
             foreach (Obstacle obstacle in obstacles)
             {
-                if (Vector2D.Distance(node.position, obstacle.Pos) < obstacle.Radius + 10)
+                if (Vector2D.Distance(node.position,new Vector2D(obstacle.Pos.X + (obstacle.size/2),obstacle.Pos.Y+ (obstacle.size / 2)))  < obstacle.size/2 + 10)
                 {
                     return false;
                 }

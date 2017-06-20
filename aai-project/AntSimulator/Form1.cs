@@ -16,7 +16,8 @@ namespace AntSimulator
         {
             InitializeComponent();
 
-            world = new World(w: dbPanel1.Width, h: dbPanel1.Height);
+            world = new World(dbPanel1.Width, dbPanel1.Height);
+            world.Initialize();
             timer = new System.Timers.Timer();
             timer.Elapsed += Timer_Elapsed;
             timer.Interval = 20;

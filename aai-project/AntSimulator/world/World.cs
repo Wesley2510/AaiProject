@@ -1,9 +1,9 @@
 
-﻿using System;
+using System;
 using AntSimulator.behaviour;
 using AntSimulator.entity;
 
-﻿using AntSimulator.entity;
+using AntSimulator.entity;
 
 using AntSimulator.util;
 using System.Collections.Generic;
@@ -27,20 +27,20 @@ namespace AntSimulator.world
 
         public World(int w, int h)
         {
-            graphVisible = false;
-            graph = new Graph(this);
             Width = w;
             Height = h;
-            WorldGrid = new WorldGrid(10, 10, Width, Height);
-
-
-            Populate();
-
 
            
-            graph.FloodFill(graph.startnode);
+            graphVisible = false;
         }
 
+        public void Initialize()
+        {
+            WorldGrid = new WorldGrid(10, 10, Width, Height);
+            Populate();
+            graph = new Graph(this);
+            graph.FloodFill(graph.startnode);
+        }
         private void Populate()
         {
             Target = new Obstacle(new Vector2D(400, 155), this) { color = Color.DarkRed, size = 5 };
@@ -49,9 +49,9 @@ namespace AntSimulator.world
             WorldGrid.Add(ant);
             WorldGrid.Add(Target);
 
-            var obstacle1 = new Obstacle(new Vector2D(320, 200), this) { color = Color.Black, size = 100 };
+            var obstacle1 = new Obstacle(new Vector2D(320, 200), this) { color = Color.Black, size = 50 };
             var obstacle2 = new Obstacle(new Vector2D(220, 70), this) { color = Color.Black, size = 100 };
-            var obstacle3 = new Obstacle(new Vector2D(50, 250), this) { color = Color.Black, size = 100 };
+            var obstacle3 = new Obstacle(new Vector2D(50, 250), this) { color = Color.Black, size = 80 };
 
             Obstacles.Add(obstacle1);
             Obstacles.Add(obstacle2);
@@ -79,10 +79,10 @@ namespace AntSimulator.world
             {
                 graph.Render(g);
             }
-                
+
         }
 
-        
+
         public List<Obstacle> GetNearbyObstacles(double size, Vector2D position)
         {
             List<BaseGameEntity> possibleObstacles = WorldGrid.FindNeighbours(position, size);
@@ -95,6 +95,6 @@ namespace AntSimulator.world
             }
             return interestingObstacles;
         }
- 
+
     }
 }
