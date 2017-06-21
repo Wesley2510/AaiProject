@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using AntSimulator.entity;
 using AntSimulator.util;
 using AntSimulator.world;
@@ -170,6 +172,67 @@ namespace AntSimulator.GraphPath
 
             return true;
         }
+        //private void ClearAll()
+        //{
+        //    foreach (KeyValuePair<string, Node> keyValuePair in _nodeMap)
+        //    {
+        //        keyValuePair.Value.Reset();
+        //    }
+        //}
+
+        //private void AStar(Graph graph, string startName, string goalName)
+        //{
+        //    int i = 0;
+        //    PriortyQueue<Path> pq = new PriortyQueue<Path>();
+        //    Node start = _nodeMap[startName];
+
+        //    if (_nodeMap[startName] == null)
+        //    {
+        //        throw new ArgumentNullException("No such node found");
+        //    }
+        //    int nodesSeen = 0;
+        //    ClearAll();
+        //    var cost = Vector2D.Distance(start.position, _nodeMap[goalName].position);
+        //    Path startpath = new Path(start, (float)cost);
+        //    pq.Enqueue(startpath);
+        //    start.dist = 0;
+
+        //    while ((pq.Any()) && (nodesSeen < _nodeMap.Count)) //check  goal
+        //    {
+        //        Path vrec = pq.Dequeue();
+        //        Node v = vrec.dest;
+        //        if (v == _nodeMap[goalName])
+        //        {
+        //            break;
+        //        }
+        //        if (v.scratch != 0)
+        //        {
+        //            continue;
+        //        }
+        //        v.scratch = 1;
+        //        nodesSeen++;
+
+        //        foreach (Edge e in v.adjEdges)
+        //        {
+        //            Node w = e.destination;
+        //            float cvw = e.cost;
+
+        //            if (cvw < 0)
+        //            {
+        //                throw new ArgumentNullException("Graph has negative Edges");
+        //            }
+        //            if (w.dist > v.dist + cvw)
+        //            {
+        //                w.dist = v.dist + cvw;
+        //                w.prev = v;
+        //                cost = Vector2D.Distance(w.position, _nodeMap[goalName].position);
+        //                Path newpath = new Path(w, (float)cost);
+        //                pq.Enqueue(newpath, newpath.cost);
+        //            }
+        //        }
+        //    }
+        //}
+
         public void Render(Graphics G)
         {
             Pen nodepen = new Pen(Color.Blue, 2f);

@@ -62,9 +62,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Goals\CompositeGoal.cs" />
+    <Compile Include="Goals\Goal.cs" />
+    <Compile Include="Goals\GoalFollowPath.cs" />
+    <Compile Include="Goals\GoalGetFood.cs" />
+    <Compile Include="Goals\GoalSeek.cs" />
+    <Compile Include="Goals\GoalTravelTo.cs" />
     <Compile Include="GraphPath\Edge.cs" />
     <Compile Include="GraphPath\Graph.cs" />
+    <Compile Include="GraphPath\MinMaxBinaryHeap.cs" />
     <Compile Include="GraphPath\Node.cs" />
+    <Compile Include="GraphPath\Path.cs" />
+    <Compile Include="GraphPath\PriortyQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="behaviour\SteeringBehaviour.cs" />
