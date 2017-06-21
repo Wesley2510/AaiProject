@@ -23,7 +23,8 @@ namespace AntSimulator.entity
             double size = Scale * 2;
 
             Pen p = new Pen(VColor, 2);
-            g.DrawEllipse(p, new Rectangle((int)leftCorner, (int)rightCorner, (int)size, (int)size));
+            g.DrawImage(Properties.Resources.ant, (float)leftCorner,(float)rightCorner, 20,15);
+            //g.DrawEllipse(p, new Rectangle((int)leftCorner, (int)rightCorner, (int)size, (int)size));
             g.DrawLine(p, (int)Pos.X, (int)Pos.Y, (int)Pos.X + (int)(Velocity.X * 2), (int)Pos.Y + (int)(Velocity.Y * 2));
         }
     }

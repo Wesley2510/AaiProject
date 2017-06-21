@@ -26,7 +26,8 @@ namespace AntSimulator.entity
             double leftCorner = Pos.X - Scale;
             double rightCorner = Pos.Y - Scale;
 
-            g.FillEllipse(p, new Rectangle((int)leftCorner, (int)rightCorner, (int)size, (int)size));
+            //g.FillEllipse(p, new Rectangle((int)leftCorner, (int)rightCorner, (int)size, (int)size));
+            g.DrawImage(Properties.Resources.rock, (float) leftCorner - 15, (float) rightCorner - 15, 128,128);
         }
     }
 }

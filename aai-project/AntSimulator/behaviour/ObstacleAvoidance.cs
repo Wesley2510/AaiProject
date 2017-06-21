@@ -35,8 +35,7 @@ namespace AntSimulator.behaviour
             vector1 = MovingEntity.Pos + Vector2D.Normalize(MovingEntity.Velocity) * dynamicLength;
             vector2 = MovingEntity.Pos + Vector2D.Normalize(MovingEntity.Velocity) * dynamicLength * 0.5f;
             vector3 = MovingEntity.Pos;
-            List<Obstacle> potentialCollisions =
-                MovingEntity.MyWorld.GetNearbyObstacles(vector1.Length(), MovingEntity.Pos);
+            List<Obstacle> potentialCollisions = MovingEntity.MyWorld.GetNearbyObstacles(vector1.Length(), MovingEntity.Pos);
             Obstacle mostThreatening = FindMostThreateningObstacle(potentialCollisions);
             Vector2D avoidence = new Vector2D();
             if (mostThreatening != null)

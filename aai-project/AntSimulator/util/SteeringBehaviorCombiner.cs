@@ -21,11 +21,6 @@ namespace AntSimulator.util
                     steering += behavior.Calculate();
                     continue;
                 }
-                if (behavior.GetType() == typeof(ObstacleAvoidance))
-                {
-                    steering += behavior.Calculate() * 2;
-                    continue;
-                }
                 if (behavior.GetType() == typeof(Seek))
                 {
                     steering += behavior.Calculate();

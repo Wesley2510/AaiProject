@@ -60,8 +60,8 @@ namespace AntSimulator.world
 
         public List<Obstacle> GetNearbyObstacles(double size, Vector2D position)
         {
-            List<BaseGameEntity> possibleObstacles = WorldGrid.FindNeighbours(position, size);
-            List<Obstacle> interestingObstacles = new List<Obstacle>();
+            var possibleObstacles = WorldGrid.FindNeighbours(position, size);
+            var interestingObstacles = new List<Obstacle>();
             foreach (var possibleObstacle in possibleObstacles)
             {
                 if (!(possibleObstacle is Obstacle)) continue;
