@@ -5,12 +5,13 @@ namespace AntSimulator.behaviour
 {
     public abstract class SteeringBehaviour
     {
-        public MovingEntity Movingentity { get; set; }
+        public MovingEntity MovingEntity { get; set; }
+        public Vector2D Target { get; set; }
         public abstract Vector2D Calculate();
 
-        public SteeringBehaviour(MovingEntity movingentity)
+        protected SteeringBehaviour(MovingEntity movingentity)
         {
-            Movingentity = movingentity;
+            MovingEntity = movingentity;
         }
     }
 

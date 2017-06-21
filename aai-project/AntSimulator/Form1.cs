@@ -7,6 +7,7 @@ namespace AntSimulator
     public partial class Form1 : Form
     {
         World world;
+        
         System.Timers.Timer timer;
 
         public const float timeDelta = 0.8f;
@@ -15,8 +16,8 @@ namespace AntSimulator
         {
             InitializeComponent();
 
-            world = new World(w: dbPanel1.Width, h: dbPanel1.Height);
-
+            world = new World(dbPanel1.Width, dbPanel1.Height);
+            world.Initialize();
             timer = new System.Timers.Timer();
             timer.Elapsed += Timer_Elapsed;
             timer.Interval = 20;
@@ -37,6 +38,23 @@ namespace AntSimulator
         private void dbPanel1_MouseClick(object sender, MouseEventArgs e)
         {
             world.Target.Pos = new Vector2D(e.X, e.Y);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Z:
+                    if (world.graphVisible)
+                    {
+                        world.graphVisible = false;
+                    }
+                    else
+                    {
+                        world.graphVisible = true;
+                    }
+                    break;
+            }
         }
     }
 }
