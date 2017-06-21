@@ -58,11 +58,11 @@ namespace AntSimulator.behaviour
             Obstacle mostThreatening = null;
             foreach (var obstacle in potentialCollisions)
             {
-                bool collision = VectorInCircle(obstacle);
-                if (collision && mostThreatening == null || Vector2D.Distance(MovingEntity.Pos, obstacle.Pos) < Vector2D.Distance(MovingEntity.Pos, mostThreatening.Pos))
-                {
-                    mostThreatening = obstacle;
-                }
+                //bool collision = VectorInCircle(obstacle);
+                //if (collision && mostThreatening == null || Vector2D.Distance(MovingEntity.Pos, obstacle.Pos) < Vector2D.Distance(MovingEntity.Pos, mostThreatening.Pos))
+                //{
+                //    mostThreatening = obstacle;
+                //}
             }
             return mostThreatening;
         }
