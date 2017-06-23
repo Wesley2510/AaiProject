@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="behaviour\Arrival.cs" />
+    <Compile Include="behaviour\Explore.cs" />
     <Compile Include="behaviour\ObstacleAvoidance.cs" />
+    <Compile Include="behaviour\PathFollowing.cs" />
     <Compile Include="entity\BaseGameEntity.cs" />
     <Compile Include="behaviour\Seek.cs" />
     <Compile Include="DBPanel.cs">
