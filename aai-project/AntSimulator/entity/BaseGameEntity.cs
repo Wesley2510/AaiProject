@@ -9,13 +9,13 @@ namespace AntSimulator.entity
         public Vector2D Pos { get; set; }
         public float Scale { get; set; }
         public float Radius { get; set; }
+        public Color Color { get; set; }
         public World MyWorld { get; set; }
 
         protected BaseGameEntity(Vector2D pos, World w)
         {
             Pos = pos;
             MyWorld = w;
-            Radius = Scale / 2;
         }
 
         public abstract void Update(float delta);

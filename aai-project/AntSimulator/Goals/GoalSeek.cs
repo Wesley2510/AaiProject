@@ -25,7 +25,7 @@ namespace AntSimulator.Goals
         public override void Activate()
         {
            _seekBehaviour = new Seek(_me, _target);
-            _me.Steeringbehaviours.Add(_seekBehaviour);
+           _me.SteeringBehaviours.Add(_seekBehaviour);
         }
 
         public override Vector2D Process()
@@ -45,7 +45,7 @@ namespace AntSimulator.Goals
 
         public override void Terminate()
         {
-            _me.Steeringbehaviours.Remove(_seekBehaviour);
+            _me.SteeringBehaviours.Remove(_seekBehaviour);
         }
     }
 }

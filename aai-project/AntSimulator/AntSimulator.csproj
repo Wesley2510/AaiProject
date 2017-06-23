@@ -56,6 +56,7 @@
     <Compile Include="entity\MovingEntity.cs" />
     <Compile Include="entity\Ant.cs" />
     <Compile Include="entity\Obstacle.cs" />
+    <Compile Include="entity\SeekPoint.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,20 +65,34 @@
     </Compile>
     <Compile Include="Goals\CompositeGoal.cs" />
     <Compile Include="Goals\Goal.cs" />
+    <Compile Include="Goals\GoalArrival.cs" />
     <Compile Include="Goals\GoalFollowPath.cs" />
     <Compile Include="Goals\GoalGetFood.cs" />
     <Compile Include="Goals\GoalSeek.cs" />
     <Compile Include="Goals\GoalTravelTo.cs" />
-    <Compile Include="GraphPath\Edge.cs" />
-    <Compile Include="GraphPath\Graph.cs" />
+    <Compile Include="graph\Edge.cs" />
+    <Compile Include="graph\Graph.cs" />
     <Compile Include="GraphPath\MinMaxBinaryHeap.cs" />
-    <Compile Include="GraphPath\Node.cs" />
-    <Compile Include="GraphPath\Path.cs" />
+    <Compile Include="graph\Node.cs" />
+    <Compile Include="graph\Path.cs" />
     <Compile Include="GraphPath\PriortyQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="behaviour\SteeringBehaviour.cs" />
-    <Compile Include="util\SteeringBehaviorCombiner.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="util\priorityqueue\FastPriorityQueue.cs" />
+    <Compile Include="util\priorityqueue\FastPriorityQueueNode.cs" />
+    <Compile Include="util\priorityqueue\GenericPriorityQueue.cs" />
+    <Compile Include="util\priorityqueue\GenericPriorityQueueNode.cs" />
+    <Compile Include="util\priorityqueue\IFixedSizePriorityQueue.cs" />
+    <Compile Include="util\priorityqueue\IPriorityQueue.cs" />
+    <Compile Include="util\priorityqueue\SimplePriorityQueue.cs" />
+    <Compile Include="util\priorityqueue\StablePriorityQueue.cs" />
+    <Compile Include="util\priorityqueue\StablePriorityQueueNode.cs" />
     <Compile Include="util\Vector2D.cs" />
     <Compile Include="world\World.cs" />
     <Compile Include="world\WorldGrid.cs" />
@@ -88,13 +103,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -108,7 +117,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="images\ant.png" />
+    <Content Include="images\dirt.jpg" />
+    <Content Include="images\rock.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
