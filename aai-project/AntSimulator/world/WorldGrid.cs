@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AntSimulator.entity;
+﻿using AntSimulator.entity;
 using AntSimulator.util;
+using System;
+using System.Collections.Generic;
 
 namespace AntSimulator.world
 {
@@ -40,14 +37,14 @@ namespace AntSimulator.world
 
         public List<BaseGameEntity> FindNeighbours(Vector2D pos, double size)
         {
-            List<BaseGameEntity> neighbours = new List<BaseGameEntity>();
-            int cellsDown =
+            var neighbours = new List<BaseGameEntity>();
+            var cellsDown =
                 (int)Math.Ceiling((pos.Y + size) / GridWidth - pos.Y / GridHeight);
-            int cellsUp =
+            var cellsUp =
                 (int)Math.Floor((pos.Y - size) / GridHeight - pos.Y / GridHeight);
-            int cellsLeft =
+            var cellsLeft =
                 (int)Math.Floor((pos.X - size) / GridWidth - pos.X / GridWidth);
-            int cellsRight =
+            var cellsRight =
                 (int)Math.Ceiling((pos.X + size) / GridWidth - pos.X / GridWidth);
             int collumn = ToCollumn(pos.X);
             int row = ToRow(pos.Y);
