@@ -6,17 +6,14 @@ namespace AntSimulator.behaviour
 {
     public class ObstacleAvoidance : SteeringBehaviour
     {
-        private float seeAhead;
-        private float pushingForce;
-
         private enum pushWeight
         {
             LongDistance = 2,
             MediumDistance = 4,
             ShortDistance = 10
         }
-
         private pushWeight weighting;
+        private float pushingForce;
         private float pushTweaker;
         private Vector2D vector1;
         private Vector2D vector2;
@@ -24,14 +21,13 @@ namespace AntSimulator.behaviour
 
         public ObstacleAvoidance(MovingEntity movingentity) : base(movingentity)
         {
-            seeAhead = 100f;
             pushingForce = 100f;
             pushTweaker = 0.35f;
         }
 
         public override Vector2D Calculate()
         {
-            float dynamicLength = (float) (MovingEntity.Velocity.Length() / MovingEntity.MaxSpeed);
+            float dynamicLength = (float)(MovingEntity.Velocity.Length() / MovingEntity.MaxSpeed);
             vector1 = MovingEntity.Pos + Vector2D.Normalize(MovingEntity.Velocity) * dynamicLength;
             vector2 = MovingEntity.Pos + Vector2D.Normalize(MovingEntity.Velocity) * dynamicLength * 0.5f;
             vector3 = MovingEntity.Pos;
@@ -49,7 +45,7 @@ namespace AntSimulator.behaviour
             {
                 avoidence *= 0;
             }
-            avoidence *= (float) weighting;
+            avoidence *= (float)weighting;
             return avoidence * pushTweaker;
         }
 
@@ -58,11 +54,11 @@ namespace AntSimulator.behaviour
             Obstacle mostThreatening = null;
             foreach (var obstacle in potentialCollisions)
             {
-                //bool collision = VectorInCircle(obstacle);
-                //if (collision && mostThreatening == null || Vector2D.Distance(MovingEntity.Pos, obstacle.Pos) < Vector2D.Distance(MovingEntity.Pos, mostThreatening.Pos))
-                //{
-                //    mostThreatening = obstacle;
-                //}
+                bool collision = VectorInCircle(obstacle);
+                if (collision && (mostThreatening == null || Vector2D.Distance(MovingEntity.Pos, obstacle.Pos) < Vector2D.Distance(MovingEntity.Pos, mostThreatening.Pos)))
+                {
+                    mostThreatening = obstacle;
+                }
             }
             return mostThreatening;
         }

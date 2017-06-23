@@ -6,26 +6,21 @@ namespace AntSimulator.entity
 {
     public class Ant : MovingEntity
     {
-        public Color VColor { get; set; }
-
         public Ant(Vector2D pos, World w) : base(pos, w)
         {
             Velocity = new Vector2D(0, 0);
-            Scale = 5;
-
-            VColor = Color.Black;
+            Scale = 20;
+            MaxSpeed = 5;
         }
 
         public override void Render(Graphics g)
         {
             double leftCorner = Pos.X - Scale;
             double rightCorner = Pos.Y - Scale;
-            double size = Scale * 2;
 
-            Pen p = new Pen(VColor, 2);
-            g.DrawImage(Properties.Resources.ant, (float)leftCorner,(float)rightCorner, 20,15);
-            //g.DrawEllipse(p, new Rectangle((int)leftCorner, (int)rightCorner, (int)size, (int)size));
-            g.DrawLine(p, (int)Pos.X, (int)Pos.Y, (int)Pos.X + (int)(Velocity.X * 2), (int)Pos.Y + (int)(Velocity.Y * 2));
+            g.DrawImage(Properties.Resources.ant, (float)leftCorner, (float)rightCorner, 20, 15);
+            //g.DrawEllipse(p, new Rectangle((int)leftCorner, (int)rightCorner, (int)Scale * 2, (int)Scale * 2));
+            //g.DrawLine(p, (int)Pos.X, (int)Pos.Y, (int)Pos.X + (int)(Velocity.X * 2), (int)Pos.Y + (int)(Velocity.Y * 2));
         }
     }
 }

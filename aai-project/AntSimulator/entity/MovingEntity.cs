@@ -17,20 +17,19 @@ namespace AntSimulator.entity
         public Vector2D Velocity { get; set; }
         public float Mass { get; set; }
         public float MaxSpeed { get; set; }
-        public List<SteeringBehaviour> Steeringbehaviours { get; set; }
+        public List<SteeringBehaviour> SteeringBehaviours { get; set; }
 
         protected MovingEntity(Vector2D pos, World w) : base(pos, w)
         {
-            Mass = 10;
-            MaxSpeed = 5;
+            Mass = 30;
             Velocity = new Vector2D();
-            Steeringbehaviours = new List<SteeringBehaviour>();
+            SteeringBehaviours = new List<SteeringBehaviour>();
             ActivateSteering();
         }
 
         public override void Update(float timeElapsed)
         {
-            var steering = SteeringBehaviorCombiner.CombineAllBehaviors(Steeringbehaviours);
+            var steering = SteeringBehaviour.CombineAllBehaviors(SteeringBehaviours);
             var acceleration = Vector2D.Truncate(steering, MaxSpeed) / Mass;
             Velocity += acceleration * timeElapsed;
             Velocity = Vector2D.Truncate(Velocity, MaxSpeed);
@@ -38,10 +37,10 @@ namespace AntSimulator.entity
         }
 
         public void ActivateSteering()
-        {
-            Steeringbehaviours.Add(new ObstacleAvoidance(this));
-            Steeringbehaviours.Add(new Arrival(this, MyWorld.Target.Pos, Deceleration.Fast));
-            Steeringbehaviours.Add(new Seek(this, MyWorld.Target.Pos));
+        {          
+            /*SteeringBehaviours.Add(new Arrival(this, MyWorld.Target.Pos, Deceleration.Fast));*/
+            SteeringBehaviours.Add(new Seek(this, MyWorld.Target.Pos));
+            SteeringBehaviours.Add(new ObstacleAvoidance(this));
         }
     }
 }

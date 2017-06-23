@@ -1,14 +1,8 @@
-
-using System;
-using AntSimulator.behaviour;
 using AntSimulator.entity;
-
-using AntSimulator.entity;
-
+using AntSimulator.graph;
 using AntSimulator.util;
 using System.Collections.Generic;
 using System.Drawing;
-using AntSimulator.GraphPath;
 
 
 namespace AntSimulator.world
@@ -18,10 +12,10 @@ namespace AntSimulator.world
         public List<MovingEntity> Entities = new List<MovingEntity>();
         public List<Obstacle> Obstacles = new List<Obstacle>();
         public WorldGrid WorldGrid { get; set; }
-        public Obstacle Target { get; set; }
+        public SeekPoint Target { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public bool graphVisible;
+        public bool GraphVisible;
         private Graph _graph;
 
 
@@ -30,8 +24,7 @@ namespace AntSimulator.world
             Width = w;
             Height = h;
 
-           
-            graphVisible = false;
+            GraphVisible = false;
         }
 
         public void Initialize()
@@ -39,19 +32,19 @@ namespace AntSimulator.world
             WorldGrid = new WorldGrid(10, 10, Width, Height);
             Populate();
             _graph = new Graph(this);
-            _graph.generateGraph(_graph.startigNode);
+            _graph.GenerateGraph(_graph.StartingNode);
         }
         private void Populate()
         {
-            Target = new Obstacle(new Vector2D(400, 155), this) { color = Color.DarkRed, size = 5 };
-            var ant = new Ant(new Vector2D(10, 10), this) { VColor = Color.Blue };
+            Target = new SeekPoint(new Vector2D(400, 155), this) { Color = Color.GreenYellow, Scale = 5 };
+            var ant = new Ant(new Vector2D(10, 10), this) { Scale = 10 };
             Entities.Add(ant);
             WorldGrid.Add(ant);
             WorldGrid.Add(Target);
 
-            var obstacle1 = new Obstacle(new Vector2D(320, 200), this) { color = Color.Black, size = 50 };
-            var obstacle2 = new Obstacle(new Vector2D(220, 70), this) { color = Color.Black, size = 100 };
-            var obstacle3 = new Obstacle(new Vector2D(50, 250), this) { color = Color.Black, size = 80 };
+            var obstacle1 = new Obstacle(new Vector2D(320, 200), this);
+            var obstacle2 = new Obstacle(new Vector2D(220, 70), this);
+            var obstacle3 = new Obstacle(new Vector2D(50, 250), this);
 
             Obstacles.Add(obstacle1);
             Obstacles.Add(obstacle2);
@@ -75,7 +68,7 @@ namespace AntSimulator.world
             Entities.ForEach(e => e.Render(g));
             Obstacles.ForEach(o => o.Render(g));
             Target.Render(g);
-            if (graphVisible)
+            if (GraphVisible)
             {
                 _graph.Render(g);
             }

@@ -1,33 +1,26 @@
 ﻿using AntSimulator.util;
 using AntSimulator.world;
-using System;
 using System.Drawing;
 
 namespace AntSimulator.entity
 {
     public class Obstacle : BaseGameEntity
     {
-        public Color color;
-        public float size = 20;
-
         public Obstacle(Vector2D pos, World w) : base(pos, w)
         {
-
+            Radius = 35;
         }
 
         public override void Update(float delta)
         {
-            throw new NotImplementedException();
         }
 
         public override void Render(Graphics g)
         {
-            Brush p = new SolidBrush(color);
-            double leftCorner = Pos.X - Scale;
-            double rightCorner = Pos.Y - Scale;
+            double leftCorner = Pos.X - Radius;
+            double rightCorner = Pos.Y - Radius;
 
-            //g.FillEllipse(p, new Rectangle((int)leftCorner, (int)rightCorner, (int)size, (int)size));
-            g.DrawImage(Properties.Resources.rock, (float) leftCorner - 15, (float) rightCorner - 15, 128,128);
+            g.DrawImage(Properties.Resources.rock, (int)leftCorner, (int)rightCorner, Radius * 2, Radius * 2);
         }
     }
 }
