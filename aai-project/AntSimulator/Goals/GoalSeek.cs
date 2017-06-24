@@ -53,7 +53,7 @@ namespace AntSimulator.Goals
 
         public override void AddChild(Goal g)
         {
-            throw new NotImplementedException();
+          
         }
     }
 }

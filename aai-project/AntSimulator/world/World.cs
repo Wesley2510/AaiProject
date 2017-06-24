@@ -33,10 +33,11 @@ namespace AntSimulator.world
         public void Initialize()
         {
             WorldGrid = new WorldGrid(10, 10, Width, Height);
-            Populate();
+            
             _graph = new Graph(this);
             _graph.GenerateGraph(_graph.StartingNode);
-            
+            Populate();
+
         }
         private void Populate()
         {
@@ -45,8 +46,15 @@ namespace AntSimulator.world
             var ant = new Ant(new Vector2D(10, 10), this) { Scale = 10 };
             ant.goals = new GoalSeek(ant, Target.Pos, 10);
 
-            var ant2 = new Ant(new Vector2D(11, 11), this) { Scale = 10 };
-            ant2.goals = new GoalGetFood(ant2);
+            var ant2 = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
+            ant2.goals = new GoalArrival(ant2,Target.Pos,20);
+
+            var ant3 = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
+            ant3.goals = new GoalGetFood(ant3);
+
+
+            var ant4= new Ant(new Vector2D(20, 20), this) { Scale = 10 };
+            ant4.goals = new GoalFollowPath(ant4, Target.Pos);
 
             var apple1 = new Food(new Vector2D( 380, 220), this);
             var apple2 = new Food(new Vector2D(500, 25), this);
@@ -54,11 +62,17 @@ namespace AntSimulator.world
 
 
 
-            Entities.Add(ant);
-            WorldGrid.Add(ant);
+        //    Entities.Add(ant);
+          //  WorldGrid.Add(ant);
 
-            Entities.Add(ant2);
-            WorldGrid.Add(ant2);
+         //   Entities.Add(ant2);
+         //   WorldGrid.Add(ant2);
+
+         //   Entities.Add(ant3);
+         //   WorldGrid.Add(ant3);
+
+            Entities.Add(ant4);
+            WorldGrid.Add(ant4);
 
             WorldGrid.Add(Target);
 
@@ -124,9 +138,10 @@ namespace AntSimulator.world
             }
             return interestingObstacles;
         }
+
         public List<Food> GetNearbyFood(double size, Vector2D position)
         {
-            var possibleFood = WorldGrid.FindNeighbours(position, size);
+            var possibleFood = Food; //WorldGrid.FindNeighbours(position, size);
             var interestingFood = new List<Food>();
             foreach (var possFood in possibleFood)
             {

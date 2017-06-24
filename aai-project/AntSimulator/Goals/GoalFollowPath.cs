@@ -14,18 +14,21 @@ namespace AntSimulator.Goals
     class GoalFollowPath : CompositeGoal
     {
 
-        private List<Vector2D> _path;
+        public  List<Vector2D> _path;
         public Vector2D target;
 
 
         public GoalFollowPath(MovingEntity me, Vector2D pTarget) : base(me)
         {
+          
             target = pTarget;
+            Activate();
         }
 
         public override void Activate()
         {
-            me.MyWorld._graph.getRoute(me.Pos, target, out _path);
+            List<Vector2D> _path = new List<Vector2D>();
+            _path =  me.MyWorld._graph.getRoute(me.Pos, target);
             Subgoals.Push(new GoalArrival(me, _path[0], 5));
             for (var index = 1; index < _path.Count; index++)
             {

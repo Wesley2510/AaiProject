@@ -173,6 +173,13 @@ namespace AntSimulator.graph
             return true;
         }
 
+        public void ClearAll()
+        {
+            foreach (KeyValuePair<string, Node> keyValuePair in _nodeMap)
+            {
+                keyValuePair.Value.Reset();
+            }
+        }
         public void AStar(Graph graph, string startName, string goalName)
         {
             int i = 0;
@@ -184,7 +191,7 @@ namespace AntSimulator.graph
                 throw new ArgumentNullException("No such node found");
             }
             int nodesSeen = 0;
-            //ClearAll();
+            ClearAll();
             float cost = (float)Vector2D.Distance(start.Position, _nodeMap[goalName].Position);
             var startpath = new Path(start, cost);
             priorityQueue.Enqueue(startpath, startpath.Cost);
@@ -225,17 +232,17 @@ namespace AntSimulator.graph
                 }
             }
         }
-        public bool getRoute(Vector2D currentLocation, Vector2D Destination, out List<Vector2D> routeList)
+        public List<Vector2D> getRoute(Vector2D currentLocation, Vector2D Destination)
         {
-            routeList = new List<Vector2D>();
-            if (IsBusy) return false;
+            List<Vector2D> routeList = new List<Vector2D>();
+            if (IsBusy) return routeList;
             IsBusy = true;
             string nearestNodeToCurrentLocation = OptimalNode(FindNearbyNodes(currentLocation), Destination).Id;
             string nearestNodeToDestination = OptimalNode(FindNearbyNodes(Destination), currentLocation).Id;
             AStar(this, nearestNodeToCurrentLocation, nearestNodeToDestination);
             var beginNode = _nodeMap[nearestNodeToCurrentLocation];
             var currentNode = _nodeMap[nearestNodeToDestination];
-            if (beginNode == null || currentNode == null) return false;
+            if (beginNode == null || currentNode == null) return routeList;
             while (beginNode != null && currentNode != beginNode)
             {
                 routeList.Add(currentNode.Position);
@@ -243,7 +250,7 @@ namespace AntSimulator.graph
             }
             routeList.Add(beginNode.Position);
             IsBusy = false;
-            return true;
+            return routeList;
         }
 
         private Node OptimalNode(Stack<Node> possibleNodes, Vector2D target)

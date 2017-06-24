@@ -20,7 +20,7 @@ namespace AntSimulator.Goals
         
         public GoalGetFood(MovingEntity me) : base(me)
         {
-           List<Food> foods = me.MyWorld.GetNearbyFood(1000, me.Pos);
+           List<Food> foods = me.MyWorld.GetNearbyFood(9999999, me.Pos);
             foreach (var food in foods)
             {
                 Console.Write(food);
