@@ -35,6 +35,7 @@ namespace AntSimulator.entity
             Velocity += acceleration * timeElapsed;
             Velocity = Vector2D.Truncate(Velocity, MaxSpeed);
             Pos = Pos + Velocity * timeElapsed;
+            
         }
 
         public void ActivateSteering()

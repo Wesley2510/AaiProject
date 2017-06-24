@@ -39,6 +39,7 @@ namespace AntSimulator.Goals
 
         public override Status Process()
         {
+            
             if (!isActive())
             {
                 Activate();

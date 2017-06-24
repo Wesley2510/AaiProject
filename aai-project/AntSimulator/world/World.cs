@@ -20,6 +20,7 @@ namespace AntSimulator.world
         public int Height { get; set; }
         public bool GraphVisible;
         public Graph _graph { get; set; }
+        public Ant walkerAnt;
 
 
         public World(int w, int h)
@@ -33,28 +34,18 @@ namespace AntSimulator.world
         public void Initialize()
         {
             WorldGrid = new WorldGrid(10, 10, Width, Height);
-            
+            Populate();
             _graph = new Graph(this);
             _graph.GenerateGraph(_graph.StartingNode);
-            Populate();
+           
+            PopulateAnts();
 
         }
         private void Populate()
         {
             Target = new SeekPoint(new Vector2D(400, 155), this) { Color = Color.GreenYellow, Scale = 5 };
 
-            var ant = new Ant(new Vector2D(10, 10), this) { Scale = 10 };
-            ant.goals = new GoalSeek(ant, Target.Pos, 10);
-
-            var ant2 = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
-            ant2.goals = new GoalArrival(ant2,Target.Pos,20);
-
-            var ant3 = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
-            ant3.goals = new GoalGetFood(ant3);
-
-
-            var ant4= new Ant(new Vector2D(20, 20), this) { Scale = 10 };
-            ant4.goals = new GoalFollowPath(ant4, Target.Pos);
+        
 
             var apple1 = new Food(new Vector2D( 380, 220), this);
             var apple2 = new Food(new Vector2D(500, 25), this);
@@ -62,31 +53,18 @@ namespace AntSimulator.world
 
 
 
-        //    Entities.Add(ant);
-          //  WorldGrid.Add(ant);
 
-         //   Entities.Add(ant2);
-         //   WorldGrid.Add(ant2);
-
-         //   Entities.Add(ant3);
-         //   WorldGrid.Add(ant3);
-
-            Entities.Add(ant4);
-            WorldGrid.Add(ant4);
+           
 
             WorldGrid.Add(Target);
 
             WorldGrid.Add(apple1);
             WorldGrid.Add(apple2);
             WorldGrid.Add(apple3);
-
-
-
-
-
-            var obstacle1 = new Obstacle(new Vector2D(320, 200), this);
-            var obstacle2 = new Obstacle(new Vector2D(220, 70), this);
-            var obstacle3 = new Obstacle(new Vector2D(50, 250), this);
+            
+            var obstacle1 = new Obstacle(new Vector2D(320, 200), this) {Scale = 50};
+            var obstacle2 = new Obstacle(new Vector2D(220, 70), this) { Scale = 50 };
+            var obstacle3 = new Obstacle(new Vector2D(50, 250), this) { Scale = 50 };
             
             Obstacles.Add(obstacle1);
             Obstacles.Add(obstacle2);
@@ -102,10 +80,44 @@ namespace AntSimulator.world
 
 
 
+
+        }
+
+        private void PopulateAnts()
+        {
+            var ant = new Ant(new Vector2D(10, 10), this) { Scale = 10 };
+            ant.goals = new GoalSeek(ant, Target.Pos, 10);
+
+            var ant2 = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
+            ant2.goals = new GoalArrival(ant2, Target.Pos, 20);
+
+            var ant3 = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
+            ant3.goals = new GoalGetFood(ant3);
+
+
+            var ant4 = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
+            ant4.goals = new GoalFollowPath(ant4, Target.Pos);
+
+            walkerAnt = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
+            walkerAnt.goals = new GoalFollowPath(walkerAnt, Target.Pos);
+
+
+            //    Entities.Add(ant);
+            //  WorldGrid.Add(ant);
+
+            //   Entities.Add(ant2);
+            //   WorldGrid.Add(ant2);
+
+            //   Entities.Add(ant3);
+            //   WorldGrid.Add(ant3);
+
+            Entities.Add(ant4);
+            WorldGrid.Add(ant4);
         }
 
         public void Update(float timeElapsed)
         {
+            
             foreach (MovingEntity me in Entities)
             {
                 me.Update(timeElapsed);

@@ -1,6 +1,8 @@
 ﻿using AntSimulator.util;
 using AntSimulator.world;
 using System.Windows.Forms;
+using AntSimulator.entity;
+using AntSimulator.Goals;
 
 namespace AntSimulator
 {
@@ -36,6 +38,7 @@ namespace AntSimulator
         private void dbPanel1_MouseClick(object sender, MouseEventArgs e)
         {
             _world.Target.Pos = new Vector2D(e.X, e.Y);
+            _world.walkerAnt.goals = new GoalFollowPath(_world.walkerAnt, _world.Target.Pos);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
