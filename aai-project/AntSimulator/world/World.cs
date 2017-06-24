@@ -19,8 +19,9 @@ namespace AntSimulator.world
         public int Width { get; set; }
         public int Height { get; set; }
         public bool GraphVisible;
+        public bool Activate;
         public Graph _graph { get; set; }
-        public Ant walkerAnt;
+       // public Ant walkerAnt;
 
 
         public World(int w, int h)
@@ -62,17 +63,17 @@ namespace AntSimulator.world
             WorldGrid.Add(apple2);
             WorldGrid.Add(apple3);
             
-            var obstacle1 = new Obstacle(new Vector2D(320, 200), this) {Scale = 50};
-            var obstacle2 = new Obstacle(new Vector2D(220, 70), this) { Scale = 50 };
-            var obstacle3 = new Obstacle(new Vector2D(50, 250), this) { Scale = 50 };
+            //var obstacle1 = new Obstacle(new Vector2D(400, 200), this) {Scale = 50};
+            //var obstacle2 = new Obstacle(new Vector2D(220, 70), this) { Scale = 50 };
+            //var obstacle3 = new Obstacle(new Vector2D(50, 250), this) { Scale = 50 };
             
-            Obstacles.Add(obstacle1);
-            Obstacles.Add(obstacle2);
-            Obstacles.Add(obstacle3);
+            //Obstacles.Add(obstacle1);
+            //Obstacles.Add(obstacle2);
+            //Obstacles.Add(obstacle3);
 
-            WorldGrid.Add(obstacle1);
-            WorldGrid.Add(obstacle2);
-            WorldGrid.Add(obstacle3);
+            //WorldGrid.Add(obstacle1);
+            //WorldGrid.Add(obstacle2);
+            //WorldGrid.Add(obstacle3);
 
             Food.Add(apple1);
             Food.Add(apple2);
@@ -98,8 +99,8 @@ namespace AntSimulator.world
             var ant4 = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
             ant4.goals = new GoalFollowPath(ant4, Target.Pos);
 
-            walkerAnt = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
-            walkerAnt.goals = new GoalFollowPath(walkerAnt, Target.Pos);
+            //walkerAnt = new Ant(new Vector2D(20, 20), this) { Scale = 10 };
+            //walkerAnt.goals = new GoalFollowPath(walkerAnt, Target.Pos);
 
 
             //    Entities.Add(ant);
@@ -108,11 +109,13 @@ namespace AntSimulator.world
             //   Entities.Add(ant2);
             //   WorldGrid.Add(ant2);
 
-            //   Entities.Add(ant3);
-            //   WorldGrid.Add(ant3);
+            Entities.Add(ant3);
+            WorldGrid.Add(ant3);
 
-            Entities.Add(ant4);
-            WorldGrid.Add(ant4);
+           // Entities.Add(ant4);
+           // WorldGrid.Add(ant4);
+
+            
         }
 
         public void Update(float timeElapsed)
@@ -120,6 +123,10 @@ namespace AntSimulator.world
             
             foreach (MovingEntity me in Entities)
             {
+                if (Activate)
+                {
+                    me.goals.Activate();
+                }
                 me.Update(timeElapsed);
             }
         }
@@ -153,7 +160,7 @@ namespace AntSimulator.world
 
         public List<Food> GetNearbyFood(double size, Vector2D position)
         {
-            var possibleFood = Food; //WorldGrid.FindNeighbours(position, size);
+            var possibleFood = WorldGrid.FindNeighbours(position, size);
             var interestingFood = new List<Food>();
             foreach (var possFood in possibleFood)
             {

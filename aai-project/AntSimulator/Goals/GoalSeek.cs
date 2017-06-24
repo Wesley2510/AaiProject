@@ -27,7 +27,7 @@ namespace AntSimulator.Goals
         {
            _seekBehaviour = new Seek(_me, _target);
            _me.SteeringBehaviours.Add(_seekBehaviour);
-            Process();
+             Process();
         }
 
         public override Status Process()
@@ -36,8 +36,8 @@ namespace AntSimulator.Goals
             {
                 status = Status.Active;
                 Activate();
+
             }
-            
             if (Vector2D.Distance(_target, _me.Pos) < _distance)
             {
                 status = Status.Completed;

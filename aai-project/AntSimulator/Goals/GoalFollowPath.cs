@@ -22,7 +22,7 @@ namespace AntSimulator.Goals
         {
           
             target = pTarget;
-            Activate();
+          
         }
 
         public override void Activate()

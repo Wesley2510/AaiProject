@@ -17,26 +17,53 @@ namespace AntSimulator.Goals
         private MovingEntity _me;
         private SteeringBehaviour _seekBehaviour;
         private int _distance;
+        private Food closestFood;
         
         public GoalGetFood(MovingEntity me) : base(me)
         {
-           List<Food> foods = me.MyWorld.GetNearbyFood(9999999, me.Pos);
+            _me = me;
+           List<Food> foods = me.MyWorld.GetNearbyFood(500, me.Pos);
+            _distance = Int32.MaxValue;
             foreach (var food in foods)
             {
-                Console.Write(food);
+                if (Vector2D.Distance(me.Pos, food.Pos) < _distance)
+                {
+                    _distance = (int) Vector2D.Distance(me.Pos, food.Pos);
+                    closestFood = food;
+                }
             }
+            _target = closestFood.Pos;
         }
 
         public override void Activate()
         {
-            _seekBehaviour = new Seek(_me, _target);
-            _me.SteeringBehaviours.Add(_seekBehaviour);
-            Process();
+            List<Vector2D> _path = new List<Vector2D>();
+            _path = _me.MyWorld._graph.getRoute(_me.Pos, _target);
+
+            Subgoals.Push(new GoalArrival(_me ,_path[0], 5));
+            for (var index = 1; index < _path.Count; index++)
+            {
+                Vector2D vector2D = _path[index];
+                Subgoals.Push(new GoalSeek(_me, vector2D, 20));
+            }
+
+            //_seekBehaviour = new Seek(_me, _target);
+            //_me.SteeringBehaviours.Add(_seekBehaviour);
+            // Process();
         }
 
         public override Status Process()
         {
-            throw new NotImplementedException();
+            if (!isActive())
+            {
+                Activate();
+                status = Status.Active;
+            }
+            ProcessSubGoals();
+            if (Subgoals.Count != 0) return status;
+            status = Status.Completed;
+
+            return status;
         }
 
         public override void Terminate()

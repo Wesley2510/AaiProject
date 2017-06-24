@@ -12,7 +12,6 @@ namespace AntSimulator.entity
             Velocity = new Vector2D(0, 0);
             Scale = 20;
             MaxSpeed = 5;
-           
         }
 
         public override void Render(Graphics g)

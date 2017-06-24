@@ -160,7 +160,7 @@ namespace AntSimulator.graph
             List<Obstacle> obstacles = _world.Obstacles;
             foreach (Obstacle obstacle in obstacles)
             {
-                if (Vector2D.Distance(pNode.Position, new Vector2D(obstacle.Pos.X + (obstacle.Scale / 2), obstacle.Pos.Y + (obstacle.Scale / 2))) < obstacle.Scale / 2 + 10)
+                if (Vector2D.Distance(pNode.Position, new Vector2D(obstacle.Pos.X + (obstacle.Radius), obstacle.Pos.Y + (obstacle.Radius))) < obstacle.Radius  + 10)
                 {
                     return false;
                 }

@@ -16,6 +16,9 @@ namespace AntSimulator.Goals
 
         public override void Activate()
         {
+            //arrival
+            //seek
+           
             throw new NotImplementedException();
         }
 

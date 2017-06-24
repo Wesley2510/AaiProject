@@ -29,7 +29,7 @@ namespace AntSimulator.Goals
         public override void Activate()
         {
             Vector2D Target = targetEntity != null ? targetEntity.Pos : target;
-            attachBehaviour = new Arrival(_me, Target, Deceleration.Slow);
+            attachBehaviour = new Arrival(_me, Target, Deceleration.Fast);
             _me.SteeringBehaviours.Add(attachBehaviour);
             //Process();
         }
