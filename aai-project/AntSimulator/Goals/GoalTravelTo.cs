@@ -19,7 +19,7 @@ namespace AntSimulator.Goals
             throw new NotImplementedException();
         }
 
-        public override Vector2D Process()
+        public override Status Process()
         {
             throw new NotImplementedException();
         }

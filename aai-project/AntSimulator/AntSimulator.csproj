@@ -55,6 +55,7 @@
     <Compile Include="DBPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="entity\Food.cs" />
     <Compile Include="entity\MovingEntity.cs" />
     <Compile Include="entity\Ant.cs" />
     <Compile Include="entity\Obstacle.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Goals\GoalArrival.cs" />
     <Compile Include="Goals\GoalFollowPath.cs" />
     <Compile Include="Goals\GoalGetFood.cs" />
+    <Compile Include="Goals\GoalGoHome.cs" />
     <Compile Include="Goals\GoalSeek.cs" />
     <Compile Include="Goals\GoalTravelTo.cs" />
     <Compile Include="fuzzy\FuzzySetLeftShoulder.cs" />
@@ -138,6 +140,7 @@
     <Content Include="images\ant.png" />
     <Content Include="images\dirt.jpg" />
     <Content Include="images\rock.png" />
+    <None Include="Resources\apple.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

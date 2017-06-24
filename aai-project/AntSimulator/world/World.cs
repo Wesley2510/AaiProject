@@ -4,6 +4,7 @@ using AntSimulator.util;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Security.Permissions;
+using AntSimulator.Goals;
 
 
 namespace AntSimulator.world
@@ -12,6 +13,7 @@ namespace AntSimulator.world
     {
         public List<MovingEntity> Entities = new List<MovingEntity>();
         public List<Obstacle> Obstacles = new List<Obstacle>();
+        public List<Food> Food = new List<Food>();
         public WorldGrid WorldGrid { get; set; }
         public SeekPoint Target { get; set; }
         public int Width { get; set; }
@@ -39,15 +41,39 @@ namespace AntSimulator.world
         private void Populate()
         {
             Target = new SeekPoint(new Vector2D(400, 155), this) { Color = Color.GreenYellow, Scale = 5 };
+
             var ant = new Ant(new Vector2D(10, 10), this) { Scale = 10 };
+            ant.goals = new GoalSeek(ant, Target.Pos, 10);
+
+            var ant2 = new Ant(new Vector2D(11, 11), this) { Scale = 10 };
+            ant2.goals = new GoalGetFood(ant2);
+
+            var apple1 = new Food(new Vector2D( 380, 220), this);
+            var apple2 = new Food(new Vector2D(500, 25), this);
+            var apple3 = new Food(new Vector2D(700, 500), this);
+
+
+
             Entities.Add(ant);
             WorldGrid.Add(ant);
+
+            Entities.Add(ant2);
+            WorldGrid.Add(ant2);
+
             WorldGrid.Add(Target);
+
+            WorldGrid.Add(apple1);
+            WorldGrid.Add(apple2);
+            WorldGrid.Add(apple3);
+
+
+
+
 
             var obstacle1 = new Obstacle(new Vector2D(320, 200), this);
             var obstacle2 = new Obstacle(new Vector2D(220, 70), this);
             var obstacle3 = new Obstacle(new Vector2D(50, 250), this);
-
+            
             Obstacles.Add(obstacle1);
             Obstacles.Add(obstacle2);
             Obstacles.Add(obstacle3);
@@ -55,6 +81,13 @@ namespace AntSimulator.world
             WorldGrid.Add(obstacle1);
             WorldGrid.Add(obstacle2);
             WorldGrid.Add(obstacle3);
+
+            Food.Add(apple1);
+            Food.Add(apple2);
+            Food.Add(apple3);
+
+
+
         }
 
         public void Update(float timeElapsed)
@@ -69,6 +102,7 @@ namespace AntSimulator.world
         {
             Entities.ForEach(e => e.Render(g));
             Obstacles.ForEach(o => o.Render(g));
+            Food.ForEach(f=>f.Render(g));
             Target.Render(g);
             if (GraphVisible)
             {
@@ -89,6 +123,18 @@ namespace AntSimulator.world
                     interestingObstacles.Add((Obstacle)possibleObstacle);
             }
             return interestingObstacles;
+        }
+        public List<Food> GetNearbyFood(double size, Vector2D position)
+        {
+            var possibleFood = WorldGrid.FindNeighbours(position, size);
+            var interestingFood = new List<Food>();
+            foreach (var possFood in possibleFood)
+            {
+                if (!(possFood is Food)) continue;
+                if (Vector2D.Distance(possFood.Pos, position) < size)
+                    interestingFood.Add((Food)possFood);
+            }
+            return interestingFood;
         }
 
     }

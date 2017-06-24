@@ -1,6 +1,7 @@
 ﻿using AntSimulator.util;
 using AntSimulator.world;
 using System.Drawing;
+using AntSimulator.Goals;
 
 namespace AntSimulator.entity
 {
@@ -11,9 +12,11 @@ namespace AntSimulator.entity
         public float Radius { get; set; }
         public Color Color { get; set; }
         public World MyWorld { get; set; }
+        public Goal goals { get; set; }
 
         protected BaseGameEntity(Vector2D pos, World w)
         {
+            
             Pos = pos;
             MyWorld = w;
         }

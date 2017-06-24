@@ -20,32 +20,40 @@ namespace AntSimulator.Goals
             this._target = pTarget;
             _me = pMe;
             _distance =  pAllowedDistance;
+            Activate();
         }
 
         public override void Activate()
         {
            _seekBehaviour = new Seek(_me, _target);
            _me.SteeringBehaviours.Add(_seekBehaviour);
+            Process();
         }
 
-        public override Vector2D Process()
+        public override Status Process()
         {
-            if (!isActive)
+            if (!isActive())
             {
-                Status = GoalStatus.Active;
+                status = Status.Active;
                 Activate();
             }
             
             if (Vector2D.Distance(_target, _me.Pos) < _distance)
             {
-                Status = GoalStatus.Completed;
+                status = Status.Completed;
+
             }
-            return new Vector2D(0,0);
+            return status;
         }
 
         public override void Terminate()
         {
             _me.SteeringBehaviours.Remove(_seekBehaviour);
+        }
+
+        public override void AddChild(Goal g)
+        {
+            throw new NotImplementedException();
         }
     }
 }

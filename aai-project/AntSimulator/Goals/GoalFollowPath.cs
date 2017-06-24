@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AntSimulator.behaviour;
 using AntSimulator.entity;
 using AntSimulator.graph;
 using AntSimulator.GraphPath;
@@ -12,18 +13,11 @@ namespace AntSimulator.Goals
 {
     class GoalFollowPath : CompositeGoal
     {
-        public List<Node> Path { get; set; }
+
+        private List<Vector2D> _path;
         public Vector2D target;
-        private Vector2D _to;
 
-        // With algoritme
-        private float _startTime { get; set; }
 
-        // Name of a gameobject
-        private string _element;
-
-        // If calculation is needed
-        private bool _calc;
         public GoalFollowPath(MovingEntity me, Vector2D pTarget) : base(me)
         {
             target = pTarget;
@@ -31,18 +25,27 @@ namespace AntSimulator.Goals
 
         public override void Activate()
         {
-            //movingEntity.MyWorld._graph(movingEntity.Pos, target, Path);
-            //subgoals.Push(new goalArrival(movingEntity, Path[0], 5));
-            //for (var index = 1; index < Path.Count; index++)
-            //{
-            //    Vector2D vector2D = Path[index];
-            //    subgoals.Push(new GoalSeek(movingEntity, vector2D, 20));
-            //}
+            me.MyWorld._graph.getRoute(me.Pos, target, out _path);
+            Subgoals.Push(new GoalArrival(me, _path[0], 5));
+            for (var index = 1; index < _path.Count; index++)
+            {
+                Vector2D vector2D = _path[index];
+                Subgoals.Push(new GoalSeek(me, vector2D, 20));
+            }
         }
 
-        public override Vector2D Process()
+        public override Status Process()
         {
-            throw new NotImplementedException();
+            if (!isActive())
+            {
+                Activate();
+                status = Status.Active;
+            }
+            ProcessSubGoals();
+            if (Subgoals.Count != 0) return status;
+            status = Status.Completed;
+
+            return status;
         }
 
         public override void Terminate()
@@ -50,4 +53,5 @@ namespace AntSimulator.Goals
             throw new NotImplementedException();
         }
     }
+
 }

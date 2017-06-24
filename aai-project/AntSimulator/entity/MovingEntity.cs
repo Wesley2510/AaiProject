@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AntSimulator.behaviour;
+using AntSimulator.Goals;
 using AntSimulator.util;
 using AntSimulator.world;
 
@@ -39,8 +40,9 @@ namespace AntSimulator.entity
         public void ActivateSteering()
         {          
             /*SteeringBehaviours.Add(new Arrival(this, MyWorld.Target.Pos, Deceleration.Fast));*/
-            SteeringBehaviours.Add(new Seek(this, MyWorld.Target.Pos));
-            SteeringBehaviours.Add(new ObstacleAvoidance(this));
+            //SteeringBehaviours.Add(new Seek(this, MyWorld.Target.Pos));
+            //SteeringBehaviours.Add(new ObstacleAvoidance(this));
+            
         }
     }
 }

@@ -10,64 +10,47 @@ namespace AntSimulator.Goals
 {
     public abstract class CompositeGoal : Goal
     {
-        public Stack<Goal> subgoals { get; protected set; }
-
-        public CompositeGoal(MovingEntity me) : base(me)
+        protected CompositeGoal(MovingEntity me) : base(me)
         {
-            subgoals = new Stack<Goal>();
         }
 
-        public override void AddSubgoal(Goal g)
+        public override void AddChild(Goal g)
         {
-            subgoals.Push(g);
-            isCompleted = false;
+            Subgoals.Push(g);
         }
 
-        public Vector2D ProcessSubgoals()
+        public override void Terminate()
         {
-            Vector2D returnValue = new Vector2D();
-
-            if (subgoals.Count > 0)
+            foreach (Goal g in Subgoals)
             {
-                returnValue += subgoals.Peek().Process();
+                g.Terminate();
+            }
+        }
 
-                
-                if (subgoals.Peek().isCompleted)
+        public Status ProcessSubGoals()
+        {
+            while (Subgoals.Count != 0 && (Subgoals.Peek().isComplete() || Subgoals.Peek().hasFailed()))
+            {
+                Subgoals.Peek().Terminate();
+                Subgoals.Pop();
+            }
+            if (Subgoals.Count > 0)
+            {
+                Status StatusOfSubGoals = Subgoals.Peek().Process();
+                if (StatusOfSubGoals == Status.Completed && Subgoals.Count > 1)
                 {
-                    subgoals.Peek().Terminate();
-                    subgoals.Pop();
+                    return Status.Active;
                 }
+                return StatusOfSubGoals;
             }
-            else
-            {
-                isCompleted = true;
-            }
-
-            return returnValue;
+            return Status.Completed;
         }
 
-       public void RemoveAllSubgoals()
-        {
-            while (subgoals.Count > 0)
-            {
-                subgoals.Pop().Terminate();
-            }
-            subgoals.Clear();
-        }
 
- public override string ToString()
+        public override void SetInactive()
         {
-            string returnValue = "";
-            if (subgoals.Count > 0)
-            {
-                returnValue += subgoals.Peek().ToString();
-            }
-            else
-            {
-                returnValue += this.GetType();
-            }
-            return returnValue;
+            Terminate();
+            base.SetInactive();
         }
     }
 }
-

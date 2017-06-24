@@ -17,9 +17,7 @@ namespace AntSimulator.Goals
         private Arrival attachBehaviour;
         private int deviationallowance;
 
-        public GoalArrival(MovingEntity me) : base(me)
-        {
-        }
+      
         public GoalArrival(MovingEntity pMe, Vector2D pTarget, int pDeviationallowance) : base(pMe)
         {
             this.target = pTarget;
@@ -29,28 +27,33 @@ namespace AntSimulator.Goals
         public override void Activate()
         {
             Vector2D Target = targetEntity != null ? targetEntity.Pos : target;
-            attachBehaviour = new Arrival(movingEntity, Target, Deceleration.Slow);
-            movingEntity.SteeringBehaviours.Add(attachBehaviour);
+            attachBehaviour = new Arrival(me, Target, Deceleration.Slow);
+            me.SteeringBehaviours.Add(attachBehaviour);
 
         }
 
-        public override Vector2D Process()
+        public override Status Process()
         {
-            if (!isActive)
+            if (!isActive())
             {
                 Activate();
-                Status = GoalStatus.Active;
+                status = Status.Active;
             }
             Vector2D Target = targetEntity != null ? targetEntity.Pos : target;
             attachBehaviour.Target = Target;
-            if (Vector2D.Distance(Target, movingEntity.Pos) < deviationallowance)
+            if (Vector2D.Distance(Target, me.Pos) < deviationallowance)
             {
-                Status = GoalStatus.Completed;
+                status = Status.Completed;
             }
-            return new Vector2D();
+            return status;
         }
 
         public override void Terminate()
+        {
+            me.SteeringBehaviours.Remove(attachBehaviour);
+        }
+
+        public override void AddChild(Goal g)
         {
             throw new NotImplementedException();
         }
