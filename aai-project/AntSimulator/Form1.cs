@@ -41,7 +41,7 @@ namespace AntSimulator
         {
             switch (e.KeyCode)
             {
-                case Keys.Z:
+                case Keys.G:
                     _world.GraphVisible = !_world.GraphVisible;
                     break;
                 case Keys.F:

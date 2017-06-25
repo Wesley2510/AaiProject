@@ -21,7 +21,7 @@ namespace AntSimulator.entity
             Velocity = new Vector2D(0, 0);
             Heading = Vector2D.Normalize(Velocity);
             Scale = 20;
-            MaxSpeed = 50;
+            MaxSpeed = 100;
             WorkLoad = 0;
             HasFood = false;
             WantsHelp = false;

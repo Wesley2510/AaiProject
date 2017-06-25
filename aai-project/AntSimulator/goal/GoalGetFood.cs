@@ -45,7 +45,7 @@ namespace AntSimulator.goal
             }
             Status = ProcessSubGoals();
             if (Subgoals.Peek().GetType() == typeof(GoalIdle))
-                if (Vector2D.Distance(_foodTarget.Pos, Ant.Pos) > _foodTarget.Radius)
+                if (Vector2D.Distance(_foodTarget.Pos, Ant.Pos) > _foodTarget.Radius + 10)
                 {
                     AddChild(new GoalArrival(Ant, _foodTarget, 5));
                     Status = Status.Completed;

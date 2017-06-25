@@ -49,7 +49,7 @@
             this.ClientSize = new System.Drawing.Size(768, 512);
             this.Controls.Add(this.dbPanel1);
             this.Name = "Form1";
-            this.Text = "AntSimulator";
+            this.Text = "AntSimulator            F (Show Goals) | G (Show Graph) | ESC (Quit)";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.ResumeLayout(false);
 
