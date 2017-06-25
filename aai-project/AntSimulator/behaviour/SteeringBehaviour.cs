@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using AntSimulator.entity;
+﻿using AntSimulator.entity;
 using AntSimulator.util;
+using System.Collections.Generic;
 
 namespace AntSimulator.behaviour
 {
@@ -27,6 +27,11 @@ namespace AntSimulator.behaviour
                     continue;
                 }
                 if (behavior.GetType() == typeof(ObstacleAvoidance))
+                {
+                    steering += behavior.Calculate();
+                    continue;
+                }
+                if (behavior.GetType() == typeof(Explore))
                 {
                     steering += behavior.Calculate();
                     continue;

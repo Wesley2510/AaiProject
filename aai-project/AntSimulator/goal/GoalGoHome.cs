@@ -57,6 +57,7 @@ namespace AntSimulator.goal
         {
             if (Ant.HasFood)
                 Ant.HasFood = false;
+            Ant.FoodLoad = 0;
             base.Terminate();
         }
     }

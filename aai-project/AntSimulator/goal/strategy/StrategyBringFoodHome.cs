@@ -8,8 +8,7 @@ namespace AntSimulator.goal.strategy
         {
             float score = 0;
             if (!ant.HasFood) return score;
-            if (ant.HasFood) score += 500;
-            if (ant.FoodLoad > 10) score += 100;
+            if (ant.FoodLoad > 3) score += 10000;
             return score;
         }
 

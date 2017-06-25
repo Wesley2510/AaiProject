@@ -52,12 +52,18 @@ namespace AntSimulator.world
             Water = new Water(new Vector2D(700, 450), this);
             WorldGrid.Add(Water);
 
-            var apple1 = new Food(new Vector2D(500, 30), this);
+            var apple1 = new Food(new Vector2D(520, 150), this) { Radius = 15 };
             Food.Add(apple1);
             WorldGrid.Add(apple1);
-            var apple2 = new Food(new Vector2D(200, 320), this);
+            var apple2 = new Food(new Vector2D(200, 320), this) { Radius = 15 };
             Food.Add(apple2);
             WorldGrid.Add(apple2);
+            var apple3 = new Food(new Vector2D(450, 400), this) { Radius = 15 };
+            Food.Add(apple3);
+            WorldGrid.Add(apple3);
+            var apple4 = new Food(new Vector2D(680, 200), this) { Radius = 15 };
+            Food.Add(apple4);
+            WorldGrid.Add(apple4);
 
             var obstacle1 = new Obstacle(new Vector2D(400, 200), this) { Scale = 50 };
             Obstacles.Add(obstacle1);
@@ -105,7 +111,6 @@ namespace AntSimulator.world
 
         public void Render(Graphics g)
         {
-            Entities.ForEach(e => e.Render(g));
             Obstacles.ForEach(o => o.Render(g));
             Food.ForEach(f => f.Render(g));
             Anthill.Render(g);
@@ -114,7 +119,7 @@ namespace AntSimulator.world
             {
                 Graph.Render(g);
             }
-
+            Entities.ForEach(e => e.Render(g));
         }
 
 

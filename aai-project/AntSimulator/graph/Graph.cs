@@ -278,7 +278,8 @@ namespace AntSimulator.graph
             string topRight = "" + (x + NodeDistance) + ',' + y + "";
             string bottomLeft = "" + x + ',' + (y + NodeDistance) + "";
             string bottomRight = "" + (x + NodeDistance) + ',' + (y + NodeDistance) + "";
-            if (_nodeMap.TryGetValue(topLeft, out Node currentNode))
+            Node currentNode;
+            if (_nodeMap.TryGetValue(topLeft, out currentNode))
             {
                 nodes.Push(currentNode);
             }

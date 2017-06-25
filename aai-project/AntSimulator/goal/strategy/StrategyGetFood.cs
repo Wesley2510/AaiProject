@@ -7,7 +7,7 @@ namespace AntSimulator.goal.strategy
         public override float CalculateDesirability(Ant ant)
         {
             float score = 0;
-            if (ant.HasFood) return score;
+            if (ant.HasFood) score -= 100;
             if (ant.WorkLoad <= 50) score += 500;
             if (ant.Thirst > 50) score -= 100;
             if (ant.Thirst < 50) score += 500;

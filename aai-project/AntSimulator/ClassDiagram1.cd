@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AntSimulator.behaviour.Arrival">
+    <Position X="6.25" Y="11" Width="1.5" />
+    <Members>
+      <Field Name="_deceleration" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAACAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>behaviour\Arrival.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.behaviour.Explore">
+    <Position X="4.75" Y="11" Width="1.5" />
+    <Members>
+      <Field Name="_areaEnd" Hidden="true" />
+      <Field Name="_areaStart" Hidden="true" />
+      <Field Name="_pathFollowing" Hidden="true" />
+      <Field Name="_searchSize" Hidden="true" />
+      <Field Name="_searchTarget" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAgAAAAAAAEAAAAACCAAAAAgAAAAAAAEAAA=</HashCode>
+      <FileName>behaviour\Explore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.behaviour.ObstacleAvoidance">
+    <Position X="1.5" Y="11" Width="1.75" />
+    <Members>
+      <Method Name="FindMostThreateningObstacle" Hidden="true" />
+      <Field Name="pushingForce" Hidden="true" />
+      <Field Name="pushTweaker" Hidden="true" />
+      <Field Name="vector1" Hidden="true" />
+      <Field Name="vector2" Hidden="true" />
+      <Field Name="vector3" Hidden="true" />
+      <Method Name="VectorInCircle" Hidden="true" />
+      <Field Name="weighting" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Enum Name="AntSimulator.behaviour.ObstacleAvoidance.pushWeight" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>behaviour\ObstacleAvoidance.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAAAiAMAAAAAAAAAQAAAAAAQACAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>behaviour\ObstacleAvoidance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.behaviour.PathFollowing">
+    <Position X="3.25" Y="11" Width="1.5" />
+    <Members>
+      <Field Name="_currentTarget" Hidden="true" />
+      <Field Name="_searchNodes" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAEAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>behaviour\PathFollowing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.behaviour.Seek">
+    <Position X="7.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>behaviour\Seek.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.behaviour.SteeringBehaviour">
+    <Position X="4.5" Y="9" Width="2" />
+    <Members>
+      <Method Name="SteeringBehaviour" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAgAAAAAAAAACAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>behaviour\SteeringBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.CompositeGoal">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAECAAAAAE=</HashCode>
+      <FileName>goal\CompositeGoal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.Goal">
+    <Position X="11.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQAAAAAEAACAEABAEgAAAAACAAIAAAAAABAECAAAAAA=</HashCode>
+      <FileName>goal\Goal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalArrival">
+    <Position X="14" Y="0.5" Width="2" />
+    <Members>
+      <Field Name="_attachBehaviour" Hidden="true" />
+      <Field Name="_deviationAllowance" Hidden="true" />
+      <Field Name="_target" Hidden="true" />
+      <Field Name="_targetEntity" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ACAAQAgAAAAAEABAAgAAAAAAQAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>goal\GoalArrival.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalEvaluator" Collapsed="true">
+    <Position X="25.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>goal\GoalEvaluator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalFollowPath">
+    <Position X="6.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAJAAgAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>goal\GoalFollowPath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalGetFood">
+    <Position X="9.25" Y="6" Width="1.5" />
+    <Members>
+      <Field Name="_foodTarget" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAgAAAAAAAAAABAAAAAAEAAAAAAA=</HashCode>
+      <FileName>goal\GoalGetFood.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalGetHelp">
+    <Position X="13.75" Y="6" Width="1.5" />
+    <Members>
+      <Field Name="_antHill" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAhAAgAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>goal\GoalGetHelp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalGoHome">
+    <Position X="4.75" Y="6" Width="1.5" />
+    <Members>
+      <Field Name="_antHill" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAhAAgAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>goal\GoalGoHome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalIdle">
+    <Position X="9.75" Y="0.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEABAAgAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>goal\GoalIdle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalSateThirst">
+    <Position X="10.75" Y="6" Width="1.5" />
+    <Members>
+      <Field Name="_watch" Hidden="true" />
+      <Field Name="_water" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAgAAAAAAAAAAAACAAAAEAAgAAAA=</HashCode>
+      <FileName>goal\GoalSateThirst.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalSeek">
+    <Position X="13.75" Y="2.75" Width="2" />
+    <Members>
+      <Field Name="_distance" Hidden="true" />
+      <Field Name="_seekBehaviour" Hidden="true" />
+      <Field Name="_target" Hidden="true" />
+      <Field Name="_targetEntity" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAEABAAgAAAAAAQIAAAAAAAAAEAAAAIAA=</HashCode>
+      <FileName>goal\GoalSeek.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalSitInAntHill">
+    <Position X="15.25" Y="6" Width="1.5" />
+    <Members>
+      <Field Name="_antHill" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAABAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>goal\GoalSitInAntHill.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalThink">
+    <Position X="7.75" Y="6" Width="1.5" />
+    <Members>
+      <Field Name="_evaluators" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAADAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>goal\GoalThink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.goal.GoalTravelTo">
+    <Position X="12.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAgAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>goal\GoalTravelTo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.graph.Edge">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>graph\Edge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.graph.Graph">
+    <Position X="2" Y="2.25" Width="1.5" />
+    <Members>
+      <Field Name="_nodeMap" Hidden="true" />
+      <Field Name="_world" Hidden="true" />
+      <Method Name="AddEdge" Hidden="true" />
+      <Method Name="BotEdges" Hidden="true" />
+      <Method Name="CheckNode" Hidden="true" />
+      <Method Name="Edges" Hidden="true" />
+      <Method Name="LeftEdge" Hidden="true" />
+      <Field Name="NodeDistance" Hidden="true" />
+      <Method Name="OptimalNode" Hidden="true" />
+      <Method Name="RightEdge" Hidden="true" />
+      <Method Name="TopEdge" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AACBgAAAgCBAAEBCCABAAABAAAAAAQBAABhAAAAAEEA=</HashCode>
+      <FileName>graph\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.graph.Node">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABAAgAAAAAAAAAACAAEAAAAAAAABAAgA=</HashCode>
+      <FileName>graph\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AntSimulator.graph.Path">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>graph\Path.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="AntSimulator.behaviour.Deceleration" Collapsed="true">
+    <Position X="6.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAIAAAAAAAAAAAABAA=</HashCode>
+      <FileName>behaviour\Arrival.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AntSimulator.goal.Status" Collapsed="true">
+    <Position X="25.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAABAAAAAAIAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>goal\Goal.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

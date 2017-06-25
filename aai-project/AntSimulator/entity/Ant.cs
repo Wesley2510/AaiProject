@@ -21,11 +21,11 @@ namespace AntSimulator.entity
             Velocity = new Vector2D(0, 0);
             Heading = Vector2D.Normalize(Velocity);
             Scale = 20;
-            MaxSpeed = 5;
+            MaxSpeed = 50;
             WorkLoad = 0;
             HasFood = false;
             WantsHelp = false;
-            Thirst = 100;
+            Thirst = 0;
             Brain = new GoalThink(this);
             Brain.Activate();
         }

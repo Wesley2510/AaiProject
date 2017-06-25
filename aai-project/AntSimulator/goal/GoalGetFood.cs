@@ -1,11 +1,13 @@
 ﻿using AntSimulator.entity;
 using AntSimulator.util;
+using System;
 
 namespace AntSimulator.goal
 {
     public class GoalGetFood : CompositeGoal
     {
         private Food _foodTarget;
+        private static readonly Random Rnd = new Random();
 
         public GoalGetFood(Ant ant) : base(ant)
         {
@@ -13,7 +15,9 @@ namespace AntSimulator.goal
 
         public override void Activate()
         {
-            double distance = 0;
+            int foodToGet = Rnd.Next(0, Ant.MyWorld.Food.Count - 1);
+            _foodTarget = Ant.MyWorld.Food[foodToGet];
+            /*double distance = 0;
             Food closest = null;
             foreach (var food in Ant.MyWorld.Food)
             {
@@ -25,7 +29,7 @@ namespace AntSimulator.goal
                     closest = food;
                 }
             }
-            _foodTarget = closest;
+            _foodTarget = closest;*/
             AddChild(new GoalIdle(Ant));
             AddChild(new GoalArrival(Ant, _foodTarget, 5));
             AddChild(new GoalFollowPath(Ant, _foodTarget.Pos));
@@ -63,7 +67,7 @@ namespace AntSimulator.goal
 
         public override void Terminate()
         {
-            Ant.FoodLoad += 5;
+            Ant.FoodLoad += 1;
             Ant.WorkLoad += 1;
             Ant.Thirst += 25;
             Ant.HasFood = true;
