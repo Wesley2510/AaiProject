@@ -4,15 +4,19 @@ using System.Collections.Generic;
 
 namespace AntSimulator.goal
 {
-    public class AntThinkGoal : CompositeGoal
+    public class GoalThink : CompositeGoal
     {
         private List<GoalEvaluator> _evaluators;
-        public AntThinkGoal(Ant ant) : base(ant)
+        public GoalThink(Ant ant) : base(ant)
         {
             _evaluators = new List<GoalEvaluator>
             {
+                new StrategySitInAntHill(),
+                new StrategyGetFood(),
                 new StrategyBringFoodHome(),
-                new StrategySateThirst()
+                new StrategySateThirst(),
+                new StrategyGetHelp(),
+
             };
         }
 
@@ -22,7 +26,6 @@ namespace AntSimulator.goal
 
         public override Status Process()
         {
-            Ant.WorkLoad += 1;
             if (!IsActive())
             {
                 Status = Status.Active;

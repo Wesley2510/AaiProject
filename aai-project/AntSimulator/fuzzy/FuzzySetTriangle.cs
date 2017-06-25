@@ -41,7 +41,7 @@
             return 0.0;
         }
 
-        public double RepresentativeValue()
+        public new double RepresentativeValue()
         {
             return _peakPoint;
         }

@@ -9,23 +9,25 @@ namespace AntSimulator.goal
         private Vector2D _target;
         private BaseGameEntity _targetEntity;
         private Arrival _attachBehaviour;
-        private int _deviationallowance;
-        private Ant _ant;
+        private int _deviationAllowance;
 
-        public GoalArrival(Ant ant, Vector2D target, int pDeviationallowance) : base(ant)
+        public GoalArrival(Ant ant, Vector2D target, int deviationAllowance) : base(ant)
         {
             _target = target;
-            _ant = ant;
-            _deviationallowance = pDeviationallowance;
-            Activate();
+            _deviationAllowance = deviationAllowance;
+        }
+
+        public GoalArrival(Ant ant, BaseGameEntity targetEntity, int deviationAllowance) : base(ant)
+        {
+            _deviationAllowance = deviationAllowance;
+            _targetEntity = targetEntity;
         }
 
         public override void Activate()
         {
-            Vector2D Target = _targetEntity != null ? _targetEntity.Pos : _target;
-            _attachBehaviour = new Arrival(_ant, Target, Deceleration.Fast);
-            _ant.SteeringBehaviours.Add(_attachBehaviour);
-            //Process();
+            Vector2D target = _targetEntity != null ? _targetEntity.Pos : _target;
+            _attachBehaviour = new Arrival(Ant, target);
+            Ant.SteeringBehaviours.Add(_attachBehaviour);
         }
 
         public override Status Process()
@@ -35,9 +37,9 @@ namespace AntSimulator.goal
                 Activate();
                 Status = Status.Active;
             }
-            Vector2D Target = _targetEntity != null ? _targetEntity.Pos : _target;
-            _attachBehaviour.Target = Target;
-            if (Vector2D.Distance(Target, _ant.Pos) < _deviationallowance)
+            Vector2D target = _targetEntity != null ? _targetEntity.Pos : _target;
+            _attachBehaviour.Target = target;
+            if (Vector2D.Distance(target, Ant.Pos) < _deviationAllowance)
             {
                 Status = Status.Completed;
             }

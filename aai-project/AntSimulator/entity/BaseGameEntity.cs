@@ -9,10 +9,10 @@ namespace AntSimulator.entity
     {
         public Vector2D Pos { get; set; }
         public float Scale { get; set; }
-        public float Radius { get; set; }
+        public int Radius { get; set; }
         public Color Color { get; set; }
         public World MyWorld { get; set; }
-        public Goal goals { get; set; }
+        public Goal Goals { get; set; }
 
         protected BaseGameEntity(Vector2D pos, World w)
         {

@@ -66,7 +66,7 @@ namespace AntSimulator.goal
             Goal[] currentSubgoals = Subgoals.ToArray();
             foreach (Goal goal in currentSubgoals)
             {
-                location = goal.Render(g, indentationX + 1, location);
+                location = goal.Render(g, indentationX + 5, location);
             }
             return location;
         }

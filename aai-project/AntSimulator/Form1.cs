@@ -1,5 +1,4 @@
-﻿using AntSimulator.util;
-using AntSimulator.world;
+﻿using AntSimulator.world;
 using System.Windows.Forms;
 
 namespace AntSimulator
@@ -35,8 +34,7 @@ namespace AntSimulator
 
         private void dbPanel1_MouseClick(object sender, MouseEventArgs e)
         {
-            _world.Target.Pos = new Vector2D(e.X, e.Y);
-            //_world.walkerAnt.goals = new GoalFollowPath(_world.walkerAnt, _world.Target.Pos);
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -44,21 +42,15 @@ namespace AntSimulator
             switch (e.KeyCode)
             {
                 case Keys.Z:
-                    if (_world.GraphVisible)
-                    {
-                        _world.GraphVisible = false;
-                    }
-                    else
-                    {
-                        _world.GraphVisible = true;
-                    }
+                    _world.GraphVisible = !_world.GraphVisible;
                     break;
-                case Keys.Enter:
-                    if (!_world.Activate)
-                    {
-                        _world.Activate = true;
-                    }
+                case Keys.F:
+                    _world.ShowGoals = !_world.ShowGoals;
                     break;
+                case Keys.Escape:
+                    Application.Exit();
+                    break;
+
             }
         }
     }

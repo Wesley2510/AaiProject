@@ -1,47 +1,35 @@
-﻿using AntSimulator.behaviour;
-using AntSimulator.entity;
+﻿using AntSimulator.entity;
 using AntSimulator.util;
-using System;
-using System.Collections.Generic;
 
 namespace AntSimulator.goal
 {
-    class GoalGetFood : CompositeGoal
+    public class GoalGetFood : CompositeGoal
     {
-        private Vector2D _target;
-        protected List<Vector2D> Path;
-        private Ant _ant;
-        private SteeringBehaviour _seekBehaviour;
-        private Food _closestFood;
+        private Food _foodTarget;
 
         public GoalGetFood(Ant ant) : base(ant)
         {
-            _ant = ant;
-            List<Food> foods = ant.MyWorld.GetNearbyFood(500, ant.Pos);
-            var distance = Int32.MaxValue;
-            foreach (var food in foods)
-            {
-                if (Vector2D.Distance(ant.Pos, food.Pos) < distance)
-                {
-                    distance = (int)Vector2D.Distance(ant.Pos, food.Pos);
-                    _closestFood = food;
-                }
-            }
-            _target = _closestFood.Pos;
         }
 
         public override void Activate()
         {
-            Ant.MyWorld.Graph.GetRoute(_ant.Pos, _target, out Path);
-            Subgoals.Push(new GoalArrival(_ant, Path[0], 5));
-            for (var index = 1; index < Path.Count; index++)
+            double distance = 0;
+            Food closest = null;
+            foreach (var food in Ant.MyWorld.Food)
             {
-                Vector2D vector2D = Path[index];
-                Subgoals.Push(new GoalSeek(_ant, vector2D, 20));
+                if (food.GetType() == typeof(Food))
+                {
+                    var currentdistance = Vector2D.Distance(Ant.Pos, food.Pos);
+                    if (!(currentdistance < distance) && closest != null) continue;
+                    distance = currentdistance;
+                    closest = food;
+                }
             }
-            _seekBehaviour = new Seek(_ant, _target);
-            _ant.SteeringBehaviours.Add(_seekBehaviour);
-            Process();
+            _foodTarget = closest;
+            AddChild(new GoalIdle(Ant));
+            AddChild(new GoalArrival(Ant, _foodTarget, 5));
+            AddChild(new GoalFollowPath(Ant, _foodTarget.Pos));
+            Status = Status.Active;
         }
 
         public override Status Process()
@@ -51,10 +39,27 @@ namespace AntSimulator.goal
                 Activate();
                 Status = Status.Active;
             }
-            ProcessSubGoals();
-            if (Subgoals.Count != 0) return Status;
-            Status = Status.Completed;
-
+            Status = ProcessSubGoals();
+            if (Subgoals.Peek().GetType() == typeof(GoalIdle))
+                if (Vector2D.Distance(_foodTarget.Pos, Ant.Pos) > _foodTarget.Radius)
+                {
+                    AddChild(new GoalArrival(Ant, _foodTarget, 5));
+                    Ant.FoodLoad += 5;
+                    Ant.HasFood = true;
+                    Status = Status.Completed;
+                }
+            if (Subgoals.Peek().GetType() != typeof(GoalFollowPath) &&
+                Vector2D.Distance(_foodTarget.Pos, Ant.Pos) > 30 + _foodTarget.Radius)
+                AddChild(new GoalFollowPath(Ant, _foodTarget.Pos));
+            if (Subgoals.Peek().GetType() == typeof(GoalFollowPath))
+            {
+                GoalFollowPath current = (GoalFollowPath)Subgoals.Peek();
+                if (current.Target != _foodTarget.Pos)
+                {
+                    Subgoals.Pop().Terminate();
+                    AddChild(new GoalFollowPath(Ant, _foodTarget.Pos));
+                }
+            }
             return Status;
         }
 

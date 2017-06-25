@@ -24,7 +24,7 @@ namespace AntSimulator.graph
             float maxRadius = 0;
             foreach (Obstacle obstacle in _world.Obstacles)
             {
-                maxRadius = (maxRadius < obstacle.Radius ? obstacle.Radius : maxRadius);
+                maxRadius = maxRadius < obstacle.Radius ? obstacle.Radius : maxRadius;
             }
 
         }
@@ -159,7 +159,7 @@ namespace AntSimulator.graph
             List<Obstacle> obstacles = _world.Obstacles;
             foreach (Obstacle obstacle in obstacles)
             {
-                if (Vector2D.Distance(pNode.Position, new Vector2D(obstacle.Pos.X + (obstacle.Radius), obstacle.Pos.Y + (obstacle.Radius))) < obstacle.Radius + 10)
+                if (Vector2D.Distance(pNode.Position, new Vector2D(obstacle.Pos.X + obstacle.Radius, obstacle.Pos.Y + obstacle.Radius)) < obstacle.Radius + 10)
                 {
                     return false;
                 }
@@ -181,13 +181,12 @@ namespace AntSimulator.graph
         }
         public void AStar(Graph graph, string startName, string goalName)
         {
-            int i = 0;
             var priorityQueue = new SimplePriorityQueue<Path>();
             Node start = _nodeMap[startName];
 
             if (_nodeMap[startName] == null)
             {
-                throw new ArgumentNullException("No such node found");
+                throw new ArgumentNullException($"No such node found");
             }
             int nodesSeen = 0;
             ClearAll();
@@ -196,7 +195,7 @@ namespace AntSimulator.graph
             priorityQueue.Enqueue(startpath, startpath.Cost);
             start.Dist = 0;
 
-            while ((priorityQueue.Any()) && (nodesSeen < _nodeMap.Count)) //check  goal
+            while (priorityQueue.Any() && nodesSeen < _nodeMap.Count) //check  goal
             {
                 var vrec = priorityQueue.Dequeue();
                 Node v = vrec.Destination;
@@ -218,7 +217,7 @@ namespace AntSimulator.graph
 
                     if (cvw < 0)
                     {
-                        throw new ArgumentNullException("Graph has negative Edges");
+                        throw new ArgumentNullException($"Graph has negative Edges");
                     }
                     if (w.Dist > v.Dist + cvw)
                     {
@@ -242,7 +241,7 @@ namespace AntSimulator.graph
             var beginNode = _nodeMap[nearestNodeToCurrentLocation];
             var currentNode = _nodeMap[nearestNodeToDestination];
             if (beginNode == null || currentNode == null) return routeList;
-            while (beginNode != null && currentNode != beginNode)
+            while (currentNode != beginNode)
             {
                 routeList.Add(currentNode.Position);
                 currentNode = currentNode.Prev;
@@ -255,10 +254,9 @@ namespace AntSimulator.graph
         private Node OptimalNode(Stack<Node> possibleNodes, Vector2D target)
         {
             Node optimalNode = possibleNodes.Pop();
-            Node candidate;
             while (possibleNodes.Count != 0)
             {
-                candidate = possibleNodes.Pop();
+                var candidate = possibleNodes.Pop();
                 optimalNode = Vector2D.Distance(optimalNode.Position, target) <
                               Vector2D.Distance(candidate.Position, target)
                     ? optimalNode
@@ -270,18 +268,17 @@ namespace AntSimulator.graph
         public Stack<Node> FindNearbyNodes(Vector2D position)
         {
             Stack<Node> nodes = new Stack<Node>();
-            float offsetX = ((float)StartingNode.Position.X % NodeDistance) - NodeDistance;
-            float offsetY = ((float)StartingNode.Position.Y % NodeDistance) - NodeDistance;
+            float offsetX = (float)StartingNode.Position.X % NodeDistance - NodeDistance;
+            float offsetY = (float)StartingNode.Position.Y % NodeDistance - NodeDistance;
             int amountOfX = (int)Math.Floor(position.X / NodeDistance);
             int amountOfY = (int)Math.Floor(position.Y / NodeDistance);
-            float x = (amountOfX * NodeDistance) + offsetX;
-            float y = (amountOfY * NodeDistance) + offsetY;
+            float x = amountOfX * NodeDistance + offsetX;
+            float y = amountOfY * NodeDistance + offsetY;
             string topLeft = "" + x + ',' + y + "";
             string topRight = "" + (x + NodeDistance) + ',' + y + "";
             string bottomLeft = "" + x + ',' + (y + NodeDistance) + "";
             string bottomRight = "" + (x + NodeDistance) + ',' + (y + NodeDistance) + "";
-            Node currentNode;
-            if (_nodeMap.TryGetValue(topLeft, out currentNode))
+            if (_nodeMap.TryGetValue(topLeft, out Node currentNode))
             {
                 nodes.Push(currentNode);
             }

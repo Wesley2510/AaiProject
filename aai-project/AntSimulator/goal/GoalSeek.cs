@@ -7,22 +7,26 @@ namespace AntSimulator.goal
     class GoalSeek : Goal
     {
         private Vector2D _target;
-        private Ant _ant;
+        private BaseGameEntity _targetEntity;
         private SteeringBehaviour _seekBehaviour;
         private int _distance;
-        public GoalSeek(Ant ant, Vector2D pTarget, int pAllowedDistance) : base(ant)
+
+        public GoalSeek(Ant ant, Vector2D target, int deviationAllowance) : base(ant)
         {
-            _target = pTarget;
-            _ant = ant;
-            _distance = pAllowedDistance;
-            Activate();
+            _target = target;
+            _distance = deviationAllowance;
+        }
+
+        public GoalSeek(Ant ant, BaseGameEntity target, int deviationAllowance) : base(ant)
+        {
+            _targetEntity = target;
+            _distance = deviationAllowance;
         }
 
         public override void Activate()
         {
-            _seekBehaviour = new Seek(_ant, _target);
-            _ant.SteeringBehaviours.Add(_seekBehaviour);
-            Process();
+            _seekBehaviour = new Seek(Ant, _target);
+            Ant.SteeringBehaviours.Add(_seekBehaviour);
         }
 
         public override Status Process()
@@ -33,7 +37,7 @@ namespace AntSimulator.goal
                 Activate();
 
             }
-            if (Vector2D.Distance(_target, _ant.Pos) < _distance)
+            if (Vector2D.Distance(_target, Ant.Pos) < _distance)
             {
                 Status = Status.Completed;
 
@@ -43,7 +47,7 @@ namespace AntSimulator.goal
 
         public override void Terminate()
         {
-            _ant.SteeringBehaviours.Remove(_seekBehaviour);
+            Ant.SteeringBehaviours.Remove(_seekBehaviour);
         }
 
         public override void AddChild(Goal g)

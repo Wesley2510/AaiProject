@@ -1,15 +1,18 @@
 ﻿using AntSimulator.entity;
 using AntSimulator.util;
+using System.Diagnostics;
 
 namespace AntSimulator.goal
 {
-    public class GoalSitInAntHill : CompositeGoal
+    public class GoalGetHelp : CompositeGoal
     {
         private AntHill _antHill;
-        public GoalSitInAntHill(Ant ant) : base(ant)
+        public Stopwatch Watch;
+
+        public GoalGetHelp(Ant ant) : base(ant)
         {
             _antHill = ant.MyWorld.Anthill;
-            Activate();
+            Watch = new Stopwatch();
         }
 
         public override void Activate()
@@ -28,13 +31,26 @@ namespace AntSimulator.goal
             if (Subgoals.Peek().GetType() == typeof(GoalIdle))
             {
                 if (Vector2D.Distance(_antHill.Pos, Ant.Pos) > _antHill.Radius)
+                {
                     AddChild(new GoalArrival(Ant, _antHill, _antHill.Radius / 2));
+                }
+                if (!Watch.IsRunning) Watch.Start();
+                if (Watch.ElapsedMilliseconds > 1000)
+                {
+                    Status = Status.Completed;
+                }
             }
-            if (Subgoals.Peek().GetType() != typeof(GoalFollowPath) && Vector2D.Distance(_antHill.Pos, Ant.Pos) > _antHill.Radius)
+            else
+            {
+                if (Watch.IsRunning) Watch.Stop();
+            }
+            if (Subgoals.Peek().GetType() != typeof(GoalFollowPath) && Vector2D.Distance(_antHill.Pos, Ant.Pos) > 30 + _antHill.Radius)
+            {
                 AddChild(new GoalFollowPath(Ant, _antHill.Pos));
+            }
             if (Subgoals.Peek().GetType() == typeof(GoalFollowPath))
             {
-                var goal = (GoalFollowPath)Subgoals.Peek();
+                GoalFollowPath goal = (GoalFollowPath)Subgoals.Peek();
                 if (goal.Target != _antHill.Pos)
                 {
                     Subgoals.Pop().Terminate();
@@ -42,6 +58,14 @@ namespace AntSimulator.goal
                 }
             }
             return Status;
+        }
+
+        public override void Terminate()
+        {
+            var newAnt = new Ant(new Vector2D(60, 60), Ant.MyWorld) { Pos = _antHill.Pos };
+            Ant.WorkLoad = 0;
+            newAnt.Pos = _antHill.Pos;
+            Ant.MyWorld.AntsToAdd.Push(newAnt);
         }
     }
 }
