@@ -19,5 +19,11 @@ namespace AntSimulator.graph
             Position = new Vector2D(x, y);
             AdjEdges = new List<Edge>();
         }
+        public void Reset()
+        {
+            Dist = int.MaxValue;
+            Prev = null;
+            Scratch = 0;
+        }
     }
 }

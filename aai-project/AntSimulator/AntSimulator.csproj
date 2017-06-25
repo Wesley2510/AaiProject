@@ -50,21 +50,58 @@
     <Compile Include="behaviour\Explore.cs" />
     <Compile Include="behaviour\ObstacleAvoidance.cs" />
     <Compile Include="behaviour\PathFollowing.cs" />
+    <Compile Include="entity\AntHill.cs" />
     <Compile Include="entity\BaseGameEntity.cs" />
     <Compile Include="behaviour\Seek.cs" />
     <Compile Include="DBPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="entity\Food.cs" />
     <Compile Include="entity\MovingEntity.cs" />
     <Compile Include="entity\Ant.cs" />
     <Compile Include="entity\Obstacle.cs" />
     <Compile Include="entity\SeekPoint.cs" />
+    <Compile Include="entity\Water.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="fuzzy\FuzzySetLeftShoulder.cs" />
+    <Compile Include="fuzzy\FuzzySetRightShoulder.cs" />
+    <Compile Include="fuzzy\FuzzySetSingleton.cs" />
+    <Compile Include="fuzzy\FuzzySetTriangle.cs" />
+    <Compile Include="fuzzy\FuzzySystem.cs" />
+    <Compile Include="fuzzy\FuzzyModule.cs" />
+    <Compile Include="fuzzy\FuzzyRule.cs" />
+    <Compile Include="fuzzy\FuzzySet.cs" />
+    <Compile Include="fuzzy\FuzzyTerm.cs" />
+    <Compile Include="fuzzy\FuzzyVariable.cs" />
+    <Compile Include="fuzzy\FzAnd.cs" />
+    <Compile Include="fuzzy\FzFairly.cs" />
+    <Compile Include="fuzzy\FzOr.cs" />
+    <Compile Include="fuzzy\FzSet.cs" />
+    <Compile Include="fuzzy\FzVery.cs" />
+    <Compile Include="goal\GoalThink.cs" />
+    <Compile Include="goal\CompositeGoal.cs" />
+    <Compile Include="goal\Goal.cs" />
+    <Compile Include="goal\GoalArrival.cs" />
+    <Compile Include="goal\GoalEvaluator.cs" />
+    <Compile Include="goal\GoalFollowPath.cs" />
+    <Compile Include="goal\GoalGetFood.cs" />
+    <Compile Include="goal\GoalGetHelp.cs" />
+    <Compile Include="goal\GoalGoHome.cs" />
+    <Compile Include="goal\GoalIdle.cs" />
+    <Compile Include="goal\GoalSateThirst.cs" />
+    <Compile Include="goal\GoalSeek.cs" />
+    <Compile Include="goal\GoalSitInAntHill.cs" />
+    <Compile Include="goal\GoalTravelTo.cs" />
+    <Compile Include="goal\strategy\StrategyBringFoodHome.cs" />
+    <Compile Include="goal\strategy\StrategyGetFood.cs" />
+    <Compile Include="goal\strategy\StrategyGetHelp.cs" />
+    <Compile Include="goal\strategy\StrategySateThirst.cs" />
+    <Compile Include="goal\strategy\StrategySitInAntHill.cs" />
     <Compile Include="graph\Edge.cs" />
     <Compile Include="graph\Graph.cs" />
     <Compile Include="graph\Node.cs" />
@@ -112,8 +149,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\ant.png" />
+    <Content Include="images\anthill.png" />
     <Content Include="images\dirt.jpg" />
+    <Content Include="images\lake.png" />
     <Content Include="images\rock.png" />
+    <None Include="Resources\apple.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

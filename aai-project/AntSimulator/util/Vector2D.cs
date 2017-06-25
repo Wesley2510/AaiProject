@@ -163,5 +163,10 @@ namespace AntSimulator.util
         {
             return $"({X},{Y})";
         }
+
+        public Vector2D Perpendicular()
+        {
+            return new Vector2D(-X, Y);
+        }
     }
 }
