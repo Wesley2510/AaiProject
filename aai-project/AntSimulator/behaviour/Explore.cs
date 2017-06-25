@@ -44,7 +44,7 @@ namespace AntSimulator.behaviour
         public override Vector2D Calculate()
         {
             if (Vector2D.Distance(MovingEntity.Pos, _searchTarget.Pos) - _searchTarget.Radius - MovingEntity.Radius <= _searchSize)
-                return new Arrival(MovingEntity, _searchTarget.Pos, Deceleration.Fast).Calculate();
+                return new Arrival(MovingEntity, _searchTarget.Pos).Calculate();
             return _pathFollowing.Calculate();
         }
     }

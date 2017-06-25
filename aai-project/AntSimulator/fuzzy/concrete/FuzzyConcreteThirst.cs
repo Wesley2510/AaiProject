@@ -12,6 +12,7 @@
         public override void Init()
         {
             FuzzyVariable thirst = FuzzyModule.CreateFlv("Thirst");
+
             FzSet thirstLow = thirst.AddLeftShoulderSet("Thirst Low", 0, 20, 50);
             FzSet thirstMedium = thirst.AddTriangularSet("Thirst Medium", 20, 50, 80);
             FzSet thirstHigh = thirst.AddRightShoulderSet("Thirst High", 50, 80, 100);

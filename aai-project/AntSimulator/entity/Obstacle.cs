@@ -17,9 +17,8 @@ namespace AntSimulator.entity
 
         public override void Render(Graphics g)
         {
-            double leftCorner = Pos.X - Radius;
-            double rightCorner = Pos.Y - Radius;
-
+            double leftCorner = Pos.X;
+            double rightCorner = Pos.Y;
             g.DrawImage(Properties.Resources.rock, (int)leftCorner, (int)rightCorner, Radius * 2, Radius * 2);
         }
     }
