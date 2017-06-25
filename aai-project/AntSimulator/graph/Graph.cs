@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Security.Permissions;
 
 namespace AntSimulator.graph
 {
@@ -17,7 +16,7 @@ namespace AntSimulator.graph
         private const int NodeDistance = 15;
         public Node StartingNode;
         public bool IsBusy;
-        
+
         public Graph(World pWorld)
         {
             _world = pWorld;
@@ -160,7 +159,7 @@ namespace AntSimulator.graph
             List<Obstacle> obstacles = _world.Obstacles;
             foreach (Obstacle obstacle in obstacles)
             {
-                if (Vector2D.Distance(pNode.Position, new Vector2D(obstacle.Pos.X + (obstacle.Radius), obstacle.Pos.Y + (obstacle.Radius))) < obstacle.Radius  + 10)
+                if (Vector2D.Distance(pNode.Position, new Vector2D(obstacle.Pos.X + (obstacle.Radius), obstacle.Pos.Y + (obstacle.Radius))) < obstacle.Radius + 10)
                 {
                     return false;
                 }
@@ -232,9 +231,9 @@ namespace AntSimulator.graph
                 }
             }
         }
-        public List<Vector2D> getRoute(Vector2D currentLocation, Vector2D Destination)
+        public List<Vector2D> GetRoute(Vector2D currentLocation, Vector2D Destination, out List<Vector2D> routeList)
         {
-            List<Vector2D> routeList = new List<Vector2D>();
+            routeList = new List<Vector2D>();
             if (IsBusy) return routeList;
             IsBusy = true;
             string nearestNodeToCurrentLocation = OptimalNode(FindNearbyNodes(currentLocation), Destination).Id;

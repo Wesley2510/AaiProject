@@ -1,13 +1,8 @@
-﻿using System;
+﻿using AntSimulator.entity;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AntSimulator.entity;
-using AntSimulator.util;
 
-namespace AntSimulator.Goals
+namespace AntSimulator.goal
 {
     public enum Status
     {
@@ -19,16 +14,15 @@ namespace AntSimulator.Goals
 
     public abstract class Goal
     {
-        protected MovingEntity me;
-        protected Status status;
-        private bool isComplex;
+        protected Ant Ant;
+        protected Status Status;
         public Stack<Goal> Subgoals;
 
-        protected Goal(MovingEntity me)
+        protected Goal(Ant ant)
         {
-            this.me = me;
+            Ant = ant;
             Subgoals = new Stack<Goal>();
-            status = Status.Inactive;
+            Status = Status.Inactive;
         }
 
         public abstract void Activate();
@@ -36,29 +30,29 @@ namespace AntSimulator.Goals
         public abstract void Terminate();
         public abstract void AddChild(Goal g);
 
-        public bool isActive()
+        public bool IsActive()
         {
-            return (status == Status.Active);
+            return (Status == Status.Active);
         }
 
-        public bool isComplete()
+        public bool IsComplete()
         {
-            return status == Status.Completed;
+            return Status == Status.Completed;
         }
 
-        public bool hasFailed()
+        public bool HasFailed()
         {
-            return status == Status.NotCompleted;
+            return Status == Status.NotCompleted;
         }
 
-        public bool isInactive()
+        public bool IsInactive()
         {
-            return status == Status.Inactive;
+            return Status == Status.Inactive;
         }
 
         public virtual void SetInactive()
         {
-            status = Status.Inactive;
+            Status = Status.Inactive;
         }
 
         public virtual PointF Render(Graphics g, int indentationX, PointF location)
@@ -68,7 +62,7 @@ namespace AntSimulator.Goals
             location.Y += 10;
             SolidBrush drawBrush = new SolidBrush(Color.LawnGreen);
             Font font = new Font("Arial", 8);
-            g.DrawString(this.GetType().Name, font, drawBrush, temp);
+            g.DrawString(GetType().Name, font, drawBrush, temp);
             Goal[] currentSubgoals = Subgoals.ToArray();
             foreach (Goal goal in currentSubgoals)
             {

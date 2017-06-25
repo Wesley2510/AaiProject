@@ -1,7 +1,7 @@
-﻿using AntSimulator.util;
+﻿using AntSimulator.goal;
+using AntSimulator.util;
 using AntSimulator.world;
 using System.Drawing;
-using AntSimulator.Goals;
 
 namespace AntSimulator.entity
 {
@@ -16,7 +16,7 @@ namespace AntSimulator.entity
 
         protected BaseGameEntity(Vector2D pos, World w)
         {
-            
+
             Pos = pos;
             MyWorld = w;
         }

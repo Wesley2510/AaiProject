@@ -1,8 +1,6 @@
 ﻿using AntSimulator.util;
 using AntSimulator.world;
 using System.Windows.Forms;
-using AntSimulator.entity;
-using AntSimulator.Goals;
 
 namespace AntSimulator
 {

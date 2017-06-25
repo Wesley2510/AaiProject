@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using AntSimulator.behaviour;
-using AntSimulator.Goals;
+﻿using AntSimulator.behaviour;
+using AntSimulator.goal;
 using AntSimulator.util;
 using AntSimulator.world;
+using System.Collections.Generic;
 
 namespace AntSimulator.entity
 {
@@ -19,6 +18,8 @@ namespace AntSimulator.entity
         public Vector2D Velocity { get; set; }
         public float Mass { get; set; }
         public float MaxSpeed { get; set; }
+        public Goal Brain { get; set; }
+        public bool IsThinking { get; set; }
         public List<SteeringBehaviour> SteeringBehaviours { get; set; }
 
         protected MovingEntity(Vector2D pos, World w) : base(pos, w)
@@ -31,7 +32,12 @@ namespace AntSimulator.entity
 
         public override void Update(float timeElapsed)
         {
-            
+            if (!IsThinking && Brain != null)
+            {
+                IsThinking = true;
+                Brain.Process();
+                IsThinking = false;
+            }
             var steering = SteeringBehaviour.CombineAllBehaviors(SteeringBehaviours);
             var acceleration = Vector2D.Truncate(steering, MaxSpeed) / Mass;
             Velocity += acceleration * timeElapsed;
@@ -41,12 +47,12 @@ namespace AntSimulator.entity
         }
 
         public void ActivateSteering()
-        {   
-              
+        {
+
             /*SteeringBehaviours.Add(new Arrival(this, MyWorld.Target.Pos, Deceleration.Fast));*/
             //SteeringBehaviours.Add(new Seek(this, MyWorld.Target.Pos));
             //SteeringBehaviours.Add(new ObstacleAvoidance(this));
-            
+
         }
     }
 }

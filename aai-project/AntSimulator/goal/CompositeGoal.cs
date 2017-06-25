@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AntSimulator.entity;
-using AntSimulator.util;
+﻿using AntSimulator.entity;
 
-namespace AntSimulator.Goals
+namespace AntSimulator.goal
 {
     public abstract class CompositeGoal : Goal
     {
-        protected CompositeGoal(MovingEntity me) : base(me)
+        protected CompositeGoal(Ant ant) : base(ant)
         {
         }
 
@@ -29,7 +23,7 @@ namespace AntSimulator.Goals
 
         public Status ProcessSubGoals()
         {
-            while (Subgoals.Count != 0 && (Subgoals.Peek().isComplete() || Subgoals.Peek().hasFailed()))
+            while (Subgoals.Count != 0 && (Subgoals.Peek().IsComplete() || Subgoals.Peek().HasFailed()))
             {
                 Subgoals.Peek().Terminate();
                 Subgoals.Pop();

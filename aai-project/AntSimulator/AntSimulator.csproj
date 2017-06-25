@@ -50,6 +50,7 @@
     <Compile Include="behaviour\Explore.cs" />
     <Compile Include="behaviour\ObstacleAvoidance.cs" />
     <Compile Include="behaviour\PathFollowing.cs" />
+    <Compile Include="entity\AntHill.cs" />
     <Compile Include="entity\BaseGameEntity.cs" />
     <Compile Include="behaviour\Seek.cs" />
     <Compile Include="DBPanel.cs">
@@ -66,14 +67,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Goals\CompositeGoal.cs" />
-    <Compile Include="Goals\Goal.cs" />
-    <Compile Include="Goals\GoalArrival.cs" />
-    <Compile Include="Goals\GoalFollowPath.cs" />
-    <Compile Include="Goals\GoalGetFood.cs" />
-    <Compile Include="Goals\GoalGoHome.cs" />
-    <Compile Include="Goals\GoalSeek.cs" />
-    <Compile Include="Goals\GoalTravelTo.cs" />
     <Compile Include="fuzzy\FuzzySetLeftShoulder.cs" />
     <Compile Include="fuzzy\FuzzySetRightShoulder.cs" />
     <Compile Include="fuzzy\FuzzySetSingleton.cs" />
@@ -89,12 +82,23 @@
     <Compile Include="fuzzy\FzOr.cs" />
     <Compile Include="fuzzy\FzSet.cs" />
     <Compile Include="fuzzy\FzVery.cs" />
+    <Compile Include="goal\AntThinkGoal.cs" />
+    <Compile Include="goal\CompositeGoal.cs" />
+    <Compile Include="goal\Goal.cs" />
+    <Compile Include="goal\GoalArrival.cs" />
+    <Compile Include="goal\GoalEvaluator.cs" />
+    <Compile Include="goal\GoalFollowPath.cs" />
+    <Compile Include="goal\GoalGetFood.cs" />
+    <Compile Include="goal\GoalGoHome.cs" />
+    <Compile Include="goal\GoalSeek.cs" />
+    <Compile Include="goal\GoalSitInAntHill.cs" />
+    <Compile Include="goal\GoalTravelTo.cs" />
+    <Compile Include="goal\strategy\StrategyBringFoodHome.cs" />
+    <Compile Include="goal\strategy\StrategySateThirst.cs" />
     <Compile Include="graph\Edge.cs" />
     <Compile Include="graph\Graph.cs" />
-    <Compile Include="GraphPath\MinMaxBinaryHeap.cs" />
     <Compile Include="graph\Node.cs" />
     <Compile Include="graph\Path.cs" />
-    <Compile Include="GraphPath\PriortyQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="behaviour\SteeringBehaviour.cs" />
@@ -138,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\ant.png" />
+    <Content Include="images\anthill.png" />
     <Content Include="images\dirt.jpg" />
     <Content Include="images\rock.png" />
     <None Include="Resources\apple.png" />

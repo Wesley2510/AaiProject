@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AntSimulator.entity;
-using AntSimulator.util;
+﻿using AntSimulator.entity;
+using System;
 
-namespace AntSimulator.Goals
+namespace AntSimulator.goal
 {
     class GoalTravelTo : CompositeGoal
     {
-        public GoalTravelTo(MovingEntity me) : base(me)
+        public GoalTravelTo(Ant ant) : base(ant)
         {
         }
 
@@ -18,7 +13,7 @@ namespace AntSimulator.Goals
         {
             //arrival
             //seek
-           
+
             throw new NotImplementedException();
         }
 
