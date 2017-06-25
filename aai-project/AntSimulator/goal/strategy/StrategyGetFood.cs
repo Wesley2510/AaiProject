@@ -12,7 +12,7 @@ namespace AntSimulator.goal.strategy
             if (ant.Thirst > 50) score -= 100;
             if (ant.Thirst < 50) score += 500;
             if (ant.WorkLoad > 50) score -= 250;
-            return score;// * ant.GetFoodDesirability();
+            return score * ant.GetFoodDesirability();
         }
 
         public override void SetGoal(Ant ant)

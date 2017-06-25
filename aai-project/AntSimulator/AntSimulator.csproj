@@ -68,6 +68,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="fuzzy\concrete\FuzzyConcreteThirst.cs" />
     <Compile Include="fuzzy\FuzzySetLeftShoulder.cs" />
     <Compile Include="fuzzy\FuzzySetRightShoulder.cs" />
     <Compile Include="fuzzy\FuzzySetSingleton.cs" />
@@ -78,11 +79,11 @@
     <Compile Include="fuzzy\FuzzySet.cs" />
     <Compile Include="fuzzy\FuzzyTerm.cs" />
     <Compile Include="fuzzy\FuzzyVariable.cs" />
-    <Compile Include="fuzzy\FzAnd.cs" />
-    <Compile Include="fuzzy\FzFairly.cs" />
-    <Compile Include="fuzzy\FzOr.cs" />
+    <Compile Include="fuzzy\FuzzyAnd.cs" />
+    <Compile Include="fuzzy\FuzzyFairly.cs" />
+    <Compile Include="fuzzy\FuzzyOr.cs" />
     <Compile Include="fuzzy\FzSet.cs" />
-    <Compile Include="fuzzy\FzVery.cs" />
+    <Compile Include="fuzzy\FuzzyVery.cs" />
     <Compile Include="goal\GoalThink.cs" />
     <Compile Include="goal\CompositeGoal.cs" />
     <Compile Include="goal\Goal.cs" />

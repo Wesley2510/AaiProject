@@ -49,28 +49,43 @@ namespace AntSimulator.world
             Anthill = new AntHill(new Vector2D(60, 60), this);
             WorldGrid.Add(Anthill);
 
-            Water = new Water(new Vector2D(600, 400), this);
+            Water = new Water(new Vector2D(700, 450), this);
             WorldGrid.Add(Water);
 
-            var apple1 = new Food(new Vector2D(300, 20), this);
+            var apple1 = new Food(new Vector2D(500, 30), this);
             Food.Add(apple1);
             WorldGrid.Add(apple1);
-            var apple2 = new Food(new Vector2D(500, 320), this);
+            var apple2 = new Food(new Vector2D(200, 320), this);
             Food.Add(apple2);
             WorldGrid.Add(apple2);
-            var apple3 = new Food(new Vector2D(600, 475), this);
-            Food.Add(apple3);
-            WorldGrid.Add(apple3);
 
             var obstacle1 = new Obstacle(new Vector2D(400, 200), this) { Scale = 50 };
             Obstacles.Add(obstacle1);
             WorldGrid.Add(obstacle1);
-            var obstacle2 = new Obstacle(new Vector2D(220, 70), this) { Scale = 50 };
+            var obstacle2 = new Obstacle(new Vector2D(320, 70), this) { Scale = 50 };
             Obstacles.Add(obstacle2);
             WorldGrid.Add(obstacle2);
             var obstacle3 = new Obstacle(new Vector2D(50, 300), this) { Scale = 50 };
             Obstacles.Add(obstacle3);
             WorldGrid.Add(obstacle3);
+            var obstacle4 = new Obstacle(new Vector2D(500, 412), this) { Scale = 50 };
+            Obstacles.Add(obstacle4);
+            WorldGrid.Add(obstacle4);
+            var obstacle5 = new Obstacle(new Vector2D(215, 165), this) { Scale = 50 };
+            Obstacles.Add(obstacle5);
+            WorldGrid.Add(obstacle5);
+            var obstacle6 = new Obstacle(new Vector2D(351, 322), this) { Scale = 50 };
+            Obstacles.Add(obstacle6);
+            WorldGrid.Add(obstacle6);
+            var obstacle7 = new Obstacle(new Vector2D(652, 100), this) { Scale = 50 };
+            Obstacles.Add(obstacle7);
+            WorldGrid.Add(obstacle7);
+            var obstacle8 = new Obstacle(new Vector2D(162, 413), this) { Scale = 50 };
+            Obstacles.Add(obstacle8);
+            WorldGrid.Add(obstacle8);
+            var obstacle9 = new Obstacle(new Vector2D(600, 250), this) { Scale = 50 };
+            Obstacles.Add(obstacle9);
+            WorldGrid.Add(obstacle9);
         }
 
         public void Update(float timeElapsed)

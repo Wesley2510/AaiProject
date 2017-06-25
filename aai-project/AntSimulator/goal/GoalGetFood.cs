@@ -44,8 +44,6 @@ namespace AntSimulator.goal
                 if (Vector2D.Distance(_foodTarget.Pos, Ant.Pos) > _foodTarget.Radius)
                 {
                     AddChild(new GoalArrival(Ant, _foodTarget, 5));
-                    Ant.FoodLoad += 5;
-                    Ant.HasFood = true;
                     Status = Status.Completed;
                 }
             if (Subgoals.Peek().GetType() != typeof(GoalFollowPath) &&
@@ -65,7 +63,10 @@ namespace AntSimulator.goal
 
         public override void Terminate()
         {
-
+            Ant.FoodLoad += 5;
+            Ant.WorkLoad += 1;
+            Ant.Thirst += 25;
+            Ant.HasFood = true;
         }
     }
 }

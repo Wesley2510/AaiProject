@@ -7,7 +7,7 @@ namespace AntSimulator.goal.strategy
         public override float CalculateDesirability(Ant ant)
         {
             float score = 0;
-            if (ant.Thirst > 50) score += 1000;
+            if (ant.Thirst > 50) score += 10000;
             return score;
         }
 

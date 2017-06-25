@@ -7,7 +7,8 @@ namespace AntSimulator.goal.strategy
         public override float CalculateDesirability(Ant ant)
         {
             float score = 0;
-            if (ant.WorkLoad > 100 * ant.MyWorld.Entities.Count) score = 500;
+            if (ant.WorkLoad >= 25) ant.WantsHelp = true;
+            if (ant.WantsHelp) score = 10000;
             return score;
         }
 
